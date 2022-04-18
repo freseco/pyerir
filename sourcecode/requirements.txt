@@ -45,6 +45,7 @@ PiIR==0.2.5
 Pillow==9.0.1
 platformdirs==2.5.0
 prompt-toolkit==3.0.27
+psutil==5.9.0
 ptyprocess==0.7.0
 pure-eval==0.2.2
 pycountry==22.3.5
