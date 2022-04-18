@@ -8,12 +8,22 @@ It has two types of notifications: wx.adv and popup windows(not work yet)
 
 *Not testing with other python versions.
 
-## First steps: Installation of dependencies
+## First step: Installation of dependencies
     $ pip install requirements.txt 
+
+## Setting IR received in Raspberry pi.
+
+![The IR receiver](https://github.com/freseco/pyerir/blob/main/pics/IRreceiver_remoteControl.jpg)
 
 ## Using
     $ pip pyerir [-v | --version]  [<m3u_file_name>] 
 *by default, it will try to open tdt.m3u
+
+## VLC in python
+[VLC module in Python](https://www.geeksforgeeks.org/vlc-module-in-python-an-introduction/)
+
+## m3u parser
+[m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
 - Fill readme file.
@@ -25,6 +35,7 @@ It has two types of notifications: wx.adv and popup windows(not work yet)
 - Get m3u form url. Right now it gets a file in local system file.
 - Memorize favorite channels.
 - Testing in other platforms.
+- Read configuration file.
 
 ## Error list:
 - Not show the windows for channel name and volumen value.
