@@ -21,12 +21,16 @@ class ResultEvent(wx.PyEvent):
 
 # Thread class that executes processing
 class WorkerThread(Thread):
+    
+    
+    
     """Worker Thread Class."""
     def __init__(self, notify_window):
         """Init Worker Thread Class."""
         Thread.__init__(self, daemon = True)
         self._notify_window = notify_window
         self._want_abort = False
+        self.receiverIR=remote()
         # This starts the thread running on creation, but you could
         # also make the GUI thread responsible for calling this
         self.start()
@@ -38,9 +42,9 @@ class WorkerThread(Thread):
         # need to structure your processing so that you periodically
         # peek at the abort variable
         while self._want_abort==False:
-            codigo = remote.Getcode(self)
+            codigo = self.receiverIR.Getcode()
             print("IR code: "+str(codigo))
-            #time.sleep(1)
+            
             if self._want_abort:
                 # Use a result of None to acknowledge the abort (of
                 # course you can use whatever you'd like or even

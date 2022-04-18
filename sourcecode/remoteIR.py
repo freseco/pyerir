@@ -1,14 +1,27 @@
-#Obtiene el código captado por el sensor IR
+#Gets the IR code from the IR receiver
+
+"""Can't connect to pigpio at localhost(8888)
+
+Did you start the pigpio daemon? E.g. sudo pigpiod
+
+Did you specify the correct Pi host/port in the environment
+variables PIGPIO_ADDR/PIGPIO_PORT?
+E.g. export PIGPIO_ADDR=soft, export PIGPIO_PORT=8888
+
+Did you specify the correct Pi host/port in the
+pigpio.pi() function? E.g. pigpio.pi('soft', 8888)"""
+
 
 from piir.io import receive
 from piir.decode import decode
 import ast
 
+
 class remote:
     # GPIO of IR receiver
     pinr = 23
 
-    #botones del mando
+    #IR remote control buttons
     ok= b'\x00\xff\x1c\xe3'
     left=b'\x00\xff\x08\xf7'
     right=b'\x00\xffZ\xa5'
@@ -30,19 +43,24 @@ class remote:
     
     Salir=False
     
-    def __init__(self, name):
+    def __init__(self):
         Salir=False
         
+        # GPIO of IR receiver
+        self.pinr = 23
+        
+       
+        
     
-    def Getcode(self):   
-        pinr=23
+    def Getcode(self):                
+        
         self.Salir=False
             
         while not self.Salir:
             print("waiting for code")            
-            #Ejemplo de dato recibido.
+            #Example of received data:
             # {'preamble': [16, 8], 'coding': 'ppm', 'zero': [1, 1], 'one': [1, 3], 'byte_separator': None, 'msb_first': False, 'bits': 32, 'data': b'\x00\xff\x1c\xe3', 'postamble': [1], 'timebase': 590, 'gap': 39000}
-            data = str(decode(receive(pinr)))
+            data = str(decode(receive(self.pinr)))
             if data !='None':  
                 self.Salir=True
                 lista=ast.literal_eval(data)      

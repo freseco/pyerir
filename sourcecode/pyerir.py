@@ -26,7 +26,7 @@ https://github.com/oaubert/python-vlc/blob/master/examples/wxvlc.py
 pigpiod libraries:
 https://abyz.me.uk/rpi/pigpio/download.html
 
-Author: Francisco Reseco
+Author: FReseco
 Date: 10-04-2022
 
 First run:
@@ -35,9 +35,10 @@ sudo pigpiod
 Second to execute this script:
 python3.9 wxpython_test.py
 
-Muestra una ventana en pantalla completa.
+Show a windows in a fullscreen mode.
 
-	ESC para salir.
+Keys:
+	ESC to exit.
 	F1 play.
 	F2 stop.
 
@@ -51,6 +52,8 @@ from os.path import basename,expanduser, isfile
 from m3u_parser import M3uParser
 import vlc
 from time import sleep
+import os
+from pathlib import Path
 
 from concurrent import futures
 import mythreadIR
@@ -63,46 +66,58 @@ class VentanaCanal(wx.Frame):
     """
     Class used for creating frames other than the main one
     """
-    segundos=4
+    segundos=6
 
     def cerrarventana(self):
         self.timer.Start(1000)
   
-    def __init__(self,texto,  parent=None):
+    def __init__(self, parent=None):
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
         
-        height=100
-        width=900
+        height=150
+        width=1450
         
         frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,50))
 
-        panel = wx.Panel(self,size=(width,200),style=wx.TRANSPARENT_WINDOW) 
-        #panel.SetTransparent(100)
-        #box = wx.BoxSizer(wx.VERTICAL) 
+        panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
+        panel.SetBackgroundColour((0,0,0))
+                
+        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_CENTER,size=(width,height),pos=(0,10))
+        font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
+        self.lbl.SetFont(font) 
+    
+        self.lbl.SetForegroundColour((255,0,0)) 
+        self.lbl.SetBackgroundColour((0,0,0)) 
+        self.lbl.SetLabel("PYERIR") 
         
-        lbl = wx.StaticText(panel,-1,style = wx.ALIGN_CENTER,size=(width,height))
-        font = wx.Font(50, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
-        lbl.SetFont(font) 
-        lbl.SetForegroundColour((255,0,0)) 
-        lbl.SetBackgroundColour((0,0,0)) 
-        lbl.SetLabel(texto) 
-        #box.Add(lbl,0,wx.ALIGN_CENTER)  
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         
         self.SetTransparent(240)
-        self.Show()
-        self.cerrarventana()
+        #self.Show()
+        #self.SetFocus()        
+        #self.cerrarventana()
+        self.Hide()
         
     #actualización con el timer	
     def update(self, event):
-        print("segunods %s",self.segundos)
+        print("seconds %s to close windowschannel",self.segundos)
         self.segundos-=1
+        self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
-            self.Close()
-            print("ventana cerrada")
+            #self.Close()
+            self.Hide()
+            print("Closed/Hide windowschannel!")
+            
+    def mostrar(self, texto):
+        self.segundos=4
+        self.lbl.SetLabel(texto) 
+        if not self.timer.IsRunning():
+            self.Show()
+            self.SetFocus()
+            self.cerrarventana()
 
 class VentanaVolumen(wx.Frame):
     """
@@ -113,7 +128,7 @@ class VentanaVolumen(wx.Frame):
     def cerrarventana(self):
         self.timer.Start(1000)
   
-    def __init__(self,valor,  parent=None):
+    def __init__(self,  parent=None):
         super(VentanaVolumen, self).__init__()
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
         
@@ -122,20 +137,44 @@ class VentanaVolumen(wx.Frame):
         
         screen_width, screen_height = wx.GetDisplaySize()
         
-        height=100
-        width=900
+        height=150
+        width=1450
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(screen_width,height),pos = (0,screen_height-height))
+        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (100,590))
 
-        panel = wx.Panel(self,size=(width,200),style=wx.TRANSPARENT_WINDOW) 
+        panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         
         
-        lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(screen_width,height))
+        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(screen_width,height))
         font = wx.Font(60, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
-        lbl.SetFont(font) 
-        lbl.SetForegroundColour((255,0,0)) 
-        lbl.SetBackgroundColour((0,0,0))
+        self.lbl.SetFont(font) 
+        self.lbl.SetForegroundColour((255,0,0)) 
+        self.lbl.SetBackgroundColour((0,0,0))
         
+
+         
+
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.update, self.timer)
+        
+        self.SetTransparent(240)
+        self.Hide()
+        #self.Show()
+        #self.SetFocus()	
+        #self.cerrarventana()
+        
+    #actualización con el timer	
+    def update(self, event):
+        print("seconds %s to close ventanavolumnen",self.segundos)
+        self.segundos-=1
+        self.SetFocus()
+        if self.segundos==0:            
+            self.timer.Stop()
+            self.Hide()
+            print("ventana cerrada")
+            
+    def mostrar(self, valor):
+        self.segundos=4
         valor_backup=valor
         caracter=" \x7C "
         texto="Volumen: "
@@ -144,24 +183,12 @@ class VentanaVolumen(wx.Frame):
             texto=texto+caracter
             valor=valor-1
             
-        lbl.SetLabel( texto+str(valor_backup)+" %") 
+        self.lbl.SetLabel( texto+str(valor_backup)+" %")
          
-
-        self.timer = wx.Timer(self)
-        self.Bind(wx.EVT_TIMER, self.update, self.timer)
-        
-        self.SetTransparent(240)
-        self.Show()
-        self.cerrarventana()
-        
-    #actualización con el timer	
-    def update(self, event):
-        print("segunods %s",self.segundos)
-        self.segundos-=1
-        if self.segundos==0:            
-            self.timer.Stop()
-            self.Close()
-            print("ventana cerrada")
+        if not self.timer.IsRunning():
+            self.Show()
+            self.SetFocus()
+            self.cerrarventana()
 
 
 
@@ -182,8 +209,8 @@ class MyPanel(wx.Panel):
 		wx.Panel.__init__(self, parent,id= -1, size=(width-200,height-100))
 
 		self.funcionar=True
-		self.timer = wx.Timer(self)
-		self.Bind(wx.EVT_TIMER, self.update, self.timer)	
+		#self.timer = wx.Timer(self)
+		#self.Bind(wx.EVT_TIMER, self.update, self.timer)	
 
 		
 		#handler for KEY PRESS
@@ -201,11 +228,18 @@ class MyPanel(wx.Panel):
 		
 		useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
 		self.parser = M3uParser(timeout=5, useragent=useragent)
-		self.parser.parse_m3u(self.video)
+		m3ufile=os.path.join(Path( __file__ ).parent.absolute(),self.video)
+		
+		   
+		self.parser.parse_m3u(m3ufile)
 
 
 		#type dict
 		self.canal = self.parser.get_list()
+
+		if len(self.canal)==0:
+			print('No channel in m3u file!')
+			exit()
 
 		self.numcanales=len(self.canal)
 		print("Número de canales: "+str(self.numcanales))
@@ -216,8 +250,9 @@ class MyPanel(wx.Panel):
 	# Initial receving IR codes
 		self.worker = mythreadIR.WorkerThread(self)
   
-		self.mostrarcanal()
-  
+		#self.mostrarcanal()
+		self.winchannel=VentanaCanal(self)
+		self.winvolume=VentanaVolumen(self)
 
   
 	def OnResultIRcode(self,codigo):			
@@ -275,10 +310,8 @@ class MyPanel(wx.Panel):
 		if key_code == wx.WXK_ESCAPE:
 			print("Tecla: ESC => Exit()")
 			self.exit()	
-		elif key_code == 84:# letra T
+		elif key_code == 84:# letter T
 			self.segundos=4
-			self.mostrarcanal("Telecinco")
-			#self.lbl.SetLabel("nuevo texto")
 		elif key_code == wx.WXK_F1:
 			self.play()
 		elif key_code == wx.WXK_F2:
@@ -312,7 +345,7 @@ class MyPanel(wx.Panel):
 			valor+=1
 			while valor%10!=0:
 				valor+=1
-		framevolumen=VentanaVolumen(valor)
+		self.winvolume.mostrar(valor)
 		self.ShowMsgClicked('Volumen:',str(valor))
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
@@ -322,7 +355,7 @@ class MyPanel(wx.Panel):
 			valor-=1
 			while valor%10!=0:
 				valor-=1
-		framevolumen=VentanaVolumen(valor)
+		self.winvolume.mostrar(valor)
 		self.ShowMsgClicked('Volumen:',str(valor))
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
@@ -336,14 +369,15 @@ class MyPanel(wx.Panel):
 		# creating a media
 		print("Channel:")
 		print(self.canal[self.actualcanal]["name"])
+		#framecanal=VentanaCanal(self.canal[self.actualcanal]["name"])
+  
+		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
+  
 		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
 		print(self.canal[self.actualcanal]["url"])		
 		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
 		# setting media to the player
-		self.player.set_media(media)
-
-		#xid=self.GetHandle() 
-		#self.player.set_xwindow(xid)
+		self.player.set_media(media)		
   
 		# set the window id where to render VLC's video output
 		handle = self.GetHandle()
@@ -369,6 +403,7 @@ class MyPanel(wx.Panel):
 			
 		# creating a media
 		print(self.canal[self.actualcanal]["url"])
+		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
 		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
 		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
 		# setting media to the player
@@ -422,10 +457,10 @@ class MyFrame(wx.Frame):
 		
 		self.panel1 = MyPanel(self,video=video)		
 
-		self.panel1.SetBackgroundColour(wx.WHITE)		
+		self.panel1.SetBackgroundColour(wx.BLACK)		
 			
-		self.ShowFullScreen(True, style=wx.FULLSCREEN_ALL | wx.STAY_ON_TOP) 
-				
+		self.ShowFullScreen(True, style=wx.FULLSCREEN_ALL)# | wx.STAY_ON_TOP) 
+			
 	
 		
 
