@@ -51,11 +51,9 @@ import vlc
 from os.path import basename,expanduser, isfile
 from m3u_parser import M3uParser
 import vlc
-from time import sleep
 import os
 from pathlib import Path
 
-from concurrent import futures
 import mythreadIR
 
 
