@@ -81,7 +81,7 @@ class VentanaCanal(wx.Frame):
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
                 
-        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_CENTER,size=(width,height),pos=(0,10))
+        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(50,10))
         font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
     
@@ -252,24 +252,34 @@ class MyPanel(wx.Panel):
 				self.stop()       
 				logging.debug("Pulsado OK")
 			elif codigo.data==mythreadIR.remote.zero:
+				self.ShowsThiscanal(0)	
 				logging.debug("Pulsado 0")           
-			elif codigo.data==mythreadIR.remote.one:				
+			elif codigo.data==mythreadIR.remote.one:
+				self.ShowsThiscanal(1)
 				logging.debug("Pulsado 1")
 			elif codigo.data==mythreadIR.remote.two:
+				self.ShowsThiscanal(2)
 				logging.debug("Pulsado 2")
 			elif codigo.data==mythreadIR.remote.three:
+				self.ShowsThiscanal(3)
 				logging.debug("Pulsado 3")
 			elif codigo.data==mythreadIR.remote.four:
+				self.ShowsThiscanal(4)
 				logging.debug("Pulsado 4")
 			elif codigo.data==mythreadIR.remote.five:
+				self.ShowsThiscanal(5)
 				logging.debug("Pulsado 5")
 			elif codigo.data==mythreadIR.remote.six:
+				self.ShowsThiscanal(6)
 				logging.debug("Pulsado 6")
 			elif codigo.data==mythreadIR.remote.seven:
+				self.ShowsThiscanal(7)
 				logging.debug("Pulsado 7")
 			elif codigo.data==mythreadIR.remote.eight:
+				self.ShowsThiscanal(8)
 				logging.debug("Pulsado 8")
 			elif codigo.data==mythreadIR.remote.nine:
+				self.ShowsThiscanal(9)
 				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
 				logging.debug("Pulsado #")
@@ -344,13 +354,44 @@ class MyPanel(wx.Panel):
 		self.ShowMsgClicked('Volumen:',str(valor))
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
+	def ShowsThiscanal(self,nextcanal):
+    		
+		self.actualcanal=nextcanal
+			
+		infochannel=self.channels[self.actualcanal]
+		logging.debug("Channel name: "+infochannel["name"])
+		logging.debug("Status channel: "+infochannel["status"])
+  
+		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
+  
+		self.ShowMsgClicked('CANAL:',infochannel["name"])
+		logging.debug("Url: "+infochannel["url"])		
+		media = self.vlc_instance.media_new(infochannel["url"])
+		# setting media to the player
+		self.player.set_media(media)		
+  
+		# set the window id where to render VLC's video output
+		handle = self.GetHandle()
+		if sys.platform.startswith('linux'):  # for Linux using the X Server
+			self.player.set_xwindow(handle)
+		elif sys.platform == "win32":  # for Windows
+			self.player.set_hwnd(handle)
+		elif sys.platform == "darwin":  # for MacOS
+			self.player.set_nsobject(handle)
+    
+      
+		# play the video
+		self.player.play()
+
+
+
 	def siguientecanal(self):
 		nextcanal= self.actualcanal+1
-		if nextcanal<self.numcanales:
-			self.actualcanal=nextcanal
-		else:
-			self.actualcanal=0
-			
+		if nextcanal>=self.numcanales:
+			nextcanal=0
+
+		self.actualcanal=nextcanal
+
 		infochannel=self.channels[self.actualcanal]
 		logging.debug("Channel name: "+infochannel["name"])
 		logging.debug("Status channel: "+infochannel["status"])
