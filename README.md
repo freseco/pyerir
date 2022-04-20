@@ -4,7 +4,7 @@ Simple fullscreen player for m3u files. It works in Raspberry pi 4 with Python3.
 
 This project is a small example of wxpython for the GUI, threading for getting the IR codes, using wraper vlc library, gpio pins and the m3u_parser library for parsing the m3u files.
 
-It has two types of notifications: wx.adv and popup windows(not work yet)
+It has two types of notifications: wx.adv(OS notification) and popup windows.
 
 *Not testing with other python versions.
 
@@ -27,10 +27,6 @@ It has two types of notifications: wx.adv and popup windows(not work yet)
 [m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
-- Fill readme file.
-- Help to install code.
-- Help to install IR remote code: shema picture.
-- Help to run the code.
 - Help to modifie.
 - Improve description.
 - Get m3u form url. Right now it gets a file in local system file.
@@ -39,4 +35,5 @@ It has two types of notifications: wx.adv and popup windows(not work yet)
 - Read configuration file.
 
 ## Error list:
-- Not show the windows for channel name and volumen value.
+- No exit well when push #
+- key only when windows channel o volumen are shown.
