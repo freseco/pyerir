@@ -3,6 +3,10 @@ from threading import *
 
 from remoteIR import remote #read data from IR receiver
 
+import logging
+
+
+
 
 # Define notification event for thread completion
 EVT_RESULT_ID = wx.NewIdRef()
@@ -26,6 +30,7 @@ class WorkerThread(Thread):
     
     """Worker Thread Class."""
     def __init__(self, notify_window):
+        
         """Init Worker Thread Class."""
         Thread.__init__(self, daemon = True)
         self._notify_window = notify_window
@@ -36,14 +41,14 @@ class WorkerThread(Thread):
         self.start()
 
     def run(self):
-        print("Thread running!")
+        logging.debug("Thread running!")
         """Run Worker Thread."""
         # This is the code executing in the new thread.  You will
         # need to structure your processing so that you periodically
         # peek at the abort variable
         while self._want_abort==False:
             codigo = self.receiverIR.Getcode()
-            print("IR code: "+str(codigo))
+            logging.debug("IR code: "+str(codigo))
             
             if self._want_abort:
                 # Use a result of None to acknowledge the abort (of
@@ -57,7 +62,7 @@ class WorkerThread(Thread):
             wx.PostEvent(self._notify_window, ResultEvent(codigo))
 
     def abort(self):
-        print("Thread aborted!")
+        logging.debug("Thread aborted!")
         """abort worker thread."""
         # Method for use by main thread to signal an abort
         self._want_abort = 1

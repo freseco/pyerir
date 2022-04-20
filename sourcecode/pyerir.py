@@ -43,22 +43,24 @@ Keys:
 	F2 stop.
 
 """
-
+import logging
+from cmath import log
 import sys
 import wx
 import wx.adv #notification popup
 import vlc
 from os.path import basename,expanduser, isfile
-from m3u_parser import M3uParser
+from my_m3u_parser import M3uParser
 import vlc
 import os
 from pathlib import Path
-
+import sys
 import mythreadIR
 
 
-__version__ = '1.00.0'
 
+
+__version__ = '1.00.0'
 
 class VentanaCanal(wx.Frame):
     """
@@ -71,11 +73,11 @@ class VentanaCanal(wx.Frame):
   
     def __init__(self, parent=None):
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
-        
+    
         height=150
         width=1450
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,50))
+        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
 
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
@@ -84,7 +86,7 @@ class VentanaCanal(wx.Frame):
         font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
     
-        self.lbl.SetForegroundColour((255,0,0)) 
+        self.lbl.SetForegroundColour((255,255,255)) 
         self.lbl.SetBackgroundColour((0,0,0)) 
         self.lbl.SetLabel("PYERIR") 
         
@@ -93,21 +95,20 @@ class VentanaCanal(wx.Frame):
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         
         self.SetTransparent(240)
-        #self.Show()
-        #self.SetFocus()        
-        #self.cerrarventana()
+
         self.Hide()
         
     #actualización con el timer	
     def update(self, event):
-        print("seconds %s to close windowschannel",self.segundos)
+        logging.debug("seconds %s to close windowschannel",self.segundos)
+        
         self.segundos-=1
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
             #self.Close()
             self.Hide()
-            print("Closed/Hide windowschannel!")
+            logging.debug("Closed/Hide windowschannel!")
             
     def mostrar(self, texto):
         self.segundos=4
@@ -138,7 +139,7 @@ class VentanaVolumen(wx.Frame):
         height=150
         width=1450
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (100,590))
+        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (0,200))
 
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         
@@ -157,19 +158,17 @@ class VentanaVolumen(wx.Frame):
         
         self.SetTransparent(240)
         self.Hide()
-        #self.Show()
-        #self.SetFocus()	
-        #self.cerrarventana()
+        
         
     #actualización con el timer	
     def update(self, event):
-        print("seconds %s to close ventanavolumnen",self.segundos)
+        logging.debug("seconds %s to close ventanavolumnen",self.segundos)
         self.segundos-=1
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
             self.Hide()
-            print("ventana cerrada")
+            logging.debug("ventana cerrada")
             
     def mostrar(self, valor):
         self.segundos=4
@@ -192,23 +191,14 @@ class VentanaVolumen(wx.Frame):
 
 
 class MyPanel(wx.Panel):
-	segundos=2
- 
-
-	def mostrarcanal(self):
-		self.timer.Start(1000)
-		
+			
 	def __init__(self, parent,video=''):
 		#m3u file
 		self.video = video
 
 		width, height = wx.GetDisplaySize()
-		print("Resolución: "+str(width)+"x"+str(height))
+		logging.debug("Resolution: "+str(width)+"x"+str(height))
 		wx.Panel.__init__(self, parent,id= -1, size=(width-200,height-100))
-
-		self.funcionar=True
-		#self.timer = wx.Timer(self)
-		#self.Bind(wx.EVT_TIMER, self.update, self.timer)	
 
 		
 		#handler for KEY PRESS
@@ -217,11 +207,16 @@ class MyPanel(wx.Panel):
 
 		self.Layout()
 		self.Show()
-  	
-		vlc_options = '--no-xlib --no-quiet --no-video-on-top'#--video-title-show --no-quiet --video-title-timeout=5'
+		logger=logging.getLogger(__name__)
+		if logger.getEffectiveLevel()==logging.DEBUG:  
+			vlc_options = '--no-xlib --no-quiet --no-video-on-top'#--video-title-show --no-quiet --video-title-timeout=5'
+		else:
+			vlc_options = '--no-xlib --quiet --no-video-on-top'#--video-title-show --no-quiet --video-title-timeout=5'
+		
 		self.vlc_instance = vlc.Instance(vlc_options)
 		self.player =self.vlc_instance.media_player_new()		
 		
+		self.Bind(wx.EVT_CHAR_HOOK, self.onKey)
   
 		
 		useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
@@ -236,11 +231,11 @@ class MyPanel(wx.Panel):
 		self.canal = self.parser.get_list()
 
 		if len(self.canal)==0:
-			print('No channel in m3u file!')
+			logging.debug('No channel in m3u file!')
 			exit()
 
 		self.numcanales=len(self.canal)
-		print("Número de canales: "+str(self.numcanales))
+		logging.debug("Número de canales: "+str(self.numcanales))
 		self.actualcanal=10	
   
 	# Set up event handler for any worker thread results
@@ -256,47 +251,47 @@ class MyPanel(wx.Panel):
 	def OnResultIRcode(self,codigo):			
 			if codigo.data==mythreadIR.remote.ok:
 				self.stop()       
-				print("Pulsado OK")
+				logging.debug("Pulsado OK")
 			elif codigo.data==mythreadIR.remote.zero:
-				print("Pulsado 0")           
+				logging.debug("Pulsado 0")           
 			elif codigo.data==mythreadIR.remote.one:				
-				print("Pulsado 1")
+				logging.debug("Pulsado 1")
 			elif codigo.data==mythreadIR.remote.two:
-				print("Pulsado 2")
+				logging.debug("Pulsado 2")
 			elif codigo.data==mythreadIR.remote.three:
-				print("Pulsado 3")
+				logging.debug("Pulsado 3")
 			elif codigo.data==mythreadIR.remote.four:
-				print("Pulsado 4")
+				logging.debug("Pulsado 4")
 			elif codigo.data==mythreadIR.remote.five:
-				print("Pulsado 5")
+				logging.debug("Pulsado 5")
 			elif codigo.data==mythreadIR.remote.six:
-				print("Pulsado 6")
+				logging.debug("Pulsado 6")
 			elif codigo.data==mythreadIR.remote.seven:
-				print("Pulsado 7")
+				logging.debug("Pulsado 7")
 			elif codigo.data==mythreadIR.remote.eight:
-				print("Pulsado 8")
+				logging.debug("Pulsado 8")
 			elif codigo.data==mythreadIR.remote.nine:
-				print("Pulsado 9")
+				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
-				print("Pulsado #")
+				logging.debug("Pulsado #")
 				self.exit()
 			elif codigo.data==mythreadIR.remote.up:
 				self.siguientecanal()
-				print("Pulsado up")
+				logging.debug("Pulsado up")
 			elif codigo.data==mythreadIR.remote.down:
 				self.anteriorcanal()
-				print("Pulsado down")
+				logging.debug("Pulsado down")
 			elif codigo.data==mythreadIR.remote.left:
 				self.BajarVolumen()
-				print("Pulsado left")
+				logging.debug("Pulsado left")
 			elif codigo.data==mythreadIR.remote.right:
 				self.SubirVolumen()
-				print("Pulsado right")
+				logging.debug("Pulsado right")
 			elif codigo.data==mythreadIR.remote.asterisk:
-				self.exit()
-				print("Pulsado *")			
+				self.OnMute()
+				logging.debug("Pulsado *")			
 			else:
-				print("Botón no reconocido! " +str(codigo))			
+				logging.debug("Botón no reconocido! " +str(codigo))			
 			
   
 	#pushing key	
@@ -304,12 +299,13 @@ class MyPanel(wx.Panel):
 		#https://wxpython.org/Phoenix/docs/html/wx.KeyCode.enumeration.html
 		key_code = event.GetKeyCode()
 		
-		print("Tecla: "+str(key_code))
+		logging.debug("Tecla: "+str(key_code))
 		if key_code == wx.WXK_ESCAPE:
-			print("Tecla: ESC => Exit()")
+			logging.debug("Tecla: ESC => Exit()")
 			self.exit()	
 		elif key_code == 84:# letter T
-			self.segundos=4
+			self.OnMute()
+			logging.debug("Tecla: T= mute")
 		elif key_code == wx.WXK_F1:
 			self.play()
 		elif key_code == wx.WXK_F2:
@@ -325,14 +321,6 @@ class MyPanel(wx.Panel):
 		else:			
 			event.Skip()
 
-	#actualización con el timer	
-	def update(self, event):
-		print("segunods %s",self.segundos)
-		self.segundos-=1
-		if self.segundos==0:
-			self.siguientecanal()
-			self.timer.Stop()
-			print("parado")
 			
 	def SubirVolumen(self):
      	# since vlc volume range is in [0, 200],
@@ -364,15 +352,14 @@ class MyPanel(wx.Panel):
 		else:
 			self.actualcanal=0
 			
-		# creating a media
-		print("Channel:")
-		print(self.canal[self.actualcanal]["name"])
-		#framecanal=VentanaCanal(self.canal[self.actualcanal]["name"])
+		
+		logging.debug("Channel name: "+self.canal[self.actualcanal]["name"])
+		logging.debug("Status channel: "+self.canal[self.actualcanal]["status"])
   
 		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
   
 		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
-		print(self.canal[self.actualcanal]["url"])		
+		logging.debug("Url: "+self.canal[self.actualcanal]["url"])		
 		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
 		# setting media to the player
 		self.player.set_media(media)		
@@ -386,11 +373,9 @@ class MyPanel(wx.Panel):
 		elif sys.platform == "darwin":  # for MacOS
 			self.player.set_nsobject(handle)
     
-    
-    
+      
 		# play the video
 		self.player.play()
-		print(self.player.video_get_title_description())
 
 	def anteriorcanal(self):    
 		nextcanal= self.actualcanal-1
@@ -400,7 +385,7 @@ class MyPanel(wx.Panel):
 			self.actualcanal=0
 			
 		# creating a media
-		print(self.canal[self.actualcanal]["url"])
+		logging.debug(self.canal[self.actualcanal]["url"])
 		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
 		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
 		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
@@ -424,14 +409,14 @@ class MyPanel(wx.Panel):
 		if self.player.is_playing():
 			self.player.stop()
    		
-	def OnMute(self, evt):
+	def OnMute(self):
         #Mute/Unmute according to the audio button.
 		muted = self.player.audio_get_mute()
 		self.player.audio_set_mute(not muted)
-		self.mute.SetLabel("Mute" if muted else "Unmute")    
+		logging.debug("Mute if muted else Unmute")    
         
 	def exit(self):
-		self.funcionar=False
+		
 		self.worker._want_abort=True
 		self.stop()
 		self.GetParent().Close()
@@ -458,12 +443,16 @@ class MyFrame(wx.Frame):
 		self.panel1.SetBackgroundColour(wx.BLACK)		
 			
 		self.ShowFullScreen(True, style=wx.FULLSCREEN_ALL)# | wx.STAY_ON_TOP) 
-			
-	
+  
 		
 
 if __name__ == "__main__":
 	_video = "tdt.m3u"
+
+	debugging=False
+	
+	#print("Logging level: "+str(logging.getLevelName(logging.level))	)
+ 
 	while len(sys.argv) > 1:
 		arg = sys.argv.pop(1)
 		if arg.lower() in ('-v', '--version'):
@@ -474,7 +463,7 @@ if __name__ == "__main__":
 
 		# Print version of this vlc.py and of the libvlc
 			c = basename(str(wx._core).split()[-1].rstrip('>').strip("'").strip('"'))
-			print('%s: %s (%s %s %s)' % (basename(__file__), __version__,wx.__name__, wx.version(), c))
+			logging.warning('%s: %s (%s %s %s)' % (basename(__file__), __version__,wx.__name__, wx.version(), c))
 
 			try:
 				vlc.print_version()
@@ -482,26 +471,31 @@ if __name__ == "__main__":
 			except AttributeError:
 				pass		
 			sys.exit(0)
-
+		elif arg.lower() in ('--debug'):
+			logging.basicConfig(stream=sys.stdout,level=logging.DEBUG, format="%(levelname)s: %(message)s")
+			logging.debug('Debugging mode enable!')			
+			debugging=True
+   
 		elif arg.startswith('-'):
-			print('usage: %s  [-v | --version]  [<m3u_file_name>]' % (sys.argv[0],))
+			logging.info('usage: %s  [-v | --version]  [<m3u_file_name>]  [--debug]' % (sys.argv[0],))
 			sys.exit(1)
 
 		elif arg:  # m3u file
 			_video = expanduser(arg)
 			if not isfile(_video):
-				print('%s error: no such file: %r' % (sys.argv[0], arg))
+				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
 				sys.exit(1)
 
-
+	if not debugging:
+		logging.basicConfig(stream=sys.stdout,level=logging.INFO, format="%(levelname)s: %(message)s")
+  
 	# Create a wx.App(), which handles the windowing system event loop
 	app = wx.App(False)
 
 	# Create the window containing our media player
-	frame = MyFrame(video=_video)
+	frame = MyFrame(title='pyerir',video=_video)
 
 	# run the application
 	app.MainLoop()
-
-	print("after main")
+	
 	sys.exit(0)
