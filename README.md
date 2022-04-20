@@ -11,7 +11,7 @@ It has two types of notifications: wx.adv(OS notification) and popup windows.
 ## First step: Installation of dependencies
     $ pip install requirements.txt 
 
-## Setting IR received in Raspberry pi.
+## Setting IR received(HX1838) in Raspberry pi.
 
 ![The IR receiver](https://github.com/freseco/pyerir/blob/main/pics/IRreceiver_remoteControl.jpg)
 
