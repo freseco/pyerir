@@ -17,13 +17,13 @@ It has two types of notifications: wx.adv and popup windows(not work yet)
 
 
 ## Using
-    $ pip pyerir [-v | --version]  [<m3u_file_name>] 
+    $ python[3.9] pyerir.py [-v | --version]  [<m3u_file_name>] [--debug]
 *by default, it will try to open tdt.m3u
 
 ## VLC in python
 [VLC module in Python](https://www.geeksforgeeks.org/vlc-module-in-python-an-introduction/)
 
-## m3u parser
+## m3u_parser library.
 [m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
