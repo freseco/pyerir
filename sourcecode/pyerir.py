@@ -54,7 +54,6 @@ from my_m3u_parser import M3uParser
 import vlc
 import os
 from pathlib import Path
-import sys
 import mythreadIR
 
 
