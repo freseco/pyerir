@@ -227,22 +227,22 @@ class MyPanel(wx.Panel):
 
 
 		#type dict
-		self.canal = self.parser.get_list()
+		self.channels = self.parser.get_list()
 
-		if len(self.canal)==0:
+		if len(self.channels)==0:
 			logging.debug('No channel in m3u file!')
 			exit()
 
-		self.numcanales=len(self.canal)
-		logging.debug("Número de canales: "+str(self.numcanales))
-		self.actualcanal=10	
+		self.numcanales=len(self.channels)
+		logging.debug("Number of channels: "+str(self.numcanales))
+		self.actualcanal=1
   
 	# Set up event handler for any worker thread results
 		mythreadIR.evt_result(self,self.OnResultIRcode)
 	# Initial receving IR codes
 		self.worker = mythreadIR.WorkerThread(self)
   
-		#self.mostrarcanal()
+		
 		self.winchannel=VentanaCanal(self)
 		self.winvolume=VentanaVolumen(self)
 
@@ -351,15 +351,15 @@ class MyPanel(wx.Panel):
 		else:
 			self.actualcanal=0
 			
-		
-		logging.debug("Channel name: "+self.canal[self.actualcanal]["name"])
-		logging.debug("Status channel: "+self.canal[self.actualcanal]["status"])
+		infochannel=self.channels[self.actualcanal]
+		logging.debug("Channel name: "+infochannel["name"])
+		logging.debug("Status channel: "+infochannel["status"])
   
-		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
+		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
   
-		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
-		logging.debug("Url: "+self.canal[self.actualcanal]["url"])		
-		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
+		self.ShowMsgClicked('CANAL:',infochannel["name"])
+		logging.debug("Url: "+infochannel["url"])		
+		media = self.vlc_instance.media_new(infochannel["url"])
 		# setting media to the player
 		self.player.set_media(media)		
   
@@ -378,16 +378,19 @@ class MyPanel(wx.Panel):
 
 	def anteriorcanal(self):    
 		nextcanal= self.actualcanal-1
-		if nextcanal>=0:
-			self.actualcanal=nextcanal
-		else:
-			self.actualcanal=0
-			
-		# creating a media
-		logging.debug(self.canal[self.actualcanal]["url"])
-		self.winchannel.mostrar(self.canal[self.actualcanal]["name"])
-		self.ShowMsgClicked('CANAL:',self.canal[self.actualcanal]["name"])
-		media = self.vlc_instance.media_new(self.canal[self.actualcanal]["url"])
+		if nextcanal<0:
+			nextcanal=len(self.channels)-1
+		
+		self.actualcanal=nextcanal
+  
+		logging.debug("Position channel: "+str(nextcanal))
+
+		infochannel=self.channels[self.actualcanal]
+
+		logging.debug(infochannel["url"])
+		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
+		self.ShowMsgClicked('Channel:',infochannel["name"])
+		media = self.vlc_instance.media_new(infochannel["url"])
 		# setting media to the player
 		self.player.set_media(media)
 		
@@ -481,7 +484,8 @@ if __name__ == "__main__":
 
 		elif arg:  # m3u file
 			_video = expanduser(arg)
-			if not isfile(_video):
+			m3ufile=os.path.join(Path( __file__ ).parent.absolute(),_video)
+			if not isfile(m3ufile):
 				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
 				sys.exit(1)
 
