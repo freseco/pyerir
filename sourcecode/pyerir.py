@@ -62,11 +62,7 @@ import mythreadIR
 __version__ = '1.00.0'
 
 class VentanaCanal(wx.Frame):
-    """
-    Class used for creating frames other than the main one
-    """
-    segundos=6
-
+    
     def cerrarventana(self):
         self.timer.Start(1000)
   
@@ -94,7 +90,7 @@ class VentanaCanal(wx.Frame):
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         
         self.SetTransparent(240)
-
+        self.segundos=6
         self.Hide()
         
     #actualización con el timer	
@@ -110,7 +106,7 @@ class VentanaCanal(wx.Frame):
             logging.debug("Closed/Hide windowschannel!")
             
     def mostrar(self, texto):
-        self.segundos=4
+        self.segundos=6
         self.lbl.SetLabel(texto) 
         if not self.timer.IsRunning():
             self.Show()
@@ -224,8 +220,7 @@ class MyPanel(wx.Panel):
 		
 		   
 		self.parser.parse_m3u(m3ufile)
-
-
+		self.parser.sort_by("name",asc=True)
 		#type dict
 		self.channels = self.parser.get_list()
 
@@ -245,41 +240,78 @@ class MyPanel(wx.Panel):
 		
 		self.winchannel=VentanaCanal(self)
 		self.winvolume=VentanaVolumen(self)
-
   
+  #Pressing numbers in the remote control
+		self.timer = wx.Timer(self)
+		self.Bind(wx.EVT_TIMER, self.update, self.timer)
+		self.seconds=4
+		self.canaltecleado=""
+
+    #actualización con el timer	
+	def update(self, event):
+		logging.debug("seconds %s to end pressing numbers",self.seconds)		
+		self.seconds-=1
+		self.SetFocus()
+		if self.seconds==0:
+			if len(self.canaltecleado)>0:
+				self.ShowsThiscanal(int(self.canaltecleado))
+			self.canaltecleado=""
+			self.timer.Stop()
+			self.seconds=4  
+            
 	def OnResultIRcode(self,codigo):			
 			if codigo.data==mythreadIR.remote.ok:
 				self.stop()       
 				logging.debug("Pulsado OK")
 			elif codigo.data==mythreadIR.remote.zero:
-				self.ShowsThiscanal(0)	
+				#self.ShowsThiscanal(0)	
+				self.canaltecleado+="0"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 0")           
 			elif codigo.data==mythreadIR.remote.one:
-				self.ShowsThiscanal(1)
+				#self.ShowsThiscanal(1)
+				self.canaltecleado+="1"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 1")
 			elif codigo.data==mythreadIR.remote.two:
-				self.ShowsThiscanal(2)
+				#self.ShowsThiscanal(2)
+				self.canaltecleado+="2"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 2")
 			elif codigo.data==mythreadIR.remote.three:
-				self.ShowsThiscanal(3)
+				#self.ShowsThiscanal(3)
+				self.canaltecleado+="3"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 3")
 			elif codigo.data==mythreadIR.remote.four:
-				self.ShowsThiscanal(4)
+				#self.ShowsThiscanal(4)
+				self.canaltecleado+="4"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 4")
 			elif codigo.data==mythreadIR.remote.five:
-				self.ShowsThiscanal(5)
+				#self.ShowsThiscanal(5)
+				self.canaltecleado+="5"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 5")
 			elif codigo.data==mythreadIR.remote.six:
-				self.ShowsThiscanal(6)
+				#self.ShowsThiscanal(6)
+				self.canaltecleado+="6"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 6")
 			elif codigo.data==mythreadIR.remote.seven:
-				self.ShowsThiscanal(7)
+				#self.ShowsThiscanal(7)
+				self.canaltecleado+="7"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 7")
 			elif codigo.data==mythreadIR.remote.eight:
-				self.ShowsThiscanal(8)
+				#self.ShowsThiscanal(8)
+				self.canaltecleado+="8"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 8")
 			elif codigo.data==mythreadIR.remote.nine:
-				self.ShowsThiscanal(9)
+				#self.ShowsThiscanal(9)
+				self.canaltecleado+="9"
+				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
 				logging.debug("Pulsado #")
@@ -300,9 +332,21 @@ class MyPanel(wx.Panel):
 				self.OnMute()
 				logging.debug("Pulsado *")			
 			else:
-				logging.debug("Botón no reconocido! " +str(codigo))			
-			
-  
+				logging.debug("Botón no reconocido! " +str(codigo))		
+    	
+			if self.canaltecleado.isnumeric():
+				if self.numcanales>int(self.canaltecleado):
+					if self.timer.IsRunning():
+						self.seconds+=3
+					else:
+						self.timer.Start(1000)
+				else:
+					self.canaltecleado=""
+					self.timer.Stop()
+					self.seconds=4
+					self.winchannel.mostrar("Out of range!")
+					logging.debug("number out of the channels range")
+
 	#pushing key	
 	def onKey(self, event):	
 		#https://wxpython.org/Phoenix/docs/html/wx.KeyCode.enumeration.html
