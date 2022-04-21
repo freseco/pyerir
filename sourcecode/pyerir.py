@@ -71,9 +71,9 @@ class VentanaCanal(wx.Frame):
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
     
         height=150
-        width=1450
-        
-        self.frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
+        width=1650
+        super(VentanaCanal, self).__init__(parent,style=style, size=(width,height),pos=(10,500))
+        #self.frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
 
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
@@ -125,30 +125,26 @@ class VentanaVolumen(wx.Frame):
         self.timer.Start(1000)
   
     def __init__(self,  parent=None):
-        super(VentanaVolumen, self).__init__()
-        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
-        
-        
-        self.SetWindowStyle(wx.STAY_ON_TOP)
         
         screen_width, screen_height = wx.GetDisplaySize()
         
         height=150
         width=1450
+        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+        super(VentanaVolumen, self).__init__(parent,style=style, size=(screen_width,height))
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (0,200))
-
-        panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
-        
+        self.leftpos=0
+        self.uppos=screen_height-height
+                
+        self.SetWindowStyle(wx.STAY_ON_TOP)
+          
+        panel = wx.Panel(self,size=(screen_width,height),style=wx.TRANSPARENT_WINDOW)         
         
         self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(screen_width,height))
         font = wx.Font(60, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
         self.lbl.SetForegroundColour((255,0,0)) 
-        self.lbl.SetBackgroundColour((0,0,0))
-        
-
-         
+        self.lbl.SetBackgroundColour((0,0,0))         
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
@@ -161,6 +157,7 @@ class VentanaVolumen(wx.Frame):
     def update(self, event):
         logging.debug("seconds %s to close ventanavolumnen",self.segundos)
         self.segundos-=1
+        self.SetPosition(wx.Point(self.leftpos,self.uppos))
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
@@ -168,6 +165,7 @@ class VentanaVolumen(wx.Frame):
             logging.debug("ventana cerrada")
             
     def mostrar(self, valor):
+        self.SetPosition(wx.Point(self.leftpos,self.uppos))
         self.segundos=4
         valor_backup=valor
         caracter=" \x7C "
