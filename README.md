@@ -15,9 +15,20 @@ It has two types of notifications: wx.adv(OS notification) and popup windows.
 
 ![The IR receiver](https://github.com/freseco/pyerir/blob/main/pics/IRreceiver_remoteControl.jpg)
 
+## Start the pigpio daemon
+$ sudo pigpiod
+
+[pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
+
 
 ## Using
     $ python[3.9] pyerir.py [-v | --version]  [<m3u_file_name>] [--debug]
+
+Parameters:
+- [-v | --version] shows script version.
+- [m3u_file_name] file to get the channels.
+- [--debug] shows debug information in console.
+
 *by default, it will try to open tdt.m3u
 
 ## VLC in python
@@ -27,12 +38,11 @@ It has two types of notifications: wx.adv(OS notification) and popup windows.
 [m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
-- Help to modifie.
-- Improve description.
 - Get m3u form url. Right now it gets a file in local system file.
 - Memorize favorite channels.
 - Testing in other platforms.
 - Read configuration file.
+- Get channels information from Xtream-Codes IPTV servers.
 
 ## Error list:
 - No exit well when push #
