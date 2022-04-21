@@ -51,11 +51,11 @@ import wx.adv #notification popup
 import vlc
 from os.path import basename,expanduser, isfile
 from my_m3u_parser import M3uParser
+import my_helper
 import vlc
 import os
 from pathlib import Path
 import mythreadIR
-
 import pyttsx3
 
 
@@ -65,7 +65,7 @@ __version__ = '1.00.0'
 class VentanaCanal(wx.Frame):
     
     def cerrarventana(self):
-        self.timer.Start(1000)
+        self.timer.Start(500)
   
     def __init__(self, parent=None):
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
@@ -73,7 +73,7 @@ class VentanaCanal(wx.Frame):
         height=150
         width=1450
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
+        self.frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
 
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
@@ -91,7 +91,7 @@ class VentanaCanal(wx.Frame):
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         
         self.SetTransparent(240)
-        self.segundos=6
+        self.segundos=12
         self.Hide()
         
     #actualización con el timer	
@@ -99,6 +99,7 @@ class VentanaCanal(wx.Frame):
         logging.debug("seconds %s to close windowschannel",self.segundos)
         
         self.segundos-=1
+        
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
@@ -107,7 +108,7 @@ class VentanaCanal(wx.Frame):
             logging.debug("Closed/Hide windowschannel!")
             
     def mostrar(self, texto):
-        self.segundos=6
+        self.segundos=12
         self.lbl.SetLabel(texto) 
         if not self.timer.IsRunning():
             self.Show()
@@ -217,10 +218,9 @@ class MyPanel(wx.Panel):
 		
 		useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
 		self.parser = M3uParser(timeout=5, useragent=useragent)
-		m3ufile=os.path.join(Path( __file__ ).parent.absolute(),self.video)
 		
-		   
-		self.parser.parse_m3u(m3ufile)
+		
+		self.parser.parse_m3u(self.video)
 		self.parser.sort_by("name",asc=True)
 		#type dict
 		self.channels = self.parser.get_list()
@@ -231,7 +231,7 @@ class MyPanel(wx.Panel):
 
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
-		self.actualcanal=1
+		self.actualcanal=0
   
 		self.engine = pyttsx3.init()		
 		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
@@ -245,8 +245,8 @@ class MyPanel(wx.Panel):
 		self.worker = mythreadIR.WorkerThread(self)
   
 		
-		self.winchannel=VentanaCanal(self)
-		self.winvolume=VentanaVolumen(self)
+		self.winchannel= VentanaCanal(self)
+		self.winvolume = VentanaVolumen(self)
   
   #Pressing numbers in the remote control
 		self.timer = wx.Timer(self)
@@ -582,10 +582,12 @@ if __name__ == "__main__":
 
 		elif arg:  # m3u file
 			_video = expanduser(arg)
-			m3ufile=os.path.join(Path( __file__ ).parent.absolute(),_video)
-			if not isfile(m3ufile):
-				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
-				sys.exit(1)
+			if not my_helper.is_valid_url(_video):
+				m3ufile=os.path.join(Path( __file__ ).parent.absolute(),_video)
+				if not isfile(m3ufile):
+					logging.warning('%s error: no such file or url: %r' % (sys.argv[0], arg))
+					sys.exit(1)
+
 
 	if not debugging:
 		logging.basicConfig(stream=sys.stdout,level=logging.INFO, format="%(levelname)s: %(message)s")
