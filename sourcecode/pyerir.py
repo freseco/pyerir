@@ -547,7 +547,8 @@ class MyFrame(wx.Frame):
 		
 
 if __name__ == "__main__":
-	_video = "tdt.m3u"
+	#default file m3u
+	_video = os.path.join(Path( __file__ ).parent.absolute(),"tdt.m3u") 
 
 	debugging=False
 	
@@ -583,8 +584,8 @@ if __name__ == "__main__":
 		elif arg:  # m3u file
 			_video = expanduser(arg)
 			if not my_helper.is_valid_url(_video):
-				m3ufile=os.path.join(Path( __file__ ).parent.absolute(),_video)
-				if not isfile(m3ufile):
+				_video=os.path.join(Path( __file__ ).parent.absolute(),_video)
+				if not isfile(_video):
 					logging.warning('%s error: no such file or url: %r' % (sys.argv[0], arg))
 					sys.exit(1)
 
