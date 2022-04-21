@@ -1,18 +1,45 @@
 {
-    // Use IntelliSense para saber los atributos posibles.
-    // Mantenga el puntero para ver las descripciones de los existentes atributos.
-    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-        {
-            "name": "Python: Archivo actual",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "args": ["--debug","tv.m3u"],
-            "justMyCode": true
-        }
-    ]
+  // Use IntelliSense para saber los atributos posibles.
+  // Mantenga el puntero para ver las descripciones de los existentes atributos.
+  // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: file",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "args": ["tv.m3u"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }, {
+      "name": "Python: DEBUG file",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "args": [
+        "--debug", "tv.m3u"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }, {
+      "name": "Python: URL",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "args": ["https://www.tdtchannels.com/lists/tv.m3u"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }, {
+      "name": "Python: Debug URL",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": [
+        "--debug", "https://www.tdtchannels.com/lists/tv.m3u"
+      ],
+      "justMyCode": true
+    }
+  ]
 }
