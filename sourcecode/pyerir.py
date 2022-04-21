@@ -56,6 +56,7 @@ import os
 from pathlib import Path
 import mythreadIR
 
+import pyttsx3
 
 
 
@@ -232,6 +233,12 @@ class MyPanel(wx.Panel):
 		logging.debug("Number of channels: "+str(self.numcanales))
 		self.actualcanal=1
   
+		self.engine = pyttsx3.init()		
+		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
+		self.engine.setProperty('voice', 'spanish')
+		self.engine.setProperty('rate', 120)     # setting up new voice rateate
+		self.speech("Hay, "+str(self.numcanales)+" canales.")
+  
 	# Set up event handler for any worker thread results
 		mythreadIR.evt_result(self,self.OnResultIRcode)
 	# Initial receving IR codes
@@ -246,7 +253,12 @@ class MyPanel(wx.Panel):
 		self.Bind(wx.EVT_TIMER, self.update, self.timer)
 		self.seconds=4
 		self.canaltecleado=""
-
+  
+  
+	def speech(self,text):
+		self.engine.say(text)
+		self.engine.runAndWait()
+  
     #actualización con el timer	
 	def update(self, event):
 		logging.debug("seconds %s to end pressing numbers",self.seconds)		
@@ -315,6 +327,7 @@ class MyPanel(wx.Panel):
 				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
 				logging.debug("Pulsado #")
+				self.speech("¡Hasta luego!")
 				self.exit()
 			elif codigo.data==mythreadIR.remote.up:
 				self.siguientecanal()
@@ -543,8 +556,8 @@ if __name__ == "__main__":
 	while len(sys.argv) > 1:
 		arg = sys.argv.pop(1)
 		if arg.lower() in ('-v', '--version'):
-			# show all versions, sample output on macOS:
-			# % python3 ./wxpython_text.py -v
+			# show all versions:
+			# % python3 ./pyerir.py -v
 			# wxpython_test.py: 1.00.0 (wx 4.1.1 gtk3 (phoenix) wxWidgets 3.1.5 _core.cpython-39-arm-linux-gnueabihf.so)
 
 
