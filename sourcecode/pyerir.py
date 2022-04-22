@@ -51,7 +51,7 @@ import wx.adv #notification popup
 import vlc
 from os.path import basename,expanduser, isfile
 from my_m3u_parser import M3uParser
-import my_helper
+import config
 import vlc
 import os
 from pathlib import Path
@@ -72,9 +72,8 @@ class VentanaCanal(wx.Frame):
     
         height=150
         width=1650
-        super(VentanaCanal, self).__init__(parent,style=style, size=(width,height),pos=(10,500))
-        #self.frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
-
+        super(VentanaCanal, self).__init__(parent,style=style, size=(width,height),pos=(10,90))
+        
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
                 
@@ -107,7 +106,7 @@ class VentanaCanal(wx.Frame):
             self.Hide()
             logging.debug("Closed/Hide windowschannel!")
             
-    def mostrar(self, texto):
+    def mostrar(self, texto,logo=""):
         self.segundos=12
         self.lbl.SetLabel(texto) 
         if not self.timer.IsRunning():
@@ -187,9 +186,8 @@ class VentanaVolumen(wx.Frame):
 
 class MyPanel(wx.Panel):
 			
-	def __init__(self, parent,video=''):
-		#m3u file
-		self.video = video
+	def __init__(self, parent):
+		
 
 		width, height = wx.GetDisplaySize()
 		logging.debug("Resolution: "+str(width)+"x"+str(height))
@@ -202,6 +200,10 @@ class MyPanel(wx.Panel):
 
 		self.Layout()
 		self.Show()
+  
+		self.winchannel= VentanaCanal(self)
+		self.winvolume = VentanaVolumen(self)
+  
 		logger=logging.getLogger(__name__)
 		if logger.getEffectiveLevel()==logging.DEBUG:  
 			vlc_options = '--no-xlib --no-quiet --no-video-on-top'#--video-title-show --no-quiet --video-title-timeout=5'
@@ -218,7 +220,7 @@ class MyPanel(wx.Panel):
 		self.parser = M3uParser(timeout=5, useragent=useragent)
 		
 		
-		self.parser.parse_m3u(self.video)
+		self.parser.parse_config()
 		self.parser.sort_by("name",asc=True)
 		#type dict
 		self.channels = self.parser.get_list()
@@ -230,6 +232,8 @@ class MyPanel(wx.Panel):
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
 		self.actualcanal=0
+
+		self.winchannel.mostrar("Loading channels, wait!")
   
 		self.engine = pyttsx3.init()		
 		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
@@ -243,8 +247,7 @@ class MyPanel(wx.Panel):
 		self.worker = mythreadIR.WorkerThread(self)
   
 		
-		self.winchannel= VentanaCanal(self)
-		self.winvolume = VentanaVolumen(self)
+		
   
   #Pressing numbers in the remote control
 		self.timer = wx.Timer(self)
@@ -448,6 +451,7 @@ class MyPanel(wx.Panel):
 		self.actualcanal=nextcanal
 
 		infochannel=self.channels[self.actualcanal]
+		logging.debug("Channel logo: "+infochannel["logo"])
 		logging.debug("Channel name: "+infochannel["name"])
 		logging.debug("Status channel: "+infochannel["status"])
   
@@ -521,7 +525,7 @@ class MyPanel(wx.Panel):
 		sys.exit(0)
 
 	def ShowMsgClicked(self,sTitle,texto):		
-		sMsg =texto	# 'This is a notification message.\n\nWelcome on wxWidgets ;-)'
+		sMsg =texto	
 
 		nmsg = wx.adv.NotificationMessage(title=sTitle, message=sMsg)
 		nmsg.SetFlags(wx.ICON_INFORMATION)
@@ -532,11 +536,11 @@ class MyPanel(wx.Panel):
 
 class MyFrame(wx.Frame):
 
-	def __init__(self,title='',video=''):		
+	def __init__(self,title=''):		
 
 		wx.Frame.__init__(self, None,-1,title=title)
 		
-		self.panel1 = MyPanel(self,video=video)		
+		self.panel1 = MyPanel(self)		
 
 		self.panel1.SetBackgroundColour(wx.BLACK)		
 			
@@ -546,8 +550,9 @@ class MyFrame(wx.Frame):
 
 if __name__ == "__main__":
 	#default file m3u
-	_video = os.path.join(Path( __file__ ).parent.absolute(),"tdt.m3u") 
-
+	_video = ""#os.path.join(Path( __file__ ).parent.absolute(),"tdt.m3u") 
+	
+ 
 	debugging=False
 	
 	#print("Logging level: "+str(logging.getLevelName(logging.level))	)
@@ -580,12 +585,18 @@ if __name__ == "__main__":
 			sys.exit(1)
 
 		elif arg:  # m3u file
-			_video = expanduser(arg)
-			if not my_helper.is_valid_url(_video):
-				_video=os.path.join(Path( __file__ ).parent.absolute(),_video)
-				if not isfile(_video):
-					logging.warning('%s error: no such file or url: %r' % (sys.argv[0], arg))
-					sys.exit(1)
+			_file = expanduser(arg)
+			
+			if not isfile(os.path.join(Path( __file__ ).parent.absolute(),_file)):
+				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
+				sys.exit(1)
+			_ext=os.path.splitext(_file)[1]
+			if _ext.lower()==".m3u":
+				config.m3u_file=_file
+			else:
+				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
+				sys.exit(1)
+
 
 
 	if not debugging:
@@ -595,7 +606,7 @@ if __name__ == "__main__":
 	app = wx.App(False)
 
 	# Create the window containing our media player
-	frame = MyFrame(title='pyerir',video=_video)
+	frame = MyFrame(title='Pyerir')
 
 	# run the application
 	app.MainLoop()
