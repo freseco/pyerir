@@ -38,11 +38,12 @@ Parameters:
 [m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
-- Get m3u form url. Right now it gets a file in local system file.
+- Menu/windows to show and scrolling all channels.
 - Memorize favorite channels.
 - Testing in other platforms.
-- Read configuration file.
+- Read configuration file: json format, favorite channels, url or path of m3u file.
 - Get channels information from Xtream-Codes IPTV servers.
+- Shows channel's logo if it exists.
 
 ## Error list:
 - No exit well when push #
