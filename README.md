@@ -43,6 +43,7 @@ Parameters:
 - Testing in other platforms.
 - Read configuration file: json format, favorite channels, url or path of m3u file.
 - Get channels information from Xtream-Codes IPTV servers.
+- Shows channel's logo if it exists.
 
 ## Error list:
 - No exit well when push #
