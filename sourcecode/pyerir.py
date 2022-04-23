@@ -114,6 +114,8 @@ class VentanaCanal(wx.Frame):
             self.SetFocus()
             self.cerrarventana()
 
+
+
 class VentanaVolumen(wx.Frame):
     """
     Class used for creating frames other than the main one
