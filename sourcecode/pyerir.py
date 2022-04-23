@@ -129,11 +129,13 @@ class VentanaVolumen(wx.Frame):
         
         height=150
         width=1450
-        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
-        super(VentanaVolumen, self).__init__(parent,style=style, size=(screen_width,height))
-        
         self.leftpos=0
         self.uppos=screen_height-height
+        
+        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+        super(VentanaVolumen, self).__init__(parent,style=style, size=(screen_width,height),pos=(self.leftpos,self.uppos))
+        
+
                 
         self.SetWindowStyle(wx.STAY_ON_TOP)
           
