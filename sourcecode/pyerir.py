@@ -46,6 +46,8 @@ Keys:
 import logging
 from cmath import log
 import sys
+
+import my_helper
 import wx
 import wx.adv #notification popup
 import vlc
@@ -185,6 +187,98 @@ class VentanaVolumen(wx.Frame):
             self.SetFocus()
             self.cerrarventana()
 
+class VentanaListChannels(wx.Frame):
+	def __init__(self,  parent=None, Listchannels=None):
+		
+  
+		self.listchanels=Listchannels
+		screen_width, screen_height = wx.GetDisplaySize()
+		
+		height=910
+		width=1100
+		self.leftpos=0
+		self.uppos=0
+		
+		style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+		super(VentanaListChannels, self).__init__(parent,style=style, size=(width,height),pos=(self.leftpos,self.uppos))
+		
+
+				
+		self.SetWindowStyle(wx.STAY_ON_TOP)
+			
+		panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW,pos=(0,0))
+		panel.SetBackgroundColour((0,0,0))
+  		
+		self.longlistlbl=10
+		self.listlbls=[]
+		for x in range(0,self.longlistlbl+1):
+			lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(0,x*80))
+			font = wx.Font(50, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
+			lbl.SetFont(font) 
+			lbl.SetForegroundColour((255,0,0)) 
+			if x==5:
+				lbl.SetBackgroundColour((255,255,255))
+			else:
+				lbl.SetBackgroundColour((0,0,0))
+			lbl.SetLabel("Canal "+str(x+1))
+			self.listlbls.append(lbl)
+  
+		self.actualchannel=self.longlistlbl/2
+  
+		self.SetTransparent(240)
+		self.Hide()
+  
+  #Shows windows and lista channels
+	def Mostrar(self,actualchannel,listchannels):
+		self.actualchannel=actualchannel  
+		self.MostrarListCanales()	  
+		self.Show()
+#shows list the channels and underline the actual channel.
+	def MostrarListCanales(self):
+		numchannels=len(self.listchanels)
+		infochannel=self.listchanels[self.actualchannel]
+		self.listlbls[5].SetLabel(str(self.actualchannel)+": "+infochannel["name"])
+  
+		nextyes=self.actualchannel
+		for x in range(6, self.longlistlbl+1):
+			nextyes=self.get_nextchannel(nextyes,numchannels)
+			self.listlbls[x].SetLabel(str(nextyes)+": "+self.listchanels[nextyes]["name"])	
+			
+   
+		alteryes=self.actualchannel
+		for x in range(5,0,-1):
+			alteryes=self.get_alterchannel(alteryes,numchannels)
+			self.listlbls[x-1].SetLabel(str(alteryes)+": "+self.listchanels[alteryes]["name"])
+     
+	def SetListchannels(self,List):
+		self.listchanels=List
+	def get_nextchannel(self,next_to,longlist):
+		next=next_to+1
+		if (next)>=longlist:
+			return longlist-next
+		else:
+			return next
+
+	def get_alterchannel(self,alter_to,longlist):
+		alter=alter_to-1
+		if alter<0:
+			return longlist+alter
+		else:
+			return alter
+
+	def Hideme(self):
+		self.Hide()
+  
+	def NextChannel(self):		
+		self.actualchannel = my_helper.next_number(self.actualchannel,len(self.listchanels)-1)
+		self.MostrarListCanales()
+		logging.debug("nextchannel")
+
+	def AfterChannel(self):
+		self.actualchannel = my_helper.previous_number(self.actualchannel,len(self.listchanels)-1)
+		self.MostrarListCanales()
+		logging.debug("afterchannel")
+  
 
 
 
@@ -207,6 +301,9 @@ class MyPanel(wx.Panel):
   
 		self.winchannel= VentanaCanal(self)
 		self.winvolume = VentanaVolumen(self)
+  
+
+		
   
 		logger=logging.getLogger(__name__)
 		if logger.getEffectiveLevel()==logging.DEBUG:  
@@ -232,6 +329,9 @@ class MyPanel(wx.Panel):
 		if len(self.channels)==0:
 			logging.debug('No channel in m3u file!')
 			exit()
+
+		self.winlistcanales=VentanaListChannels(self,self.channels)  
+		self.list_is_show=False
 
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
@@ -276,9 +376,33 @@ class MyPanel(wx.Panel):
 			self.timer.Stop()
 			self.seconds=4  
             
-	def OnResultIRcode(self,codigo):			
+	def OnResultIRcode(self,codigo):
+		if self.list_is_show==True:
 			if codigo.data==mythreadIR.remote.ok:
-				self.stop()       
+				self.ShowsThiscanal(self.winlistcanales.actualchannel)
+				self.winlistcanales.Hideme()
+				self.list_is_show=False
+				logging.debug("Pulsado OK")
+			elif codigo.data==mythreadIR.remote.up:				
+				self.winlistcanales.AfterChannel()
+				logging.debug("Pulsado up")
+			elif codigo.data==mythreadIR.remote.down:				
+				self.winlistcanales.NextChannel()
+				logging.debug("Pulsado down")
+			elif codigo.data==mythreadIR.remote.left:
+				self.BajarVolumen()
+				logging.debug("Pulsado left")
+			elif codigo.data==mythreadIR.remote.right:
+				self.SubirVolumen()
+				logging.debug("Pulsado right")
+			else:
+				logging.debug("Botón no reconocido! " +str(codigo))
+
+		# list channels list is not shown
+		else:		
+			if codigo.data==mythreadIR.remote.ok:
+				self.list_is_show=True
+				self.winlistcanales.Mostrar(self.actualcanal,self.channels)
 				logging.debug("Pulsado OK")
 			elif codigo.data==mythreadIR.remote.zero:
 				#self.ShowsThiscanal(0)	
@@ -351,7 +475,7 @@ class MyPanel(wx.Panel):
 				logging.debug("Pulsado *")			
 			else:
 				logging.debug("Botón no reconocido! " +str(codigo))		
-    	
+
 			if self.canaltecleado.isnumeric():
 				if self.numcanales>int(self.canaltecleado):
 					if self.timer.IsRunning():
