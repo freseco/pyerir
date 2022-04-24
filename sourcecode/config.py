@@ -1,6 +1,6 @@
 #3ª option: Xtream code
 provider = dict(
-    name="mio",
+    name="mylist",
     server = "",
     username = "",
     password = ""
@@ -10,4 +10,4 @@ provider = dict(
 IPTV_url="https://www.tdtchannels.com/lists/tv.m3u"
 
 #1ª option: m3u file
-m3u_file=""
+m3u_file="tv.m3u"

@@ -193,6 +193,8 @@ def is_valid_url(value):
     except ValidationError:
         return False
     return True
+
+
 #[0,max]
 def next_number(number,max):
     number+=1
@@ -207,5 +209,22 @@ def previous_number(number,max):
     number-=1
     if number<0:
         return max
+    else:
+        return number
+    
+    #[0,max) plas 10
+def next_numberteen(number,max):
+    number+=10
+    if number>=max:
+        return number-max
+    else:
+        return number
+    
+    
+#[0,max) less 10 positions
+def previous_numberteen(number,max):
+    number-=10
+    if number<0:
+        return (max-1)+(number)
     else:
         return number
