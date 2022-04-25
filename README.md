@@ -47,15 +47,18 @@ Parameters:
 
 ## TODO:
 - Memorize favorite channels.
+- **Up** and **down** buttons to change the volume(Normal mode).
+- **Right** and **left** buttons to change the channel(Normal mode).
 - Testing in other platforms.
 - Read configuration file(**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - Get channels information from Xtream-Codes IPTV servers.
 - Shows channel's logo if it exists.
-- Option to create IR codes from a new remote cotrol.
+- Option to create IR codes from a new remote cotrol with a parameters in the script..
 - Splass screen.
 - Source code refactoring
 - Facilitate the installation of the script.
 - Improve of readme file.
+- Transparencies in windows menu.
 
 ## Error list:
 - No exit well when push #
