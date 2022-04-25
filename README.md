@@ -73,6 +73,7 @@ Pyerir is beta software, but it can be used
 - [ ] Transparencies in windows menu.
 - [ ] Create logo of the app.
 - [ ] Add opcions of mute and poweroff in remote control when it is in list channel mode.
+- [ ] Show menu for list of channels group.
 
 ## Error list:
 - No exit well when push #
