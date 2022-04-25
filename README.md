@@ -46,14 +46,16 @@ Parameters:
 [m3u_parser](https://pypi.org/project/m3u-parser/)
 
 ## TODO:
-- Menu/windows to show and scrolling all channels.
 - Memorize favorite channels.
 - Testing in other platforms.
 - Read configuration file(**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - Get channels information from Xtream-Codes IPTV servers.
 - Shows channel's logo if it exists.
-- Load logo channel.
 - Option to create IR codes from a new remote cotrol.
+- Splass screen.
+- Source code refactoring
+- Facilitate the installation of the script.
+- Improve of readme file.
 
 ## Error list:
 - No exit well when push #
