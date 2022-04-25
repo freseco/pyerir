@@ -2,7 +2,7 @@
 ## About
 Simple fullscreen player for m3u files(IPTV:tv:). It works in Raspberry pi 4 with Python3.9. It can get the IR code from (any?) IR remote control.
 
-![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)**+**![Python](https://www.python.org/static/img/python-logo.png)**+**![wxpython](https://www.wxpython.org/images/header-logo.png) **+** ![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](https://github.com/freseco/pyerir/blob/List-of-channels/pics/IR_receiver.png)
+![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)**+**![Python](https://www.python.org/static/img/python-logo.png)**+**![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](https://github.com/freseco/pyerir/blob/List-of-channels/pics/IR_receiver.png)
 
 
 This project is a small example of wxpython for the GUI, threading for getting the IR codes, using wraper vlc library, gpio pins and the m3u_parser library for parsing the m3u files and pyttsx3, a text-to-speech conversion library in Python.
@@ -15,7 +15,7 @@ Enjoy it and I would like to know if you have used it, thanks.
 *Not testing with other python versions.
 
 ## Features
-- Playe channels in fullscreen, doing streaming from url in a m3u file.
+- Play channels in fullscreen, doing streaming from url in a m3u file.
 - Changes volumen.
 - Shows list of the channels.
 - Speech some information.
@@ -63,7 +63,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 
 [VLC module in Python](https://www.geeksforgeeks.org/vlc-module-in-python-an-introduction/)
 
-## TODO:
+## TODO:pencil2::
 - [ ] Memorize favorite channels.
 - [ ] **Up**:arrow_up: and **down**:arrow_down: buttons to change the volume(Normal mode).
 - [ ] **Right**:arrow_right: and **left**:arrow_left: buttons to change the channel(Normal mode).
