@@ -34,6 +34,8 @@ Enjoy it and I would like to know if you have used it, thanks.
 
 $ sudo pigpiod
 
+[pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
+
 
 ## Using
     $ python[3.9] pyerir.py [-v | --version]  [<m3u_file_name>] [--debug]
@@ -63,6 +65,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 
 [VLC module in Python](https://www.geeksforgeeks.org/vlc-module-in-python-an-introduction/)
 
+
 ## TODO:pencil2::
 - [ ] Memorize favorite channels.
 - [ ] **Up**:arrow_up: and **down**:arrow_down: buttons to change the volume(Normal mode).
@@ -81,6 +84,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Add opcions of mute and poweroff in remote control when it is in list channel mode.
 - [ ] Show menu for list of channels group.
 - [ ] Testing script in raspberry pi 3.
+
 
 ## :warning:Error list:
 - No exit well when push #
