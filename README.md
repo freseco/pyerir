@@ -63,9 +63,6 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 
 [VLC module in Python](https://www.geeksforgeeks.org/vlc-module-in-python-an-introduction/)
 
-## m3u_parser library.
-[m3u_parser](https://pypi.org/project/m3u-parser/)
-
 ## TODO:
 - [ ] Memorize favorite channels.
 - [ ] **Up**:arrow_up: and **down**:arrow_down: buttons to change the volume(Normal mode).
@@ -99,3 +96,10 @@ Our main forum for discussion is the project's [GitHub issue tracker](https://gi
 
 ## Contributing:sos:
 Help in testing, development, documentation and other tasks is highly appreciated and useful to the project.
+
+## Support:hearts:
+Want to help me out? While donations aren't required, they are greatly appreciated and and speed up the development!
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](buymeacoffee.com/fresecoO)
+
+# THANK YOU!
