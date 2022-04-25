@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 sourcecode/tv.m3u
+sourcecode/tv_all.m3u

@@ -8,10 +8,14 @@ import re
 import ssl
 import time
 from typing import Union
+import os
+from pathlib import Path
 
 import aiohttp
 import pycountry
 import requests
+
+import config
 
 try:
     from my_helper import get_by_regex, is_valid_url, ndict_to_csv, run_until_completed, streams_regex
@@ -66,7 +70,20 @@ class M3uParser:
         self._country_regex = re.compile(r"tvg-country=\"(.*?)\"", flags=re.IGNORECASE)
         self._language_regex = re.compile(r"tvg-language=\"(.*?)\"", flags=re.IGNORECASE)
         self._tvg_url_regex = re.compile(r"tvg-url=\"(.*?)\"", flags=re.IGNORECASE)
-
+        
+        """
+        Parses m3u file o url 
+        """
+    def parse_config(self):
+        if len(config.m3u_file)>0:
+            m3u_file=os.path.join(Path( __file__ ).parent.absolute(),config.m3u_file) 
+            self.parse_m3u(m3u_file)
+        elif len(config.IPTV_url)>0:
+            self.parse_m3u(config.IPTV_url)
+        else:
+            logging.error("No m3u or url to parse the channels in config.py file!")
+            
+            
     def parse_m3u(self, path: str, check_live: bool = True, enforce_schema: bool = True):
         """Parses the content of local file/URL.
 

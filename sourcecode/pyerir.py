@@ -46,16 +46,19 @@ Keys:
 import logging
 from cmath import log
 import sys
+
+import my_helper
 import wx
 import wx.adv #notification popup
 import vlc
 from os.path import basename,expanduser, isfile
 from my_m3u_parser import M3uParser
+import config
 import vlc
 import os
 from pathlib import Path
 import mythreadIR
-
+import pyttsx3
 
 
 
@@ -64,20 +67,19 @@ __version__ = '1.00.0'
 class VentanaCanal(wx.Frame):
     
     def cerrarventana(self):
-        self.timer.Start(1000)
+        self.timer.Start(500)
   
     def __init__(self, parent=None):
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
     
-        height=150
-        width=1450
+        height=130
+        width=1650
+        super(VentanaCanal, self).__init__(parent,style=style, size=(width,height),pos=(10,90))
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (10,500))
-
         panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
         panel.SetBackgroundColour((0,0,0))
                 
-        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(50,10))
+        self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(50,20))
         font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
     
@@ -90,7 +92,7 @@ class VentanaCanal(wx.Frame):
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         
         self.SetTransparent(240)
-        self.segundos=6
+        self.segundos=12
         self.Hide()
         
     #actualización con el timer	
@@ -98,6 +100,7 @@ class VentanaCanal(wx.Frame):
         logging.debug("seconds %s to close windowschannel",self.segundos)
         
         self.segundos-=1
+        
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
@@ -105,13 +108,15 @@ class VentanaCanal(wx.Frame):
             self.Hide()
             logging.debug("Closed/Hide windowschannel!")
             
-    def mostrar(self, texto):
-        self.segundos=6
+    def mostrar(self, texto,logo=""):
+        self.segundos=12
         self.lbl.SetLabel(texto) 
         if not self.timer.IsRunning():
             self.Show()
             self.SetFocus()
             self.cerrarventana()
+
+
 
 class VentanaVolumen(wx.Frame):
     """
@@ -123,30 +128,28 @@ class VentanaVolumen(wx.Frame):
         self.timer.Start(1000)
   
     def __init__(self,  parent=None):
-        super(VentanaVolumen, self).__init__()
-        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
-        
-        
-        self.SetWindowStyle(wx.STAY_ON_TOP)
         
         screen_width, screen_height = wx.GetDisplaySize()
         
         height=150
         width=1450
+        self.leftpos=0
+        self.uppos=screen_height-height
         
-        frame=wx.Frame.__init__(self, style = style,parent=parent,size=(width,height),pos = (0,200))
+        style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+        super(VentanaVolumen, self).__init__(parent,style=style, size=(screen_width,height),pos=(self.leftpos,self.uppos))
+        
 
-        panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW) 
-        
+                
+        self.SetWindowStyle(wx.STAY_ON_TOP)
+          
+        panel = wx.Panel(self,size=(screen_width,height),style=wx.TRANSPARENT_WINDOW)         
         
         self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(screen_width,height))
         font = wx.Font(60, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
         self.lbl.SetForegroundColour((255,0,0)) 
-        self.lbl.SetBackgroundColour((0,0,0))
-        
-
-         
+        self.lbl.SetBackgroundColour((0,0,0))         
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
@@ -159,6 +162,7 @@ class VentanaVolumen(wx.Frame):
     def update(self, event):
         logging.debug("seconds %s to close ventanavolumnen",self.segundos)
         self.segundos-=1
+        self.SetPosition(wx.Point(self.leftpos,self.uppos))
         self.SetFocus()
         if self.segundos==0:            
             self.timer.Stop()
@@ -166,6 +170,7 @@ class VentanaVolumen(wx.Frame):
             logging.debug("ventana cerrada")
             
     def mostrar(self, valor):
+        self.SetPosition(wx.Point(self.leftpos,self.uppos))
         self.segundos=4
         valor_backup=valor
         caracter=" \x7C "
@@ -182,14 +187,113 @@ class VentanaVolumen(wx.Frame):
             self.SetFocus()
             self.cerrarventana()
 
+class VentanaListChannels(wx.Frame):
+	def __init__(self,  parent=None, Listchannels=None):
+		
+  
+		self.listchanels=Listchannels
+		screen_width, screen_height = wx.GetDisplaySize()
+		
+		height=910
+		width=1100
+		self.leftpos=0
+		self.uppos=0
+		
+		style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+		super(VentanaListChannels, self).__init__(parent,style=style, size=(width,height),pos=(self.leftpos,self.uppos))
+		
+
+				
+		self.SetWindowStyle(wx.STAY_ON_TOP)
+			
+		panel = wx.Panel(self,size=(width,height),style=wx.TRANSPARENT_WINDOW,pos=(0,0))
+		panel.SetBackgroundColour((0,0,0))
+  		
+		self.longlistlbl=10
+		self.listlbls=[]
+		for x in range(0,self.longlistlbl+1):
+			lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(0,x*80))
+			
+			
+			lbl.SetForegroundColour((255,0,0)) 
+			if x==5:
+				lbl.SetBackgroundColour((255,255,255))
+				lbl.SetForegroundColour((0,0,255))
+				font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.BOLD) 
+			else:
+				lbl.SetBackgroundColour((0,0,0))
+				font = wx.Font(50, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL) 
+			lbl.SetFont(font) 
+			lbl.SetLabel("Canal "+str(x+1))
+			self.listlbls.append(lbl)
+  
+		self.actualchannel=self.longlistlbl/2
+  
+
+
+		self.SetTransparent(240)
+		self.Hide()
+  
+
+  
+  #Shows windows and lista channels
+	def Mostrar(self,actualchannel,listchannels):
+		self.actualchannel=actualchannel  
+		self.MostrarListCanales()		
+		self.Show()
+#shows list the channels and underline the actual channel.
+	def MostrarListCanales(self):		
+		numchannels=len(self.listchanels)
+		infochannel=self.listchanels[self.actualchannel]
+		self.listlbls[5].SetLabel(str(self.actualchannel)+": "+infochannel["name"])
+  
+		nextyes=self.actualchannel
+		for x in range(6, self.longlistlbl+1):
+			nextyes=self.get_nextchannel(nextyes,numchannels)
+			self.listlbls[x].SetLabel(str(nextyes)+": "+self.listchanels[nextyes]["name"])	
+			
+   
+		alteryes=self.actualchannel
+		for x in range(5,0,-1):
+			alteryes=self.get_alterchannel(alteryes,numchannels)
+			self.listlbls[x-1].SetLabel(str(alteryes)+": "+self.listchanels[alteryes]["name"])
+     
+	def SetListchannels(self,List):
+		self.listchanels=List
+	def get_nextchannel(self,next_to,longlist):
+		next=next_to+1
+		if (next)>=longlist:
+			return longlist-next
+		else:
+			return next
+
+	def get_alterchannel(self,alter_to,longlist):
+		alter=alter_to-1
+		if alter<0:
+			return longlist+alter
+		else:
+			return alter
+
+	def Hideme(self):
+		self.Hide()
+  
+	def NextChannel(self):		
+		self.actualchannel = my_helper.next_number(self.actualchannel,len(self.listchanels)-1)
+		self.MostrarListCanales()
+		logging.debug("nextchannel")
+
+	def AfterChannel(self):
+		self.actualchannel = my_helper.previous_number(self.actualchannel,len(self.listchanels)-1)
+		self.MostrarListCanales()
+		logging.debug("afterchannel")
+  
 
 
 
 class MyPanel(wx.Panel):
 			
-	def __init__(self, parent,video=''):
-		#m3u file
-		self.video = video
+	def __init__(self, parent):
+		
 
 		width, height = wx.GetDisplaySize()
 		logging.debug("Resolution: "+str(width)+"x"+str(height))
@@ -202,6 +306,13 @@ class MyPanel(wx.Panel):
 
 		self.Layout()
 		self.Show()
+  
+		self.winchannel= VentanaCanal(self)
+		self.winvolume = VentanaVolumen(self)
+  
+
+		
+  
 		logger=logging.getLogger(__name__)
 		if logger.getEffectiveLevel()==logging.DEBUG:  
 			vlc_options = '--no-xlib --no-quiet --no-video-on-top'#--video-title-show --no-quiet --video-title-timeout=5'
@@ -216,10 +327,9 @@ class MyPanel(wx.Panel):
 		
 		useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
 		self.parser = M3uParser(timeout=5, useragent=useragent)
-		m3ufile=os.path.join(Path( __file__ ).parent.absolute(),self.video)
 		
-		   
-		self.parser.parse_m3u(m3ufile)
+		
+		self.parser.parse_config()
 		self.parser.sort_by("name",asc=True)
 		#type dict
 		self.channels = self.parser.get_list()
@@ -228,9 +338,20 @@ class MyPanel(wx.Panel):
 			logging.debug('No channel in m3u file!')
 			exit()
 
+		self.winlistcanales=VentanaListChannels(self,self.channels)  
+		self.list_is_show=False
+
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
-		self.actualcanal=1
+		self.actualcanal=0
+
+		self.winchannel.mostrar("Loading channels, wait!")
+  
+		self.engine = pyttsx3.init()		
+		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
+		self.engine.setProperty('voice', 'spanish')
+		self.engine.setProperty('rate', 120)     # setting up new voice rateate
+		self.speech("Hay, "+str(self.numcanales)+" canales.")
   
 	# Set up event handler for any worker thread results
 		mythreadIR.evt_result(self,self.OnResultIRcode)
@@ -238,15 +359,33 @@ class MyPanel(wx.Panel):
 		self.worker = mythreadIR.WorkerThread(self)
   
 		
-		self.winchannel=VentanaCanal(self)
-		self.winvolume=VentanaVolumen(self)
+		
   
   #Pressing numbers in the remote control
 		self.timer = wx.Timer(self)
 		self.Bind(wx.EVT_TIMER, self.update, self.timer)
 		self.seconds=4
 		self.canaltecleado=""
-
+  
+  #Time to show the list of channels.
+		self.timerlistchannels = wx.Timer(self)
+		self.Bind(wx.EVT_TIMER, self.updateList, self.timerlistchannels)
+		self.segundosList=5
+  
+	def speech(self,text):
+		self.engine.say(text)
+		self.engine.runAndWait()
+  
+  
+	def updateList(self, event):
+		logging.debug("seconds %s to close VentanaListChannels",self.segundosList)	
+		self.segundosList-=1		
+		if self.segundosList==0:            
+			self.timerlistchannels.Stop()			
+			self.winlistcanales.Hideme()
+			self.list_is_show=False
+			logging.debug("Closed/Hide VentanaListChannels!")
+  
     #actualización con el timer	
 	def update(self, event):
 		logging.debug("seconds %s to end pressing numbers",self.seconds)		
@@ -259,9 +398,41 @@ class MyPanel(wx.Panel):
 			self.timer.Stop()
 			self.seconds=4  
             
-	def OnResultIRcode(self,codigo):			
+	def OnResultIRcode(self,codigo):
+		if self.list_is_show==True:
 			if codigo.data==mythreadIR.remote.ok:
-				self.stop()       
+				self.ShowsThiscanal(self.winlistcanales.actualchannel)
+				self.winlistcanales.Hideme()
+				self.list_is_show=False
+				logging.debug("Pulsado OK")
+			elif codigo.data==mythreadIR.remote.up:	
+				self.segundosList=5			
+				self.winlistcanales.AfterChannel()
+				logging.debug("Pulsado up")
+			elif codigo.data==mythreadIR.remote.down:
+				self.segundosList=5				
+				self.winlistcanales.NextChannel()
+				logging.debug("Pulsado down")
+			elif codigo.data==mythreadIR.remote.left:
+				self.segundosList=5
+				self.winlistcanales.actualchannel=my_helper.previous_numberteen(self.winlistcanales.actualchannel,len(self.channels))
+				self.winlistcanales.MostrarListCanales()
+				logging.debug("Pulsado left")
+			elif codigo.data==mythreadIR.remote.right:
+				self.segundosList=5
+				self.winlistcanales.actualchannel=my_helper.next_numberteen(self.winlistcanales.actualchannel,len(self.channels))
+				self.winlistcanales.MostrarListCanales()
+				logging.debug("Pulsado right")
+			else:
+				logging.debug("Botón no reconocido! " +str(codigo))
+
+		# list channels list is not shown
+		else:		
+			if codigo.data==mythreadIR.remote.ok:
+				self.list_is_show=True
+				self.segundosList=5
+				self.timerlistchannels.Start(1000)
+				self.winlistcanales.Mostrar(self.actualcanal,self.channels)
 				logging.debug("Pulsado OK")
 			elif codigo.data==mythreadIR.remote.zero:
 				#self.ShowsThiscanal(0)	
@@ -315,6 +486,7 @@ class MyPanel(wx.Panel):
 				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
 				logging.debug("Pulsado #")
+				self.speech("¡Hasta luego!")
 				self.exit()
 			elif codigo.data==mythreadIR.remote.up:
 				self.siguientecanal()
@@ -333,7 +505,7 @@ class MyPanel(wx.Panel):
 				logging.debug("Pulsado *")			
 			else:
 				logging.debug("Botón no reconocido! " +str(codigo))		
-    	
+
 			if self.canaltecleado.isnumeric():
 				if self.numcanales>int(self.canaltecleado):
 					if self.timer.IsRunning():
@@ -437,6 +609,7 @@ class MyPanel(wx.Panel):
 		self.actualcanal=nextcanal
 
 		infochannel=self.channels[self.actualcanal]
+		logging.debug("Channel logo: "+infochannel["logo"])
 		logging.debug("Channel name: "+infochannel["name"])
 		logging.debug("Status channel: "+infochannel["status"])
   
@@ -510,7 +683,7 @@ class MyPanel(wx.Panel):
 		sys.exit(0)
 
 	def ShowMsgClicked(self,sTitle,texto):		
-		sMsg =texto	# 'This is a notification message.\n\nWelcome on wxWidgets ;-)'
+		sMsg =texto	
 
 		nmsg = wx.adv.NotificationMessage(title=sTitle, message=sMsg)
 		nmsg.SetFlags(wx.ICON_INFORMATION)
@@ -521,11 +694,11 @@ class MyPanel(wx.Panel):
 
 class MyFrame(wx.Frame):
 
-	def __init__(self,title='',video=''):		
+	def __init__(self,title=''):		
 
 		wx.Frame.__init__(self, None,-1,title=title)
 		
-		self.panel1 = MyPanel(self,video=video)		
+		self.panel1 = MyPanel(self)		
 
 		self.panel1.SetBackgroundColour(wx.BLACK)		
 			
@@ -534,8 +707,10 @@ class MyFrame(wx.Frame):
 		
 
 if __name__ == "__main__":
-	_video = "tdt.m3u"
-
+	#default file m3u
+	_video = ""#os.path.join(Path( __file__ ).parent.absolute(),"tdt.m3u") 
+	
+ 
 	debugging=False
 	
 	#print("Logging level: "+str(logging.getLevelName(logging.level))	)
@@ -543,8 +718,8 @@ if __name__ == "__main__":
 	while len(sys.argv) > 1:
 		arg = sys.argv.pop(1)
 		if arg.lower() in ('-v', '--version'):
-			# show all versions, sample output on macOS:
-			# % python3 ./wxpython_text.py -v
+			# show all versions:
+			# % python3 ./pyerir.py -v
 			# wxpython_test.py: 1.00.0 (wx 4.1.1 gtk3 (phoenix) wxWidgets 3.1.5 _core.cpython-39-arm-linux-gnueabihf.so)
 
 
@@ -568,11 +743,19 @@ if __name__ == "__main__":
 			sys.exit(1)
 
 		elif arg:  # m3u file
-			_video = expanduser(arg)
-			m3ufile=os.path.join(Path( __file__ ).parent.absolute(),_video)
-			if not isfile(m3ufile):
+			_file = expanduser(arg)
+			
+			if not isfile(os.path.join(Path( __file__ ).parent.absolute(),_file)):
 				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
 				sys.exit(1)
+			_ext=os.path.splitext(_file)[1]
+			if _ext.lower()==".m3u":
+				config.m3u_file=_file
+			else:
+				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
+				sys.exit(1)
+
+
 
 	if not debugging:
 		logging.basicConfig(stream=sys.stdout,level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -581,7 +764,7 @@ if __name__ == "__main__":
 	app = wx.App(False)
 
 	# Create the window containing our media player
-	frame = MyFrame(title='pyerir',video=_video)
+	frame = MyFrame(title='Pyerir')
 
 	# run the application
 	app.MainLoop()
