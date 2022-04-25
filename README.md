@@ -8,6 +8,14 @@ It has two types of notifications: wx.adv(OS notification) and popup windows.
 
 *Not testing with other python versions.
 
+## Features
+- Playes channels in fullscreen, doing streaming from url in a m3u file.
+- Changes volumen
+- Fullscreen
+- Shows list of the channels.
+- Speech some information.
+- Works in raspberry 4.
+
 ## First step: Installation of dependencies
     $ pip install requirements.txt 
 
@@ -41,10 +49,20 @@ Parameters:
 - Menu/windows to show and scrolling all channels.
 - Memorize favorite channels.
 - Testing in other platforms.
-- Read configuration file: json format, favorite channels, url or path of m3u file.
+- Read configuration file(**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - Get channels information from Xtream-Codes IPTV servers.
 - Shows channel's logo if it exists.
+- Load logo channel.
+- Option to create IR codes from a new remote cotrol.
 
 ## Error list:
 - No exit well when push #
 - key only when windows channel o volumen are shown.
+
+## Debugging
+
+$ python[3.9] pyerir.py [--debug]
+
+
+## Discussion
+Our main forum for discussion is the project's [GitHub issue tracker](https://github.com/freseco/pyerir/issues). This is the right place to start a discussion of any of the above or most any other topic concerning the project.
