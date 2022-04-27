@@ -24,17 +24,17 @@ import logging
 class MyFrame(wx.Frame):
 #dictionary of remote IR codes
     remoteIR={
-        "ok": b'\x00\xff\x1c\xe3',
+        "ok":   b'\x00\xff\x1c\xe3',
         "left": b'\x00\xff\x08\xf7',
         "right": b'\x00\xffZ\xa5',
-        "up": b'\x00\xff\x18\xe7',
+        "up":   b'\x00\xff\x18\xe7',
         "down": b'\x00\xffR\xad',
-        "one": b'\x00\xffE\xba',
-        "two": b'\x00\xffF\xb9',
+        "one":  b'\x00\xffE\xba',
+        "two":  b'\x00\xffF\xb9',
         "three": b'\x00\xffG\xb8',
         "four": b'\x00\xffD\xbb',
         "five": b'\x00\xff@\xbf',
-        "six": b'\x00\xffC\xbc',
+        "six":  b'\x00\xffC\xbc',
         "seven": b'\x00\xff\x07\xf8',
         "eight": b'\x00\xff\x15\xea',
         "nine": b'\x00\xff\t\xf6',
@@ -307,77 +307,77 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.Save_json, self.btnSaveIRcodes)
         # end wxGlade
 
-    def Get_up(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_up(self, event):  
         print("Event handler 'Get_up' not implemented!")
         event.Skip()
 
-    def Get_down(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_down(self, event):  
         print("Event handler 'Get_down' not implemented!")
         event.Skip()
 
-    def Get_left(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_left(self, event):  
         print("Event handler 'Get_left' not implemented!")
         event.Skip()
 
-    def Get_right(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_right(self, event):  
         print("Event handler 'Get_right' not implemented!")
         event.Skip()
 
-    def Get_ok(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_ok(self, event):  
         print("Event handler 'Get_ok' not implemented!")
         event.Skip()
 
-    def Get_Asterisk(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_Asterisk(self, event):  
         print("Event handler 'Get_Asterisk' not implemented!")
         event.Skip()
 
-    def Get_hash(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_hash(self, event):  
         print("Event handler 'Get_hash' not implemented!")
         event.Skip()
 
-    def Get_0(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_0(self, event):  
         print("Event handler 'Get_0' not implemented!")
         event.Skip()
 
-    def Get_1(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_1(self, event):  
         print("Event handler 'Get_1' not implemented!")
         event.Skip()
 
-    def Get_2(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_2(self, event):  
         print("Event handler 'Get_2' not implemented!")
         event.Skip()
 
-    def Get_3(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_3(self, event):  
         print("Event handler 'Get_3' not implemented!")
         event.Skip()
 
-    def Get_4(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_4(self, event):  
         self.ShowMessage("Acept and press button for number 4 on remote control!")
         codigo=self.receiverIR.Getcode()
         self.text_ctrl_4.SetLabelText(codigo)
         logging.debug("IR code: "+str(codigo))
 
-    def Get_5(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_5(self, event):  
         print("Event handler 'Get_5' not implemented!")
         event.Skip()
 
-    def Get_6(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_6(self, event):  
         print("Event handler 'Get_6' not implemented!")
         event.Skip()
 
-    def Get_7(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_7(self, event):  
         print("Event handler 'Get_7' not implemented!")
         event.Skip()
 
-    def Get_8(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_8(self, event):  
         print("Event handler 'Get_8' not implemented!")
         event.Skip()
 
-    def Get_9(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Get_9(self, event):  
         print("Event handler 'Get_9' not implemented!")
         event.Skip()
 
-    def Save_json(self, event):  # wxGlade: MyFrame.<event_handler>
+    def Save_json(self, event):  
         jsonfile={}
         for keyIRcode in self.remoteIR:
             #create json
@@ -403,6 +403,7 @@ class MyApp(wx.App):
 
 # end of class MyApp
 
+#
 if __name__ == "__main__":
     app = MyApp(0)
     app.MainLoop()
