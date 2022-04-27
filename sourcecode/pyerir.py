@@ -45,6 +45,7 @@ Keys:
 """
 import logging
 from cmath import log
+
 import sys
 
 import my_helper
@@ -60,7 +61,7 @@ from pathlib import Path
 import mythreadIR
 import pyttsx3
 
-
+import windowsIR
 
 __version__ = '1.00.0'
 
@@ -712,6 +713,7 @@ if __name__ == "__main__":
 	
  
 	debugging=False
+	winIRcodes=False
 	
 	#print("Logging level: "+str(logging.getLevelName(logging.level))	)
  
@@ -737,9 +739,16 @@ if __name__ == "__main__":
 			logging.basicConfig(stream=sys.stdout,level=logging.DEBUG, format="%(levelname)s: %(message)s")
 			logging.debug('Debugging mode enable!')			
 			debugging=True
-   
+
+		elif arg.lower() in ('--ircodes'):
+			print('Opening windows to get new IR codes.')
+			winIRcodes=True
+			app = windowsIR.MyApp(0)
+			app.MainLoop()
+			break
+
 		elif arg.startswith('-'):
-			logging.info('usage: %s  [-v | --version]  [<m3u_file_name>]  [--debug]' % (sys.argv[0],))
+			print('usage: %s  [-v | --version]  [<m3u_file_name>]  [--debug] [--ircodes]' % (sys.argv[0],))
 			sys.exit(1)
 
 		elif arg:  # m3u file
@@ -760,13 +769,14 @@ if __name__ == "__main__":
 	if not debugging:
 		logging.basicConfig(stream=sys.stdout,level=logging.INFO, format="%(levelname)s: %(message)s")
   
-	# Create a wx.App(), which handles the windowing system event loop
-	app = wx.App(False)
+	if not winIRcodes:
+		# Create a wx.App(), which handles the windowing system event loop
+		app = wx.App(False)
 
-	# Create the window containing our media player
-	frame = MyFrame(title='Pyerir')
+		# Create the window containing our media player
+		frame = MyFrame(title='Pyerir')
 
-	# run the application
-	app.MainLoop()
-	
-	sys.exit(0)
+		# run the application
+		app.MainLoop()
+		
+		sys.exit(0)
