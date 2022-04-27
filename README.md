@@ -2,7 +2,7 @@
 ## About
 Simple fullscreen player for m3u files(IPTV:tv:). It works in Raspberry pi 4 with Python3.9. It can get the IR code from (any?) IR remote control.
 
-![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)**+**![Python](https://www.python.org/static/img/python-logo.png)**+**![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](/pics/IR_receiver.png)
+![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)         **+**        ![Python](https://www.python.org/static/img/python-logo.png)       **+**   ![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](/pics/IR_receiver.png)
 
 
 This project is a small example of wxpython for the GUI, threading for getting the IR codes, using wraper vlc library, gpio pins and the m3u_parser library for parsing the m3u files and pyttsx3, a text-to-speech conversion library in Python.
@@ -44,7 +44,7 @@ Parameters:
 - [-v | --version] shows script version.
 - [m3u_file_name] file to get the channels.
 - [--debug] shows debug information in console.
-- [--ircodes] Shows windows to ger new IR codes. They'll saved in 'remoteIR.json' file.
+- [--ircodes] Shows windows to ger new IR codes. They'll be saved in 'remoteIR.json' file.
 
 *by default, it will try to open tdt.m3u
 
