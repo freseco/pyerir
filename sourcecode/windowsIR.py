@@ -49,12 +49,14 @@ class MyFrame(wx.Frame):
         kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_FRAME_STYLE
         wx.Frame.__init__(self, *args, **kwds)
         #self.SetSize((444, 525))
+
         width=450
         hight=700
         self.SetSizeHints(width,hight,width,hight)
         self.SetTitle("Wizard to get the IR codes for PYERIR.")
 
         self.receiverIR=remote()
+
 
         self.panel_1 = wx.Panel(self, wx.ID_ANY)
 
@@ -69,24 +71,24 @@ class MyFrame(wx.Frame):
         sizer_labels = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_labels, 2, wx.ALL | wx.EXPAND, 3)
 
-        label_4 = wx.StaticText(self.panel_1, wx.ID_ANY, "- BUTTON -", style=wx.ALIGN_CENTER_HORIZONTAL)
+        label_4 = wx.StaticText(self.panel_1, wx.ID_ANY, "- BUTTONS -", style=wx.ALIGN_CENTER_HORIZONTAL | wx.ST_NO_AUTORESIZE)
         label_4.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, 0, ""))
         sizer_labels.Add(label_4, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_7 = wx.StaticText(self.panel_1, wx.ID_ANY, "UP", style=wx.ALIGN_LEFT)
         label_7.SetMinSize((140, 35))
         label_7.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_7, 0, wx.SHAPED, 0)
+        sizer_labels.Add(label_7, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_8 = wx.StaticText(self.panel_1, wx.ID_ANY, "DOWN")
         label_8.SetMinSize((140, 30))
         label_8.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_8, 0, 0, 0)
+        sizer_labels.Add(label_8, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_9 = wx.StaticText(self.panel_1, wx.ID_ANY, "LEFT")
         label_9.SetMinSize((140, 30))
         label_9.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_9, 0, wx.SHAPED, 0)
+        sizer_labels.Add(label_9, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_10 = wx.StaticText(self.panel_1, wx.ID_ANY, "RIGHT")
         label_10.SetMinSize((140, 30))
@@ -96,15 +98,15 @@ class MyFrame(wx.Frame):
         label_11 = wx.StaticText(self.panel_1, wx.ID_ANY, "OK")
         label_11.SetMinSize((140, 30))
         label_11.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_11, 0, 0, 0)
+        sizer_labels.Add(label_11, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_12 = wx.StaticText(self.panel_1, wx.ID_ANY, "*")
         label_12.SetMinSize((140, 30))
         sizer_labels.Add(label_12, 0, 0, 0)
 
-        label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#")
+        label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_13.SetMinSize((140, 23))
-        sizer_labels.Add(label_13, 0, 0, 0)
+        sizer_labels.Add(label_13, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_14 = wx.StaticText(self.panel_1, wx.ID_ANY, "0")
         label_14.SetMinSize((140, 30))

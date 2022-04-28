@@ -53,7 +53,7 @@ Parameters:
 ### Normal mode
 ![Normal mode](/pics/remote_control_1.png)
 
-### List channels mode
+### Channels list mode.
 ![List menu channels](/pics/remote_control_2.png)
 
 ### Getting new IR codes.
@@ -99,6 +99,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Add opcions of mute and poweroff in remote control when it is in list channel mode.
 - [ ] Show menu for list of channels group.
 - [ ] Testing script in raspberry pi 3.
+- [ ] Create an installer with PyInstaller.
 
 
 ## :warning:Error list:
