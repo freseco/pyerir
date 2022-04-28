@@ -5,7 +5,7 @@
 #
 
 import wx
-#from remoteIR import remote #read data from IR receiver
+
 import json
 import os
 from pathlib import Path
@@ -48,14 +48,19 @@ class MyFrame(wx.Frame):
         # begin wxGlade: MyFrame.__init__
         kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_FRAME_STYLE
         wx.Frame.__init__(self, *args, **kwds)
-        self.SetSize((382, 525))
-        self.SetTitle("IR codes asistance")
-        
+        #self.SetSize((444, 525))
+        width=450
+        hight=700
+        self.SetSizeHints(width,hight,width,hight)
+        self.SetTitle("Wizard to get the IR codes for PYERIR.")
+
+        self.receiverIR=remote()
+
         self.panel_1 = wx.Panel(self, wx.ID_ANY)
 
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
 
-        label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, "Asistance to get the IR codes...")
+        label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, "Press the button GET, then press the button on the remote control.")
         sizer_1.Add(label_1, 0, 0, 0)
 
         sizer_2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -69,32 +74,32 @@ class MyFrame(wx.Frame):
         sizer_labels.Add(label_4, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_7 = wx.StaticText(self.panel_1, wx.ID_ANY, "UP", style=wx.ALIGN_LEFT)
-        label_7.SetMinSize((140, 23))
+        label_7.SetMinSize((140, 35))
         label_7.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_7, 0, wx.SHAPED, 0)
 
         label_8 = wx.StaticText(self.panel_1, wx.ID_ANY, "DOWN")
-        label_8.SetMinSize((140, 23))
+        label_8.SetMinSize((140, 30))
         label_8.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_8, 0, 0, 0)
 
         label_9 = wx.StaticText(self.panel_1, wx.ID_ANY, "LEFT")
-        label_9.SetMinSize((140, 23))
+        label_9.SetMinSize((140, 30))
         label_9.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_9, 0, wx.SHAPED, 0)
 
         label_10 = wx.StaticText(self.panel_1, wx.ID_ANY, "RIGHT")
-        label_10.SetMinSize((140, 23))
+        label_10.SetMinSize((140, 30))
         label_10.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_10, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_11 = wx.StaticText(self.panel_1, wx.ID_ANY, "OK")
-        label_11.SetMinSize((140, 23))
+        label_11.SetMinSize((140, 30))
         label_11.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_11, 0, 0, 0)
 
         label_12 = wx.StaticText(self.panel_1, wx.ID_ANY, "*")
-        label_12.SetMinSize((140, 23))
+        label_12.SetMinSize((140, 30))
         sizer_labels.Add(label_12, 0, 0, 0)
 
         label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#")
@@ -102,43 +107,43 @@ class MyFrame(wx.Frame):
         sizer_labels.Add(label_13, 0, 0, 0)
 
         label_14 = wx.StaticText(self.panel_1, wx.ID_ANY, "0")
-        label_14.SetMinSize((140, 23))
+        label_14.SetMinSize((140, 30))
         sizer_labels.Add(label_14, 0, 0, 0)
 
         label_15 = wx.StaticText(self.panel_1, wx.ID_ANY, "1")
-        label_15.SetMinSize((140, 23))
+        label_15.SetMinSize((140, 30))
         sizer_labels.Add(label_15, 0, 0, 0)
 
         label_16 = wx.StaticText(self.panel_1, wx.ID_ANY, "2")
-        label_16.SetMinSize((140, 23))
+        label_16.SetMinSize((140, 30))
         sizer_labels.Add(label_16, 0, 0, 0)
 
         label_17 = wx.StaticText(self.panel_1, wx.ID_ANY, "3")
-        label_17.SetMinSize((140, 23))
+        label_17.SetMinSize((140, 30))
         sizer_labels.Add(label_17, 0, 0, 0)
 
         label_18 = wx.StaticText(self.panel_1, wx.ID_ANY, "4")
-        label_18.SetMinSize((140, 23))
+        label_18.SetMinSize((140, 30))
         sizer_labels.Add(label_18, 0, 0, 0)
 
         label_19 = wx.StaticText(self.panel_1, wx.ID_ANY, "5")
-        label_19.SetMinSize((140, 23))
+        label_19.SetMinSize((140, 30))
         sizer_labels.Add(label_19, 0, 0, 0)
 
         label_20 = wx.StaticText(self.panel_1, wx.ID_ANY, "6")
-        label_20.SetMinSize((140, 23))
+        label_20.SetMinSize((140, 30))
         sizer_labels.Add(label_20, 0, 0, 0)
 
         label_21 = wx.StaticText(self.panel_1, wx.ID_ANY, "7")
-        label_21.SetMinSize((140, 23))
+        label_21.SetMinSize((140, 30))
         sizer_labels.Add(label_21, 0, 0, 0)
 
         label_22 = wx.StaticText(self.panel_1, wx.ID_ANY, "8")
-        label_22.SetMinSize((140, 23))
+        label_22.SetMinSize((140, 30))
         sizer_labels.Add(label_22, 0, 0, 0)
 
         label_23 = wx.StaticText(self.panel_1, wx.ID_ANY, "9")
-        label_23.SetMinSize((140, 23))
+        label_23.SetMinSize((140, 30))
         sizer_labels.Add(label_23, 0, 0, 0)
 
         sizer_text_box = wx.BoxSizer(wx.VERTICAL)
@@ -149,132 +154,147 @@ class MyFrame(wx.Frame):
         sizer_text_box.Add(label_5, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.ALL, 0)
 
         self.text_ctrl_up = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
-        self.text_ctrl_up.SetMinSize((140, 23))
+        self.text_ctrl_up.SetMinSize((145, 38))
         sizer_text_box.Add(self.text_ctrl_up, 0, wx.EXPAND, 0)
-        self.text_ctrl_up.SetLabelText(str(self.remoteIR["up"]))
+        self.text_ctrl_up.SetValue(str(self.remoteIR["up"]))
 
-        self.text_ctrl_down = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_down = wx.TextCtrl(self.panel_1, wx.ID_ANY, "")
+        self.text_ctrl_down.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_down, 0, wx.EXPAND, 0)
-        self.text_ctrl_down.SetLabelText(str(self.remoteIR["down"]))
+        self.text_ctrl_down.SetValue(str(self.remoteIR["down"]))
 
         self.text_ctrl_left = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_left.SetMinSize((140, 30))
         sizer_text_box.Add(self.text_ctrl_left, 0, wx.EXPAND, 0)
-        self.text_ctrl_left.SetLabelText(str(self.remoteIR["left"]))
+        self.text_ctrl_left.SetValue(str(self.remoteIR["left"]))
 
         self.text_ctrl_right = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_right.SetMinSize((140, 31))
         sizer_text_box.Add(self.text_ctrl_right, 0, wx.EXPAND, 0)
-        self.text_ctrl_right.SetLabelText(str(self.remoteIR["right"]))
+        self.text_ctrl_right.SetValue(str(self.remoteIR["right"]))
 
         self.text_ctrl_ok = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_ok.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_ok, 0, wx.EXPAND, 0)
-        self.text_ctrl_ok.SetLabelText(str(self.remoteIR["ok"]))
+        self.text_ctrl_ok.SetValue(str(self.remoteIR["ok"]))
 
         self.text_ctrl_asterisk = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_asterisk.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_asterisk, 0, wx.EXPAND, 0)
-        self.text_ctrl_asterisk.SetLabelText(str(self.remoteIR["asterisk"]))
+        self.text_ctrl_asterisk.SetValue(str(self.remoteIR["asterisk"]))
 
         self.text_ctrl_hash = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_hash.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_hash, 0, wx.EXPAND, 0)
-        self.text_ctrl_hash.SetLabelText(str(self.remoteIR["hash"]))
+        self.text_ctrl_hash.SetValue(str(self.remoteIR["hash"]))
 
         self.text_ctrl_0 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_0.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_0, 0, wx.EXPAND, 0)
-        self.text_ctrl_0.SetLabelText(str(self.remoteIR["zero"]))
+        self.text_ctrl_0.SetValue(str(self.remoteIR["zero"]))
 
         self.text_ctrl_1 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_1.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_1, 0, wx.EXPAND, 0)
-        self.text_ctrl_1.SetLabelText(str(self.remoteIR["one"]))
+        self.text_ctrl_1.SetValue(str(self.remoteIR["one"]))
 
         self.text_ctrl_2 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_2.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_2, 0, wx.EXPAND, 0)
-        self.text_ctrl_2.SetLabelText(str(self.remoteIR["two"]))
+        self.text_ctrl_2.SetValue(str(self.remoteIR["two"]))
 
         self.text_ctrl_3 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
-        sizer_text_box.Add(self.text_ctrl_3, 0, wx.EXPAND, 0)
-        self.text_ctrl_3.SetLabelText(str(self.remoteIR["three"]))
+        self.text_ctrl_3.SetMinSize((140, 32))
+        sizer_text_box.Add(self.text_ctrl_3, 0, wx.EXPAND, 0) 
+        self.text_ctrl_3.SetValue(str(self.remoteIR["three"]))
 
         self.text_ctrl_4 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_4.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_4, 0, wx.EXPAND, 0)
-        self.text_ctrl_4.SetLabelText(str(self.remoteIR["four"]))
+        self.text_ctrl_4.SetValue(str(self.remoteIR["four"]))
 
         self.text_ctrl_5 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_5.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_5, 0, wx.EXPAND, 0)
-        self.text_ctrl_5.SetLabelText(str(self.remoteIR["five"]))
+        self.text_ctrl_5.SetValue(str(self.remoteIR["five"]))
 
         self.text_ctrl_6 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_6.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_6, 0, wx.EXPAND, 0)
-        self.text_ctrl_6.SetLabelText(str(self.remoteIR["six"]))
+        self.text_ctrl_6.SetValue(str(self.remoteIR["six"]))
 
         self.text_ctrl_7 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_7.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_7, 0, wx.EXPAND, 0)
-        self.text_ctrl_7.SetLabelText(str(self.remoteIR["seven"]))
+        self.text_ctrl_7.SetValue(str(self.remoteIR["seven"]))
 
         self.text_ctrl_8 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_8.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_8, 0, wx.EXPAND, 0)
-        self.text_ctrl_8.SetLabelText(str(self.remoteIR["eight"]))
+        self.text_ctrl_8.SetValue(str(self.remoteIR["eight"]))
 
         self.text_ctrl_9 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_9.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_9, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
-        self.text_ctrl_9.SetLabelText(str(self.remoteIR["nine"]))
+        self.text_ctrl_9.SetValue(str(self.remoteIR["nine"]))
 
         sizer_buttons = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_buttons, 0, wx.ALL | wx.EXPAND, 1)
 
         label_6 = wx.StaticText(self.panel_1, wx.ID_ANY, "---------")
+        label_6.SetSize(1,5)
         sizer_buttons.Add(label_6, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        self.button_up = wx.Button(self.panel_1, wx.ID_ANY, "Get")
-        self.button_up.SetMinSize((75, 23))
+        self.button_up = wx.Button(self.panel_1, wx.ID_ANY, "Get_up")
         sizer_buttons.Add(self.button_up, 0, wx.EXPAND, 0)
 
-        self.button_down = wx.Button(self.panel_1, wx.ID_ANY, "Get\n")
-        self.button_down.SetMinSize((75, 23))
+        self.button_down = wx.Button(self.panel_1, wx.ID_ANY, "Get_down")
         sizer_buttons.Add(self.button_down, 0, wx.EXPAND, 0)
 
-        self.button_left = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_left = wx.Button(self.panel_1, wx.ID_ANY, "Get_left")
         sizer_buttons.Add(self.button_left, 0, wx.EXPAND, 0)
 
-        self.button_right = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_right = wx.Button(self.panel_1, wx.ID_ANY, "Get_right")
         sizer_buttons.Add(self.button_right, 0, wx.EXPAND, 0)
 
-        self.button_OK = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_OK = wx.Button(self.panel_1, wx.ID_ANY, "Get_ok")
         sizer_buttons.Add(self.button_OK, 0, wx.EXPAND, 0)
 
-        self.button_ASTERISK = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_ASTERISK = wx.Button(self.panel_1, wx.ID_ANY, "Get_*")
         sizer_buttons.Add(self.button_ASTERISK, 0, wx.EXPAND, 0)
 
-        self.button_hash = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_hash = wx.Button(self.panel_1, wx.ID_ANY, "Get_#")
         sizer_buttons.Add(self.button_hash, 0, wx.EXPAND, 0)
 
-        self.button_0 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_0 = wx.Button(self.panel_1, wx.ID_ANY, "Get_0")
         sizer_buttons.Add(self.button_0, 0, wx.EXPAND, 0)
 
-        self.button_1 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_1 = wx.Button(self.panel_1, wx.ID_ANY, "Get_1")
         sizer_buttons.Add(self.button_1, 0, wx.EXPAND, 0)
 
-        self.button_2 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_2 = wx.Button(self.panel_1, wx.ID_ANY, "Get_2")
         sizer_buttons.Add(self.button_2, 0, wx.EXPAND, 0)
 
-        self.button_3 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_3 = wx.Button(self.panel_1, wx.ID_ANY, "Get_3")
         sizer_buttons.Add(self.button_3, 0, wx.EXPAND, 0)
 
-        self.button_4 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_4 = wx.Button(self.panel_1, wx.ID_ANY, "Get_4")
         sizer_buttons.Add(self.button_4, 0, wx.EXPAND, 0)
 
-        self.button_5 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_5 = wx.Button(self.panel_1, wx.ID_ANY, "Get_5")
         sizer_buttons.Add(self.button_5, 0, wx.EXPAND, 0)
 
-        self.button_6 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_6 = wx.Button(self.panel_1, wx.ID_ANY, "Get_6")
         sizer_buttons.Add(self.button_6, 0, wx.EXPAND, 0)
 
-        self.button_7 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_7 = wx.Button(self.panel_1, wx.ID_ANY, "Get_7")
         sizer_buttons.Add(self.button_7, 0, wx.EXPAND, 0)
 
-        self.button_8 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
+        self.button_8 = wx.Button(self.panel_1, wx.ID_ANY, "Get_8")
         sizer_buttons.Add(self.button_8, 0, wx.EXPAND, 0)
 
-        self.button_9 = wx.Button(self.panel_1, wx.ID_ANY, "Get")
-        sizer_buttons.Add(self.button_9, 0, 0, 0)
+        self.button_9 = wx.Button(self.panel_1, wx.ID_ANY, "Get_9")
+        sizer_buttons.Add(self.button_9, 0, wx.EXPAND, 0)
 
         label_2 = wx.StaticText(self.panel_1, wx.ID_ANY, "Free to use!")
         sizer_1.Add(label_2, 0, 0, 0)
@@ -308,74 +328,141 @@ class MyFrame(wx.Frame):
         # end wxGlade
 
     def Get_up(self, event):  
-        print("Event handler 'Get_up' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for up key on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["up"]=str(codigo)
+        self.text_ctrl_up.SetValue(self.remoteIR["up"])
+        self.text_ctrl_up.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_down(self, event):  
-        print("Event handler 'Get_down' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for down key on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["down"]=str(codigo)
+        self.text_ctrl_down.SetValue(self.remoteIR["down"])
+        self.text_ctrl_down.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_left(self, event):  
-        print("Event handler 'Get_left' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for left key on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["left"]=str(codigo)
+        self.text_ctrl_left.SetValue(self.remoteIR["left"])
+        self.text_ctrl_left.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_right(self, event):  
-        print("Event handler 'Get_right' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for right key on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["right"]=str(codigo)
+        self.text_ctrl_right.SetValue(self.remoteIR["right"])
+        self.text_ctrl_right.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_ok(self, event):  
-        print("Event handler 'Get_ok' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for ok on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["ok"]=str(codigo)
+        self.text_ctrl_ok.SetValue(self.remoteIR["ok"])
+        self.text_ctrl_ok.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_Asterisk(self, event):  
-        print("Event handler 'Get_Asterisk' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for * on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["asterisk"]=str(codigo)
+        self.text_ctrl_asterisk.SetValue(self.remoteIR["asterisk"])
+        self.text_ctrl_asterisk.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_hash(self, event):  
-        print("Event handler 'Get_hash' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for # on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["hash"]=str(codigo)
+        self.text_ctrl_hash.SetValue(self.remoteIR["hash"])
+        self.text_ctrl_hash.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_0(self, event):  
-        print("Event handler 'Get_0' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 0 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["zero"]=str(codigo)
+        self.text_ctrl_0.SetValue(self.remoteIR["zero"])
+        self.text_ctrl_0.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_1(self, event):  
-        print("Event handler 'Get_1' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 1 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["one"]=str(codigo)
+        self.text_ctrl_1.SetValue(self.remoteIR["one"])
+        self.text_ctrl_1.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_2(self, event):  
-        print("Event handler 'Get_2' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 2 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["two"]=str(codigo)
+        self.text_ctrl_2.SetValue(self.remoteIR["two"])
+        self.text_ctrl_2.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_3(self, event):  
-        print("Event handler 'Get_3' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 3 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["three"]=str(codigo)
+        self.text_ctrl_3.SetValue(self.remoteIR["three"])
+        self.text_ctrl_3.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_4(self, event):  
         self.ShowMessage("Acept and press button for number 4 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.text_ctrl_4.SetLabelText(codigo)
+        self.remoteIR["four"]=str(codigo)
+        self.text_ctrl_4.SetValue(self.remoteIR["four"])
+        self.text_ctrl_4.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_5(self, event):  
-        print("Event handler 'Get_5' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 5 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["five"]=str(codigo)
+        self.text_ctrl_5.SetValue(self.remoteIR["five"])
+        self.text_ctrl_5.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_6(self, event):  
-        print("Event handler 'Get_6' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 6 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["six"]=str(codigo)
+        self.text_ctrl_6.SetValue(self.remoteIR["six"])
+        self.text_ctrl_6.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_7(self, event):  
-        print("Event handler 'Get_7' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 7 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["seven"]=str(codigo)
+        self.text_ctrl_7.SetValue(self.remoteIR["seven"])
+        self.text_ctrl_7.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_8(self, event):  
-        print("Event handler 'Get_8' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 8 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["eight"]=str(codigo)
+        self.text_ctrl_8.SetValue(self.remoteIR["eight"])
+        self.text_ctrl_8.SetBackgroundColour(wx.Colour(255,255,0))
+        logging.debug("IR code: "+str(codigo))
 
     def Get_9(self, event):  
-        print("Event handler 'Get_9' not implemented!")
-        event.Skip()
+        self.ShowMessage("Acept and press button for number 9 on remote control!")
+        codigo=self.receiverIR.Getcode()
+        self.remoteIR["nine"]=str(codigo)
+        self.text_ctrl_9.SetValue(self.remoteIR["nine"])
+        self.text_ctrl_9.SetBackgroundColour(wx.Colour(255,255,0))
+        
+        logging.debug("IR code: "+str(codigo))
 
     def Save_json(self, event):  
         jsonfile={}
