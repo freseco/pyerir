@@ -53,7 +53,7 @@ Parameters:
 ### Normal mode
 ![Normal mode](/pics/remote_control_1.png)
 
-### List channels mode
+### Channels list mode.
 ![List menu channels](/pics/remote_control_2.png)
 
 ### Getting new IR codes.
