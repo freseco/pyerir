@@ -48,14 +48,17 @@ class MyFrame(wx.Frame):
         # begin wxGlade: MyFrame.__init__
         kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_FRAME_STYLE
         wx.Frame.__init__(self, *args, **kwds)
-        self.SetSize((382, 525))
-        self.SetTitle("IR codes asistance")
+        #self.SetSize((444, 525))
+        width=400
+        hight=500
+        self.SetSizeHints(width,hight,width,hight)
+        self.SetTitle("Wizard to get the IR codes for PYERIR.")
         
         self.panel_1 = wx.Panel(self, wx.ID_ANY)
 
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
 
-        label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, "Asistance to get the IR codes...")
+        label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, "Press the button GET, then press the button on the remote control.")
         sizer_1.Add(label_1, 0, 0, 0)
 
         sizer_2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -64,82 +67,82 @@ class MyFrame(wx.Frame):
         sizer_labels = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_labels, 2, wx.ALL | wx.EXPAND, 3)
 
-        label_4 = wx.StaticText(self.panel_1, wx.ID_ANY, "- BUTTON -", style=wx.ALIGN_CENTER_HORIZONTAL)
+        label_4 = wx.StaticText(self.panel_1, wx.ID_ANY, "- BUTTONS -", style=wx.ALIGN_CENTER_HORIZONTAL | wx.ST_NO_AUTORESIZE)
         label_4.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, 0, ""))
         sizer_labels.Add(label_4, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_7 = wx.StaticText(self.panel_1, wx.ID_ANY, "UP", style=wx.ALIGN_LEFT)
+        label_7 = wx.StaticText(self.panel_1, wx.ID_ANY, "UP", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_7.SetMinSize((140, 23))
         label_7.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_7, 0, wx.SHAPED, 0)
+        sizer_labels.Add(label_7, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
-        label_8 = wx.StaticText(self.panel_1, wx.ID_ANY, "DOWN")
+        label_8 = wx.StaticText(self.panel_1, wx.ID_ANY, "DOWN", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_8.SetMinSize((140, 23))
         label_8.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_8, 0, 0, 0)
+        sizer_labels.Add(label_8, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_9 = wx.StaticText(self.panel_1, wx.ID_ANY, "LEFT")
+        label_9 = wx.StaticText(self.panel_1, wx.ID_ANY, "LEFT", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_9.SetMinSize((140, 23))
         label_9.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_9, 0, wx.SHAPED, 0)
+        sizer_labels.Add(label_9, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
-        label_10 = wx.StaticText(self.panel_1, wx.ID_ANY, "RIGHT")
+        label_10 = wx.StaticText(self.panel_1, wx.ID_ANY, "RIGHT", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_10.SetMinSize((140, 23))
         label_10.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_10, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_11 = wx.StaticText(self.panel_1, wx.ID_ANY, "OK")
+        label_11 = wx.StaticText(self.panel_1, wx.ID_ANY, "OK", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_11.SetMinSize((140, 23))
         label_11.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
-        sizer_labels.Add(label_11, 0, 0, 0)
+        sizer_labels.Add(label_11, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
-        label_12 = wx.StaticText(self.panel_1, wx.ID_ANY, "*")
+        label_12 = wx.StaticText(self.panel_1, wx.ID_ANY, "*", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_12.SetMinSize((140, 23))
-        sizer_labels.Add(label_12, 0, 0, 0)
+        sizer_labels.Add(label_12, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#")
+        label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_13.SetMinSize((140, 23))
-        sizer_labels.Add(label_13, 0, 0, 0)
+        sizer_labels.Add(label_13, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_14 = wx.StaticText(self.panel_1, wx.ID_ANY, "0")
+        label_14 = wx.StaticText(self.panel_1, wx.ID_ANY, "0", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_14.SetMinSize((140, 23))
-        sizer_labels.Add(label_14, 0, 0, 0)
+        sizer_labels.Add(label_14, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
-        label_15 = wx.StaticText(self.panel_1, wx.ID_ANY, "1")
+        label_15 = wx.StaticText(self.panel_1, wx.ID_ANY, "1", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_15.SetMinSize((140, 23))
-        sizer_labels.Add(label_15, 0, 0, 0)
+        sizer_labels.Add(label_15, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_16 = wx.StaticText(self.panel_1, wx.ID_ANY, "2")
+        label_16 = wx.StaticText(self.panel_1, wx.ID_ANY, "2", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_16.SetMinSize((140, 23))
-        sizer_labels.Add(label_16, 0, 0, 0)
+        sizer_labels.Add(label_16, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_17 = wx.StaticText(self.panel_1, wx.ID_ANY, "3")
+        label_17 = wx.StaticText(self.panel_1, wx.ID_ANY, "3", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_17.SetMinSize((140, 23))
-        sizer_labels.Add(label_17, 0, 0, 0)
+        sizer_labels.Add(label_17, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_18 = wx.StaticText(self.panel_1, wx.ID_ANY, "4")
+        label_18 = wx.StaticText(self.panel_1, wx.ID_ANY, "4", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_18.SetMinSize((140, 23))
-        sizer_labels.Add(label_18, 0, 0, 0)
+        sizer_labels.Add(label_18, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_19 = wx.StaticText(self.panel_1, wx.ID_ANY, "5")
+        label_19 = wx.StaticText(self.panel_1, wx.ID_ANY, "5", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_19.SetMinSize((140, 23))
-        sizer_labels.Add(label_19, 0, 0, 0)
+        sizer_labels.Add(label_19, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
-        label_20 = wx.StaticText(self.panel_1, wx.ID_ANY, "6")
+        label_20 = wx.StaticText(self.panel_1, wx.ID_ANY, "6", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_20.SetMinSize((140, 23))
-        sizer_labels.Add(label_20, 0, 0, 0)
+        sizer_labels.Add(label_20, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_21 = wx.StaticText(self.panel_1, wx.ID_ANY, "7")
+        label_21 = wx.StaticText(self.panel_1, wx.ID_ANY, "7", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_21.SetMinSize((140, 23))
-        sizer_labels.Add(label_21, 0, 0, 0)
+        sizer_labels.Add(label_21, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_22 = wx.StaticText(self.panel_1, wx.ID_ANY, "8")
+        label_22 = wx.StaticText(self.panel_1, wx.ID_ANY, "8", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_22.SetMinSize((140, 23))
-        sizer_labels.Add(label_22, 0, 0, 0)
+        sizer_labels.Add(label_22, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
-        label_23 = wx.StaticText(self.panel_1, wx.ID_ANY, "9")
+        label_23 = wx.StaticText(self.panel_1, wx.ID_ANY, "9", style=wx.ALIGN_CENTER_HORIZONTAL)
         label_23.SetMinSize((140, 23))
-        sizer_labels.Add(label_23, 0, 0, 0)
+        sizer_labels.Add(label_23, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         sizer_text_box = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_text_box, 3, wx.ALL | wx.EXPAND, 1)
