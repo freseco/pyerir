@@ -99,6 +99,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Add opcions of mute and poweroff in remote control when it is in list channel mode.
 - [ ] Show menu for list of channels group.
 - [ ] Testing script in raspberry pi 3.
+- [ ] Create an installer with PyInstaller.
 
 
 ## :warning:Error list:
