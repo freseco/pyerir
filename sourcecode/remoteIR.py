@@ -18,6 +18,7 @@ import ast
 import logging
 import json
 import os
+from pathlib import Path
 
 
 class remote:
@@ -53,27 +54,27 @@ class remote:
         self.pinr = 23
         
         #Exist json with new IR codes?
-        #os.path.join(Path( __file__ ).parent.absolute(),"remoteIR.json")
-        if os.path.isfile('./remoteIR.json'):
-            with open('json_data.json') as json_file:
+        remoteIRfile=os.path.join(Path( __file__ ).parent.absolute(),"remoteIR.json")
+        if os.path.isfile(remoteIRfile):
+            with open(remoteIRfile) as json_file:
                 data = json.load(json_file)
                 #string to bytes? check this!
-                remote.ok      =data["ok"   ]
-                remote.left    =data["left" ]
-                remote.right   =data["right"]
-                remote.up      =data["up"   ]
-                remote.down    =data["down" ]
-                remote.one     =data["one"  ]
-                remote.two     =data["two"  ]
-                remote.three   =data["three"]
-                remote.four    =data["four" ]
-                remote.five    =data["five" ]
-                remote.six     =data["six"  ]
-                remote.seven   =data["seven"]
-                remote.eight   =data["eight"]
-                remote.nine    =data["nine" ]
-                remote.zero    =data["zero" ]
-                remote.asterisk=data["asterisk"]
+                remote.ok      =data["ok"   ].replace("b'", "").replace("'","").encode() 
+                remote.left    =data["left" ].replace("b'", "").replace("'","").encode()
+                remote.right   =data["right"].replace("b'", "").replace("'","").encode()
+                remote.up      =data["up"   ].replace("b'", "").replace("'","").encode()
+                remote.down    =data["down" ].replace("b'", "").replace("'","").encode()
+                remote.one     =data["one"  ].replace("b'", "").replace("'","").encode()
+                remote.two     =data["two"  ].replace("b'", "").replace("'","").encode()
+                remote.three   =data["three"].replace("b'", "").replace("'","").encode()
+                remote.four    =data["four" ].replace("b'", "").replace("'","").encode()
+                remote.five    =data["five" ].replace("b'", "").replace("'","").encode()
+                remote.six     =data["six"  ].replace("b'", "").replace("'","").encode()
+                remote.seven   =data["seven"].replace("b'", "").replace("'","").encode()
+                remote.eight   =data["eight"].replace("b'", "").replace("'","").encode()
+                remote.nine    =data["nine" ].replace("b'", "").replace("'","").encode()
+                remote.zero    =data["zero" ].replace("b'", "").replace("'","").encode()
+                remote.asterisk=data["asterisk"].replace("b'", "").replace("'","").encode()
 
         
     

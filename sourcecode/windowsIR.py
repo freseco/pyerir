@@ -332,136 +332,136 @@ class MyFrame(wx.Frame):
     def Get_up(self, event):  
         self.ShowMessage("Acept and press button for up key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["up"]=str(codigo)
-        self.text_ctrl_up.SetValue(self.remoteIR["up"])
+        self.remoteIR["up"]=codigo
+        self.text_ctrl_up.SetValue(str(self.remoteIR["up"]))
         self.text_ctrl_up.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_down(self, event):  
         self.ShowMessage("Acept and press button for down key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["down"]=str(codigo)
-        self.text_ctrl_down.SetValue(self.remoteIR["down"])
+        self.remoteIR["down"]=codigo
+        self.text_ctrl_down.SetValue(str(self.remoteIR["down"]))
         self.text_ctrl_down.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_left(self, event):  
         self.ShowMessage("Acept and press button for left key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["left"]=str(codigo)
-        self.text_ctrl_left.SetValue(self.remoteIR["left"])
+        self.remoteIR["left"]=codigo
+        self.text_ctrl_left.SetValue(str(self.remoteIR["left"]))
         self.text_ctrl_left.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_right(self, event):  
         self.ShowMessage("Acept and press button for right key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["right"]=str(codigo)
-        self.text_ctrl_right.SetValue(self.remoteIR["right"])
+        self.remoteIR["right"]=codigo
+        self.text_ctrl_right.SetValue(str(self.remoteIR["right"]))
         self.text_ctrl_right.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_ok(self, event):  
         self.ShowMessage("Acept and press button for ok on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["ok"]=str(codigo)
-        self.text_ctrl_ok.SetValue(self.remoteIR["ok"])
+        self.remoteIR["ok"]=codigo
+        self.text_ctrl_ok.SetValue(str(self.remoteIR["ok"]))
         self.text_ctrl_ok.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_Asterisk(self, event):  
         self.ShowMessage("Acept and press button for * on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["asterisk"]=str(codigo)
-        self.text_ctrl_asterisk.SetValue(self.remoteIR["asterisk"])
+        self.remoteIR["asterisk"]=codigo
+        self.text_ctrl_asterisk.SetValue(str(self.remoteIR["asterisk"]))
         self.text_ctrl_asterisk.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_hash(self, event):  
         self.ShowMessage("Acept and press button for # on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["hash"]=str(codigo)
-        self.text_ctrl_hash.SetValue(self.remoteIR["hash"])
+        self.remoteIR["hash"]=codigo
+        self.text_ctrl_hash.SetValue(str(self.remoteIR["hash"]))
         self.text_ctrl_hash.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_0(self, event):  
         self.ShowMessage("Acept and press button for number 0 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["zero"]=str(codigo)
-        self.text_ctrl_0.SetValue(self.remoteIR["zero"])
+        self.remoteIR["zero"]=codigo
+        self.text_ctrl_0.SetValue(str(self.remoteIR["zero"]))
         self.text_ctrl_0.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_1(self, event):  
         self.ShowMessage("Acept and press button for number 1 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["one"]=str(codigo)
-        self.text_ctrl_1.SetValue(self.remoteIR["one"])
+        self.remoteIR["one"]=codigo
+        self.text_ctrl_1.SetValue(str(self.remoteIR["one"]))
         self.text_ctrl_1.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_2(self, event):  
         self.ShowMessage("Acept and press button for number 2 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["two"]=str(codigo)
-        self.text_ctrl_2.SetValue(self.remoteIR["two"])
+        self.remoteIR["two"]=codigo
+        self.text_ctrl_2.SetValue(str(self.remoteIR["two"]))
         self.text_ctrl_2.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_3(self, event):  
         self.ShowMessage("Acept and press button for number 3 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["three"]=str(codigo)
-        self.text_ctrl_3.SetValue(self.remoteIR["three"])
+        self.remoteIR["three"]=codigo
+        self.text_ctrl_3.SetValue(str(self.remoteIR["three"]))
         self.text_ctrl_3.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_4(self, event):  
         self.ShowMessage("Acept and press button for number 4 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["four"]=str(codigo)
-        self.text_ctrl_4.SetValue(self.remoteIR["four"])
+        self.remoteIR["four"]=codigo
+        self.text_ctrl_4.SetValue(str(self.remoteIR["four"]))
         self.text_ctrl_4.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_5(self, event):  
         self.ShowMessage("Acept and press button for number 5 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["five"]=str(codigo)
-        self.text_ctrl_5.SetValue(self.remoteIR["five"])
+        self.remoteIR["five"]=codigo
+        self.text_ctrl_5.SetValue(str(self.remoteIR["five"]))
         self.text_ctrl_5.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_6(self, event):  
         self.ShowMessage("Acept and press button for number 6 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["six"]=str(codigo)
-        self.text_ctrl_6.SetValue(self.remoteIR["six"])
+        self.remoteIR["six"]=codigo
+        self.text_ctrl_6.SetValue(str(self.remoteIR["six"]))
         self.text_ctrl_6.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_7(self, event):  
         self.ShowMessage("Acept and press button for number 7 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["seven"]=str(codigo)
-        self.text_ctrl_7.SetValue(self.remoteIR["seven"])
+        self.remoteIR["seven"]=codigo
+        self.text_ctrl_7.SetValue(str(self.remoteIR["seven"]))
         self.text_ctrl_7.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_8(self, event):  
         self.ShowMessage("Acept and press button for number 8 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["eight"]=str(codigo)
-        self.text_ctrl_8.SetValue(self.remoteIR["eight"])
+        self.remoteIR["eight"]=codigo
+        self.text_ctrl_8.SetValue(str(self.remoteIR["eight"]))
         self.text_ctrl_8.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_9(self, event):  
         self.ShowMessage("Acept and press button for number 9 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["nine"]=str(codigo)
-        self.text_ctrl_9.SetValue(self.remoteIR["nine"])
+        self.remoteIR["nine"]=codigo
+        self.text_ctrl_9.SetValue(str(self.remoteIR["nine"]))
         self.text_ctrl_9.SetBackgroundColour(wx.Colour(255,255,0))
         
         logging.debug("IR code: "+str(codigo))
@@ -471,7 +471,7 @@ class MyFrame(wx.Frame):
         for keyIRcode in self.remoteIR:
             #create json
             jsonfile[keyIRcode]=str(self.remoteIR[keyIRcode])
-            print(keyIRcode+" - "+str(self.remoteIR[keyIRcode]))
+            print(keyIRcode+" = "+str(self.remoteIR[keyIRcode]))
         jsonString = json.dumps(jsonfile)
         json_file=os.path.join(Path( __file__ ).parent.absolute(),"remoteIR.json") 
         jsonFile = open(json_file, "w")
