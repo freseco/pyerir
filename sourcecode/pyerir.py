@@ -572,33 +572,34 @@ class MyPanel(wx.Panel):
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
 	def ShowsThiscanal(self,nextcanal):
-    		
-		self.actualcanal=nextcanal
-			
-		infochannel=self.channels[self.actualcanal]
-		logging.debug("Channel name: "+infochannel["name"])
-		logging.debug("Status channel: "+infochannel["status"])
-  
-		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
-  
-		self.ShowMsgClicked('CANAL:',infochannel["name"])
-		logging.debug("Url: "+infochannel["url"])		
-		media = self.vlc_instance.media_new(infochannel["url"])
-		# setting media to the player
-		self.player.set_media(media)		
-  
-		# set the window id where to render VLC's video output
-		handle = self.GetHandle()
-		if sys.platform.startswith('linux'):  # for Linux using the X Server
-			self.player.set_xwindow(handle)
-		elif sys.platform == "win32":  # for Windows
-			self.player.set_hwnd(handle)
-		elif sys.platform == "darwin":  # for MacOS
-			self.player.set_nsobject(handle)
-    
-      
-		# play the video
-		self.player.play()
+    	#it does not open the same channel.
+		if (self.actualcanal!=nextcanal):
+			self.actualcanal=nextcanal
+				
+			infochannel=self.channels[self.actualcanal]
+			logging.debug("Channel name: "+infochannel["name"])
+			logging.debug("Status channel: "+infochannel["status"])
+	
+			self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
+	
+			self.ShowMsgClicked('CANAL:',infochannel["name"])
+			logging.debug("Url: "+infochannel["url"])		
+			media = self.vlc_instance.media_new(infochannel["url"])
+			# setting media to the player
+			self.player.set_media(media)		
+	
+			# set the window id where to render VLC's video output
+			handle = self.GetHandle()
+			if sys.platform.startswith('linux'):  # for Linux using the X Server
+				self.player.set_xwindow(handle)
+			elif sys.platform == "win32":  # for Windows
+				self.player.set_hwnd(handle)
+			elif sys.platform == "darwin":  # for MacOS
+				self.player.set_nsobject(handle)
+		
+		
+			# play the video
+			self.player.play()
 
 
 
