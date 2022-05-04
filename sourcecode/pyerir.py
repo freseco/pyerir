@@ -342,6 +342,7 @@ class MyPanel(wx.Panel):
 		self.winlistcanales=VentanaListChannels(self,self.channels)  
 		self.list_is_show=False
 
+		self.numCategories=len(self.parser._categories)
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
 		self.actualcanal=0
@@ -350,9 +351,10 @@ class MyPanel(wx.Panel):
   
 		self.engine = pyttsx3.init()		
 		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
-		self.engine.setProperty('voice', 'spanish')
+		self.engine.setProperty('voice', 'english')
 		self.engine.setProperty('rate', 120)     # setting up new voice rateate
-		self.speech("Hay, "+str(self.numcanales)+" canales.")
+		self.speech("There are, "+str(self.numcanales)+" channels.")
+		self.speech("in , "+str(self.numCategories)+" categories.")
   
 	# Set up event handler for any worker thread results
 		mythreadIR.evt_result(self,self.OnResultIRcode)
@@ -487,7 +489,7 @@ class MyPanel(wx.Panel):
 				logging.debug("Pulsado 9")
 			elif codigo.data==mythreadIR.remote.hash:
 				logging.debug("Pulsado #")
-				self.speech("¡Hasta luego!")
+				self.speech("Good bye!")
 				self.exit()
 			elif codigo.data==mythreadIR.remote.up:
 				self.siguientecanal()

@@ -49,6 +49,7 @@ class M3uParser:
 
     def __init__(self, useragent: str = None, timeout: int = 5):
         self._streams_info = []
+        self._categories=set()
         self._streams_info_backup = []
         self._lines = []
         self._timeout = timeout
@@ -226,6 +227,7 @@ class M3uParser:
             if self._check_live:
                 info["status"] = status
             self._streams_info.append(info)
+            self._categories.add(info["category"])
 
     def filter_by(
         self,
