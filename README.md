@@ -35,16 +35,18 @@ Or
 
 ## Second step: Since it's a python proyect, we need to install the dependencies. The file that indicates the dependencies is in the directory named sourcecode. Using the following command, we will install them.
 
-    $ pip3 install requirements.txt 
+- $ pip3 install -r requirements.txt 
+    
+    or with specific python version:
+    
+- $ python3.9 -m pip install -r requirements.txt
     
 
 ## Setting the Infrared Remote Control Module IR Receiver(HX1838) in Raspberry pi.
 
 ![The IR receiver](/pics/IRreceiver_remoteControl.jpg)
 
-## Start the pigpio daemon
-
-[Install the pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
+## Start the pigpio daemon: Pigpio is a Python module for the Raspberry which talks to the pigpio daemon to allow control of the general purpose input outputs (GPIO). It must be started as follows:
 
 $ sudo pigpiod
 
