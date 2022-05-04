@@ -1,30 +1,44 @@
 # PYERIR
 ## About
-Simple fullscreen player for m3u files(IPTV:tv:). It works in Raspberry pi 4 with Python3.9. It can get the IR code from (any?) IR remote control.
+Simple fullscreen player for m3u files(IPTV:tv:). It works in Raspberry pi 4 with **Python3.9** from Linux command line. It can get the IR code from (any?) IR remote control.
 
 ![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)         **+**        ![Python](https://www.python.org/static/img/python-logo.png)       **+**   ![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](/pics/IR_receiver.png)
 
 
-This project is a small example of wxpython for the GUI, threading for getting the IR codes, using wraper vlc library, gpio pins and the m3u_parser library for parsing the m3u files and pyttsx3, a text-to-speech conversion library in Python.
+This project is a small example of how to use wxpython for the GUI, threading(Thread-based parallelism) for getting the IR codes, using a wraper for vlc media player library, gpio pins and the m3u_parser library for parsing the m3u files and pyttsx3, a text-to-speech conversion library in Python.
 
 It has two types of notifications: wx.adv(OS notification) and popup windows.
 
 Enjoy it and I would like to know if you have used it, thanks.
 
 
-*Not testing with other python versions.
+*Not tested with other python versions.
 
 ## Features
-- Play channels in fullscreen, doing streaming from url in a m3u file.
+- Play channels in fullscreen, streaming from url in a m3u file.
 - Changes volumen.
 - Shows list of the channels.
-- Speech some information.
+- Text-to-speech output for some help information.
 - Works in raspberry 4.
 
-## First step: Installation of dependencies
-    $ pip install requirements.txt 
+## The first step is to get the code of the repository, downloading or cloning it.
 
-## Setting IR received(HX1838) in Raspberry pi.
+- [**Repository**](https://github.com/freseco/pyerir/archive/refs/heads/main.zip). Once the file is downloaded, unzip it.
+
+Or
+
+- **Clone using the git command:**
+
+    $ **git** clone git@github.com:freseco/pyerir.git
+
+
+
+## Second step: Since it's a python proyect, we need to install the dependencies. The file that indicates the dependencies is in the directory named sourcecode. Using the following command, we will install them.
+
+    $ pip3 install requirements.txt 
+    
+
+## Setting the Infrared Remote Control Module IR Receiver(HX1838) in Raspberry pi.
 
 ![The IR receiver](/pics/IRreceiver_remoteControl.jpg)
 
@@ -46,7 +60,12 @@ Parameters:
 - [--debug] shows debug information in console.
 - [--ircodes] Shows windows to ger new IR codes. They'll be saved in 'remoteIR.json' file.
 
-*by default, it will try to open tdt.m3u
+*by default, it will try to open one of the these three options in **config.py** file:
+- m3u file name. I has to be in the same path of the pyerir.py script.
+- m3u url.
+- Xtream code(not implemented yet).
+
+In this file, you can setting those options.
 
 ## Remote control
 
