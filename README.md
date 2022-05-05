@@ -117,17 +117,15 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Read configuration file(**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - [ ] Get channels information from Xtream-Codes IPTV servers.
 - [ ] Shows channel's logo if it exists.
-- [ ] Option to add IR codes from a new remote cotrol with a parameter in the script..(remoteIR.py->remoteIR.json)
 - [ ] Splass screen.
-- [ ] Source code refactoring
-- [ ] Facilitate the installation of the script. Create an installer?
+- [ ] Source code refactoring.
 - [ ] Improve of readme file.
 - [ ] Transparencies in windows menu.
 - [ ] Create logo of the app.
 - [ ] Add opcions of mute and poweroff in remote control when it is in list channel mode.
 - [ ] Show menu for list of channels group.
-- [ ] Testing script in raspberry pi 3.
-- [ ] Create an installer with PyInstaller.
+- [ ] Testing script in raspberry pi 3(poor performance).
+- [ ] Facilitate the installation of the script. Create an installer with PyInstaller(required install lastest python3.9-dev).
 
 
 ## :warning:Error list:
