@@ -399,11 +399,21 @@ class MyPanel(wx.Panel):
 			media = self.vlc_instance.media_new(infochannel["url"])
 			# setting media to the player
 			self.player.set_media(media)		
+			self.player.toggle_fullscreen()
 			
+			self.TextOverVlc(infochannel["name"])
+   
 			# play the video
 			self.player.play()
 
-
+	def TextOverVlc(self,text):
+			#Text over vlc
+			self.player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable,1)
+			self.player.video_set_marquee_int(vlc.VideoMarqueeOption.Size, 48)
+			self.player.video_set_marquee_int(vlc.VideoMarqueeOption.Position,my_helper.Position.Bottom)
+			self.player.video_set_marquee_int(vlc.VideoMarqueeOption.Timeout, 3000)
+			#self.player.video_set_marquee_int(vlc.VideoMarqueeOption.Refresh, 1000)   
+			self.player.video_set_marquee_string(vlc.VideoMarqueeOption.Text,text)
 
 	def siguientecanal(self):
 		nextcanal= self.actualcanal+1
@@ -423,17 +433,9 @@ class MyPanel(wx.Panel):
 		logging.debug("Url: "+infochannel["url"])		
 		media = self.vlc_instance.media_new(infochannel["url"])
 		# setting media to the player
-		self.player.set_media(media)		
-  
-		# set the window id where to render VLC's video output
-		handle = self.GetHandle()
-		if sys.platform.startswith('linux'):  # for Linux using the X Server
-			self.player.set_xwindow(handle)
-		elif sys.platform == "win32":  # for Windows
-			self.player.set_hwnd(handle)
-		elif sys.platform == "darwin":  # for MacOS
-			self.player.set_nsobject(handle)
-    
+		self.player.set_media(media)    
+      
+		self.TextOverVlc(infochannel["name"])
       
 		# play the video
 		self.player.play()
@@ -456,15 +458,8 @@ class MyPanel(wx.Panel):
 		# setting media to the player
 		self.player.set_media(media)
 		
-  # set the window id where to render VLC's video output
-		handle = self.GetHandle()
-		if sys.platform.startswith('linux'):  # for Linux using the X Server
-			self.player.set_xwindow(handle)
-		elif sys.platform == "win32":  # for Windows
-			self.player.set_hwnd(handle)
-		elif sys.platform == "darwin":  # for MacOS
-			self.player.set_nsobject(handle)
-   
+		self.TextOverVlc(infochannel["name"])
+  
   		# play the video
 		self.player.play()
    

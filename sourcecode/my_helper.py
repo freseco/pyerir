@@ -228,3 +228,24 @@ def previous_numberteen(number,max):
         return (max-1)+(number)
     else:
         return number
+
+
+class Position(object):
+    """Enum-like, position constants for VideoMarqueePosition option.
+    """
+    Center=0
+    Left=1
+    CenterLeft=1
+    Right=2
+    CenterRight=2
+    Top=4
+    TopCenter=4
+    TopLeft=5
+    TopRight=6
+    Bottom=8
+    BottomCenter=8
+    BottomLeft=9
+    BottomRight=10
+
+    def __init__(self):
+        raise TypeError('Constants only')
