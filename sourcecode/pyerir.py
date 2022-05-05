@@ -132,6 +132,8 @@ class MyPanel(wx.Panel):
 		self.speech("There are, "+str(self.numcanales)+" channels.")
 		self.speech("in , "+str(self.numCategories)+" categories.")
   
+		
+  
 	# Set up event handler for any worker thread results
 		mythreadIR.evt_result(self,self.OnResultIRcode)
 	# Initial receving IR codes
@@ -150,6 +152,38 @@ class MyPanel(wx.Panel):
 		self.timerlistchannels = wx.Timer(self)
 		self.Bind(wx.EVT_TIMER, self.updateList, self.timerlistchannels)
 		self.segundosList=5
+  
+  #Timer for get window id and play fist channel
+		self.timerWindowsID = wx.Timer(self)
+		self.Bind(wx.EVT_TIMER, self.GettingWinID, self.timerWindowsID)
+		self.timewindid=15
+		self.handle=0
+  
+		self.timerWindowsID.Start(500)
+  
+  
+  
+	def GettingWinID(self,event):
+		logging.debug("seconds %s to close getting id windows",self.timewindid)
+		
+		if self.timewindid==0 or self.handle!=0:
+			self.timerWindowsID.Stop()      
+		else:
+			self.handle = self.GetHandle()
+			
+      
+		if self.handle!=0:		# set the window id where to render VLC's video output
+		
+			if sys.platform.startswith('linux'):  # for Linux using the X Server
+				self.player.set_xwindow(self.handle)
+			elif sys.platform == "win32":  # for Windows
+				self.player.set_hwnd(handle)
+			elif sys.platform == "darwin":  # for MacOS
+				self.player.set_nsobject(handle)
+			self.ShowsThiscanal(self.actualcanal+1)
+   
+		self.timewindid-=1
+
   
 	def speech(self,text):
 		self.engine.say(text)
@@ -365,17 +399,7 @@ class MyPanel(wx.Panel):
 			media = self.vlc_instance.media_new(infochannel["url"])
 			# setting media to the player
 			self.player.set_media(media)		
-	
-			# set the window id where to render VLC's video output
-			handle = self.GetHandle()
-			if sys.platform.startswith('linux'):  # for Linux using the X Server
-				self.player.set_xwindow(handle)
-			elif sys.platform == "win32":  # for Windows
-				self.player.set_hwnd(handle)
-			elif sys.platform == "darwin":  # for MacOS
-				self.player.set_nsobject(handle)
-		
-		
+			
 			# play the video
 			self.player.play()
 
@@ -488,13 +512,13 @@ class MyFrame(wx.Frame):
 
 if __name__ == "__main__":
 	#default file m3u
-	_video = ""#os.path.join(Path( __file__ ).parent.absolute(),"tdt.m3u") 
+	_video = ""
 	
  
 	debugging=False
 	winIRcodes=False
 	
-	#print("Logging level: "+str(logging.getLevelName(logging.level))	)
+	print("Pyerir is loading....")
  
 	while len(sys.argv) > 1:
 		arg = sys.argv.pop(1)
