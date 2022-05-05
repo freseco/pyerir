@@ -513,7 +513,7 @@ if __name__ == "__main__":
 	debugging=False
 	winIRcodes=False
 	
-	print("Pyerir is loading....")
+	
  
 	while len(sys.argv) > 1:
 		arg = sys.argv.pop(1)
@@ -521,15 +521,19 @@ if __name__ == "__main__":
 			# show all versions:
 			# % python3 ./pyerir.py -v
 			# wxpython_test.py: 1.00.0 (wx 4.1.1 gtk3 (phoenix) wxWidgets 3.1.5 _core.cpython-39-arm-linux-gnueabihf.so)
-
+			print("Version of....")
 
 		# Print version of this vlc.py and of the libvlc
 			c = basename(str(wx._core).split()[-1].rstrip('>').strip("'").strip('"'))
-			logging.warning('%s: %s (%s %s %s)' % (basename(__file__), __version__,wx.__name__, wx.version(), c))
+			print("Python:      "+c)
+			print('Script name: %s %s' % (basename(__file__), __version__))
+			print('wxpython:    %s: %s '%(wx.__name__, wx.version()))
 
 			try:
-				vlc.print_version()
-				vlc.print_python()
+				print("libvlc version:      "+str(vlc.libvlc_get_version()))
+				print("libvlc_get_compiler: "+str(vlc.libvlc_get_compiler()))
+				print("libvlc_hex_version:  "+str(vlc.libvlc_hex_version()))
+    
 			except AttributeError:
 				pass		
 			sys.exit(0)
@@ -568,6 +572,7 @@ if __name__ == "__main__":
 		logging.basicConfig(stream=sys.stdout,level=logging.INFO, format="%(levelname)s: %(message)s")
   
 	if not winIRcodes:
+		print("Pyerir is loading....")
 		# Create a wx.App(), which handles the windowing system event loop
 		app = wx.App(False)
 
