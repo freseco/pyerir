@@ -22,26 +22,7 @@ import logging
 
 
 class MyFrame(wx.Frame):
-#dictionary of remote IR codes
-    remoteIR={
-        "ok":   b'\x00\xff\x1c\xe3',
-        "left": b'\x00\xff\x08\xf7',
-        "right": b'\x00\xffZ\xa5',
-        "up":   b'\x00\xff\x18\xe7',
-        "down": b'\x00\xffR\xad',
-        "one":  b'\x00\xffE\xba',
-        "two":  b'\x00\xffF\xb9',
-        "three": b'\x00\xffG\xb8',
-        "four": b'\x00\xffD\xbb',
-        "five": b'\x00\xff@\xbf',
-        "six":  b'\x00\xffC\xbc',
-        "seven": b'\x00\xff\x07\xf8',
-        "eight": b'\x00\xff\x15\xea',
-        "nine": b'\x00\xff\t\xf6',
-        "zero": b'\x00\xff\x19\xe6',
-        "asterisk": b'\x00\xff\x16\xe9',
-        "hash": b'\x00\xff\r\xf2'
-    }
+
 
 
     def __init__(self, *args, **kwds):
@@ -158,87 +139,87 @@ class MyFrame(wx.Frame):
         self.text_ctrl_up = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_up.SetMinSize((145, 38))
         sizer_text_box.Add(self.text_ctrl_up, 0, wx.EXPAND, 0)
-        self.text_ctrl_up.SetValue(str(self.remoteIR["up"]))
+        self.text_ctrl_up.SetValue(remote.IRcodes["up"])
 
         self.text_ctrl_down = wx.TextCtrl(self.panel_1, wx.ID_ANY, "")
         self.text_ctrl_down.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_down, 0, wx.EXPAND, 0)
-        self.text_ctrl_down.SetValue(str(self.remoteIR["down"]))
+        self.text_ctrl_down.SetValue(remote.IRcodes["down"])
 
         self.text_ctrl_left = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_left.SetMinSize((140, 30))
         sizer_text_box.Add(self.text_ctrl_left, 0, wx.EXPAND, 0)
-        self.text_ctrl_left.SetValue(str(self.remoteIR["left"]))
+        self.text_ctrl_left.SetValue(remote.IRcodes["left"])
 
         self.text_ctrl_right = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_right.SetMinSize((140, 31))
         sizer_text_box.Add(self.text_ctrl_right, 0, wx.EXPAND, 0)
-        self.text_ctrl_right.SetValue(str(self.remoteIR["right"]))
+        self.text_ctrl_right.SetValue(remote.IRcodes["right"])
 
         self.text_ctrl_ok = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_ok.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_ok, 0, wx.EXPAND, 0)
-        self.text_ctrl_ok.SetValue(str(self.remoteIR["ok"]))
+        self.text_ctrl_ok.SetValue(remote.IRcodes["ok"])
 
         self.text_ctrl_asterisk = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_asterisk.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_asterisk, 0, wx.EXPAND, 0)
-        self.text_ctrl_asterisk.SetValue(str(self.remoteIR["asterisk"]))
+        self.text_ctrl_asterisk.SetValue(remote.IRcodes["asterisk"])
 
         self.text_ctrl_hash = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_hash.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_hash, 0, wx.EXPAND, 0)
-        self.text_ctrl_hash.SetValue(str(self.remoteIR["hash"]))
+        self.text_ctrl_hash.SetValue(remote.IRcodes["hash"])
 
         self.text_ctrl_0 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_0.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_0, 0, wx.EXPAND, 0)
-        self.text_ctrl_0.SetValue(str(self.remoteIR["zero"]))
+        self.text_ctrl_0.SetValue(remote.IRcodes["zero"])
 
         self.text_ctrl_1 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_1.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_1, 0, wx.EXPAND, 0)
-        self.text_ctrl_1.SetValue(str(self.remoteIR["one"]))
+        self.text_ctrl_1.SetValue(remote.IRcodes["one"])
 
         self.text_ctrl_2 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_2.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_2, 0, wx.EXPAND, 0)
-        self.text_ctrl_2.SetValue(str(self.remoteIR["two"]))
+        self.text_ctrl_2.SetValue(remote.IRcodes["two"])
 
         self.text_ctrl_3 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_3.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_3, 0, wx.EXPAND, 0) 
-        self.text_ctrl_3.SetValue(str(self.remoteIR["three"]))
+        self.text_ctrl_3.SetValue(remote.IRcodes["three"])
 
         self.text_ctrl_4 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_4.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_4, 0, wx.EXPAND, 0)
-        self.text_ctrl_4.SetValue(str(self.remoteIR["four"]))
+        self.text_ctrl_4.SetValue(remote.IRcodes["four"])
 
         self.text_ctrl_5 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_5.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_5, 0, wx.EXPAND, 0)
-        self.text_ctrl_5.SetValue(str(self.remoteIR["five"]))
+        self.text_ctrl_5.SetValue(remote.IRcodes["five"])
 
         self.text_ctrl_6 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_6.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_6, 0, wx.EXPAND, 0)
-        self.text_ctrl_6.SetValue(str(self.remoteIR["six"]))
+        self.text_ctrl_6.SetValue(remote.IRcodes["six"])
 
         self.text_ctrl_7 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_7.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_7, 0, wx.EXPAND, 0)
-        self.text_ctrl_7.SetValue(str(self.remoteIR["seven"]))
+        self.text_ctrl_7.SetValue(remote.IRcodes["seven"])
 
         self.text_ctrl_8 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_8.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_8, 0, wx.EXPAND, 0)
-        self.text_ctrl_8.SetValue(str(self.remoteIR["eight"]))
+        self.text_ctrl_8.SetValue(remote.IRcodes["eight"])
 
         self.text_ctrl_9 = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
         self.text_ctrl_9.SetMinSize((140, 32))
         sizer_text_box.Add(self.text_ctrl_9, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
-        self.text_ctrl_9.SetValue(str(self.remoteIR["nine"]))
+        self.text_ctrl_9.SetValue(remote.IRcodes["nine"])
 
         sizer_buttons = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_buttons, 0, wx.ALL | wx.EXPAND, 1)
@@ -332,146 +313,146 @@ class MyFrame(wx.Frame):
     def Get_up(self, event):  
         self.ShowMessage("Acept and press button for up key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["up"]=codigo
-        self.text_ctrl_up.SetValue(str(self.remoteIR["up"]))
+        remote.IRcodes["up"]=codigo
+        self.text_ctrl_up.SetValue(remote.IRcodes["up"])
         self.text_ctrl_up.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_down(self, event):  
         self.ShowMessage("Acept and press button for down key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["down"]=codigo
-        self.text_ctrl_down.SetValue(str(self.remoteIR["down"]))
+        remote.IRcodes["down"]=codigo
+        self.text_ctrl_down.SetValue(remote.IRcodes["down"])
         self.text_ctrl_down.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_left(self, event):  
         self.ShowMessage("Acept and press button for left key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["left"]=codigo
-        self.text_ctrl_left.SetValue(str(self.remoteIR["left"]))
+        remote.IRcodes["left"]=codigo
+        self.text_ctrl_left.SetValue(remote.IRcodes["left"])
         self.text_ctrl_left.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_right(self, event):  
         self.ShowMessage("Acept and press button for right key on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["right"]=codigo
-        self.text_ctrl_right.SetValue(str(self.remoteIR["right"]))
+        remote.IRcodes["right"]=codigo
+        self.text_ctrl_right.SetValue(remote.IRcodes["right"])
         self.text_ctrl_right.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_ok(self, event):  
         self.ShowMessage("Acept and press button for ok on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["ok"]=codigo
-        self.text_ctrl_ok.SetValue(str(self.remoteIR["ok"]))
+        remote.IRcodes["ok"]=codigo
+        self.text_ctrl_ok.SetValue(remote.IRcodes["ok"])
         self.text_ctrl_ok.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_Asterisk(self, event):  
         self.ShowMessage("Acept and press button for * on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["asterisk"]=codigo
-        self.text_ctrl_asterisk.SetValue(str(self.remoteIR["asterisk"]))
+        remote.IRcodes["asterisk"]=codigo
+        self.text_ctrl_asterisk.SetValue(remote.IRcodes["asterisk"])
         self.text_ctrl_asterisk.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_hash(self, event):  
         self.ShowMessage("Acept and press button for # on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["hash"]=codigo
-        self.text_ctrl_hash.SetValue(str(self.remoteIR["hash"]))
+        remote.IRcodes["hash"]=codigo
+        self.text_ctrl_hash.SetValue(remote.IRcodes["hash"])
         self.text_ctrl_hash.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_0(self, event):  
         self.ShowMessage("Acept and press button for number 0 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["zero"]=codigo
-        self.text_ctrl_0.SetValue(str(self.remoteIR["zero"]))
+        remote.IRcodes["zero"]=codigo
+        self.text_ctrl_0.SetValue(remote.IRcodes["zero"])
         self.text_ctrl_0.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_1(self, event):  
         self.ShowMessage("Acept and press button for number 1 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["one"]=codigo
-        self.text_ctrl_1.SetValue(str(self.remoteIR["one"]))
+        remote.IRcodes["one"]=codigo
+        self.text_ctrl_1.SetValue(remote.IRcodes["one"])
         self.text_ctrl_1.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_2(self, event):  
         self.ShowMessage("Acept and press button for number 2 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["two"]=codigo
-        self.text_ctrl_2.SetValue(str(self.remoteIR["two"]))
+        remote.IRcodes["two"]=codigo
+        self.text_ctrl_2.SetValue(remote.IRcodes["two"])
         self.text_ctrl_2.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_3(self, event):  
         self.ShowMessage("Acept and press button for number 3 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["three"]=codigo
-        self.text_ctrl_3.SetValue(str(self.remoteIR["three"]))
+        remote.IRcodes["three"]=codigo
+        self.text_ctrl_3.SetValue(remote.IRcodes["three"])
         self.text_ctrl_3.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_4(self, event):  
         self.ShowMessage("Acept and press button for number 4 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["four"]=codigo
-        self.text_ctrl_4.SetValue(str(self.remoteIR["four"]))
+        remote.IRcodes["four"]=codigo
+        self.text_ctrl_4.SetValue(remote.IRcodes["four"])
         self.text_ctrl_4.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_5(self, event):  
         self.ShowMessage("Acept and press button for number 5 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["five"]=codigo
-        self.text_ctrl_5.SetValue(str(self.remoteIR["five"]))
+        remote.IRcodes["five"]=codigo
+        self.text_ctrl_5.SetValue(remote.IRcodes["five"])
         self.text_ctrl_5.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_6(self, event):  
         self.ShowMessage("Acept and press button for number 6 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["six"]=codigo
-        self.text_ctrl_6.SetValue(str(self.remoteIR["six"]))
+        remote.IRcodes["six"]=codigo
+        self.text_ctrl_6.SetValue(remote.IRcodes["six"])
         self.text_ctrl_6.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_7(self, event):  
         self.ShowMessage("Acept and press button for number 7 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["seven"]=codigo
-        self.text_ctrl_7.SetValue(str(self.remoteIR["seven"]))
+        remote.IRcodes["seven"]=codigo
+        self.text_ctrl_7.SetValue(remote.IRcodes["seven"])
         self.text_ctrl_7.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_8(self, event):  
         self.ShowMessage("Acept and press button for number 8 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["eight"]=codigo
-        self.text_ctrl_8.SetValue(str(self.remoteIR["eight"]))
+        remote.IRcodes["eight"]=codigo
+        self.text_ctrl_8.SetValue(remote.IRcodes["eight"])
         self.text_ctrl_8.SetBackgroundColour(wx.Colour(255,255,0))
         logging.debug("IR code: "+str(codigo))
 
     def Get_9(self, event):  
         self.ShowMessage("Acept and press button for number 9 on remote control!")
         codigo=self.receiverIR.Getcode()
-        self.remoteIR["nine"]=codigo
-        self.text_ctrl_9.SetValue(str(self.remoteIR["nine"]))
+        remote.IRcodes["nine"]=codigo
+        self.text_ctrl_9.SetValue(remote.IRcodes["nine"])
         self.text_ctrl_9.SetBackgroundColour(wx.Colour(255,255,0))
         
         logging.debug("IR code: "+str(codigo))
 
     def Save_json(self, event):  
         jsonfile={}
-        for keyIRcode in self.remoteIR:
+        for keyIRcode in remote.IRcodes:
             #create json
-            jsonfile[keyIRcode]=str(self.remoteIR[keyIRcode])
-            print(keyIRcode+" = "+str(self.remoteIR[keyIRcode]))
+            jsonfile[keyIRcode]=str(remote.IRcodes[keyIRcode])
+            print(keyIRcode+" = "+str(remote.IRcodes[keyIRcode]))
         jsonString = json.dumps(jsonfile)
         json_file=os.path.join(Path( __file__ ).parent.absolute(),"remoteIR.json") 
         jsonFile = open(json_file, "w")

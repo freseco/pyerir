@@ -25,25 +25,25 @@ class remote:
     # GPIO of IR receiver
     pinr = 23
 
-    #IR remote control buttons
-    ok   = b'\x00\xff\x1c\xe3'
-    left =b'\x00\xff\x08\xf7'
-    right=b'\x00\xffZ\xa5'
-    up   =b'\x00\xff\x18\xe7'
-    down =b'\x00\xffR\xad'
-    one  =b'\x00\xffE\xba'
-    two  =b'\x00\xffF\xb9'
-    three=b'\x00\xffG\xb8'
-    four =b'\x00\xffD\xbb'
-    five =b'\x00\xff@\xbf'
-    six  =b'\x00\xffC\xbc'
-    seven=b'\x00\xff\x07\xf8'
-    eight=b'\x00\xff\x15\xea'
-    nine =b'\x00\xff\t\xf6'
-    zero =b'\x00\xff\x19\xe6'
-    asterisk=b'\x00\xff\x16\xe9'
-    #
-    hash =b'\x00\xff\r\xf2'
+    #IR codes for default remote control buttons
+    IRcodes={
+    "ok"   : '00ff1ce3',
+    "left" :'00ff08f7',
+    "right":'00ffZa5',
+    "up"   :'00ff18e7',
+    "down" :'00ffRad',
+    "one"  :'00ffEba',
+    "two"  :'00ffFb9',
+    "three":'00ffGb8',
+    "four" :'00ffDbb',
+    "five" :'00ff@bf',
+    "six"  :'00ffCbc',
+    "seven":'00ff07f8',
+    "eight":'00ff15ea',
+    "nine" :'00fftf6',
+    "zero" :'00ff19e6',
+    "asterisk":'00ff16e9',
+    "hash" :'00ffrf2'}
     
     Salir=False
     
@@ -59,22 +59,23 @@ class remote:
             with open(remoteIRfile) as json_file:
                 data = json.load(json_file)
                 #string to bytes? check this!
-                remote.ok      =data["ok"   ].replace("b'", "").replace("'","").encode() 
-                remote.left    =data["left" ].replace("b'", "").replace("'","").encode()
-                remote.right   =data["right"].replace("b'", "").replace("'","").encode()
-                remote.up      =data["up"   ].replace("b'", "").replace("'","").encode()
-                remote.down    =data["down" ].replace("b'", "").replace("'","").encode()
-                remote.one     =data["one"  ].replace("b'", "").replace("'","").encode()
-                remote.two     =data["two"  ].replace("b'", "").replace("'","").encode()
-                remote.three   =data["three"].replace("b'", "").replace("'","").encode()
-                remote.four    =data["four" ].replace("b'", "").replace("'","").encode()
-                remote.five    =data["five" ].replace("b'", "").replace("'","").encode()
-                remote.six     =data["six"  ].replace("b'", "").replace("'","").encode()
-                remote.seven   =data["seven"].replace("b'", "").replace("'","").encode()
-                remote.eight   =data["eight"].replace("b'", "").replace("'","").encode()
-                remote.nine    =data["nine" ].replace("b'", "").replace("'","").encode()
-                remote.zero    =data["zero" ].replace("b'", "").replace("'","").encode()
-                remote.asterisk=data["asterisk"].replace("b'", "").replace("'","").encode()
+                self.IRcodes["ok"]      =data["ok"   ] 
+                self.IRcodes["left"]    =data["left" ]
+                self.IRcodes["right"]   =data["right"]
+                self.IRcodes["up"]      =data["up"   ]
+                self.IRcodes["down"]    =data["down" ]
+                self.IRcodes["one"]     =data["one"  ]
+                self.IRcodes["two"]     =data["two"  ]
+                self.IRcodes["three"]   =data["three"]
+                self.IRcodes["four"]    =data["four" ]
+                self.IRcodes["five"]    =data["five" ]
+                self.IRcodes["six"]     =data["six"  ]
+                self.IRcodes["seven"]   =data["seven"]
+                self.IRcodes["eight"]   =data["eight"]
+                self.IRcodes["nine"]    =data["nine" ]
+                self.IRcodes["zero"]    =data["zero" ]
+                self.IRcodes["asterisk"]=data["asterisk"]
+                self.IRcodes["hash"]     =data["hash"]
 
         
     
@@ -89,6 +90,7 @@ class remote:
             data = str(decode(receive(self.pinr)))
             if data !='None':  
                 self.Salir=True
-                lista=ast.literal_eval(data)      
-                codigo=lista[0]['data']
+                lista=ast.literal_eval(data)
+                #returns string with ir code.      
+                codigo=str(lista[0]['data']).replace("b'","").replace("\\","").replace("x","").replace("'","")
                 return codigo

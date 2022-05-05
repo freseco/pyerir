@@ -403,25 +403,25 @@ class MyPanel(wx.Panel):
             
 	def OnResultIRcode(self,codigo):
 		if self.list_is_show==True:
-			if codigo.data==mythreadIR.remote.ok:
+			if codigo.data==mythreadIR.remote.IRcodes["ok"]:
 				self.ShowsThiscanal(self.winlistcanales.actualchannel)
 				self.winlistcanales.Hideme()
 				self.list_is_show=False
 				logging.debug("Pulsado OK")
-			elif codigo.data==mythreadIR.remote.up:	
+			elif codigo.data==mythreadIR.remote.IRcodes["up"]:	
 				self.segundosList=5			
 				self.winlistcanales.AfterChannel()
 				logging.debug("Pulsado up")
-			elif codigo.data==mythreadIR.remote.down:
+			elif codigo.data==mythreadIR.remote.IRcodes["down"]:
 				self.segundosList=5				
 				self.winlistcanales.NextChannel()
 				logging.debug("Pulsado down")
-			elif codigo.data==mythreadIR.remote.left:
+			elif codigo.data==mythreadIR.remote.IRcodes["left"]:
 				self.segundosList=5
 				self.winlistcanales.actualchannel=my_helper.previous_numberteen(self.winlistcanales.actualchannel,len(self.channels))
 				self.winlistcanales.MostrarListCanales()
 				logging.debug("Pulsado left")
-			elif codigo.data==mythreadIR.remote.right:
+			elif codigo.data==mythreadIR.remote.IRcodes["right"]:
 				self.segundosList=5
 				self.winlistcanales.actualchannel=my_helper.next_numberteen(self.winlistcanales.actualchannel,len(self.channels))
 				self.winlistcanales.MostrarListCanales()
@@ -431,79 +431,79 @@ class MyPanel(wx.Panel):
 
 		# list channels list is not shown
 		else:		
-			if codigo.data==mythreadIR.remote.ok:
+			if codigo.data==mythreadIR.remote.IRcodes["ok"]:
 				self.list_is_show=True
 				self.segundosList=5
 				self.timerlistchannels.Start(1000)
 				self.winlistcanales.Mostrar(self.actualcanal,self.channels)
 				logging.debug("Pulsado OK")
-			elif codigo.data==mythreadIR.remote.zero:
+			elif codigo.data==mythreadIR.remote.IRcodes["zero"]:
 				#self.ShowsThiscanal(0)	
 				self.canaltecleado+="0"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 0")           
-			elif codigo.data==mythreadIR.remote.one:
+			elif codigo.data==mythreadIR.remote.IRcodes["one"]:
 				#self.ShowsThiscanal(1)
 				self.canaltecleado+="1"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 1")
-			elif codigo.data==mythreadIR.remote.two:
+			elif codigo.data==mythreadIR.remote.IRcodes["two"]:
 				#self.ShowsThiscanal(2)
 				self.canaltecleado+="2"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 2")
-			elif codigo.data==mythreadIR.remote.three:
+			elif codigo.data==mythreadIR.remote.IRcodes["three"]:
 				#self.ShowsThiscanal(3)
 				self.canaltecleado+="3"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 3")
-			elif codigo.data==mythreadIR.remote.four:
+			elif codigo.data==mythreadIR.remote.IRcodes["four"]:
 				#self.ShowsThiscanal(4)
 				self.canaltecleado+="4"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 4")
-			elif codigo.data==mythreadIR.remote.five:
+			elif codigo.data==mythreadIR.remote.IRcodes["five"]:
 				#self.ShowsThiscanal(5)
 				self.canaltecleado+="5"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 5")
-			elif codigo.data==mythreadIR.remote.six:
+			elif codigo.data==mythreadIR.remote.IRcodes["six"]:
 				#self.ShowsThiscanal(6)
 				self.canaltecleado+="6"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 6")
-			elif codigo.data==mythreadIR.remote.seven:
+			elif codigo.data==mythreadIR.remote.IRcodes["seven"]:
 				#self.ShowsThiscanal(7)
 				self.canaltecleado+="7"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 7")
-			elif codigo.data==mythreadIR.remote.eight:
+			elif codigo.data==mythreadIR.remote.IRcodes["eight"]:
 				#self.ShowsThiscanal(8)
 				self.canaltecleado+="8"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 8")
-			elif codigo.data==mythreadIR.remote.nine:
+			elif codigo.data==mythreadIR.remote.IRcodes["nine"]:
 				#self.ShowsThiscanal(9)
 				self.canaltecleado+="9"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 9")
-			elif codigo.data==mythreadIR.remote.hash:
+			elif codigo.data==mythreadIR.remote.IRcodes["hash"]:
 				logging.debug("Pulsado #")
 				self.speech("Good bye!")
 				self.exit()
-			elif codigo.data==mythreadIR.remote.up:
+			elif codigo.data==mythreadIR.remote.IRcodes["up"]:
 				self.siguientecanal()
 				logging.debug("Pulsado up")
-			elif codigo.data==mythreadIR.remote.down:
+			elif codigo.data==mythreadIR.remote.IRcodes["down"]:
 				self.anteriorcanal()
 				logging.debug("Pulsado down")
-			elif codigo.data==mythreadIR.remote.left:
+			elif codigo.data==mythreadIR.remote.IRcodes["left"]:
 				self.BajarVolumen()
 				logging.debug("Pulsado left")
-			elif codigo.data==mythreadIR.remote.right:
+			elif codigo.data==mythreadIR.remote.IRcodes["right"]:
 				self.SubirVolumen()
 				logging.debug("Pulsado right")
-			elif codigo.data==mythreadIR.remote.asterisk:
+			elif codigo.data==mythreadIR.remote.IRcodes["asterisk"]:
 				self.OnMute()
 				logging.debug("Pulsado *")			
 			else:
