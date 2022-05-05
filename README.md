@@ -46,11 +46,18 @@ Or
 
 ![The IR receiver](/pics/IRreceiver_remoteControl.jpg)
 
-## Start the pigpio daemon: Pigpio is a Python module for the Raspberry which talks to the pigpio daemon to allow control of the general purpose input outputs (GPIO). It must be started as follows:
+## Start the pigpio daemon at Startup: Pigpio is a Python module for the Raspberry which talks to the pigpio daemon to allow control of the general purpose input outputs (GPIO). It has to be running before to run pyerir. Run the following command on the terminal:
 
-$ sudo pigpiod
+    $ sudo pigpiod
 
-[pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
+If you want it to run at startup. Open the terminal and type the following command to open the rc.local file: 
+
+    $ sudo nano /etc/rc.local 
+
+Enter the command that starts pigpiod before the "exit 0" line:
+
+
+[help for pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
 
 
 ## Using
