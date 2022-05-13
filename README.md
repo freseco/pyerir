@@ -42,6 +42,7 @@ Or
 - $ python3.9 -m pip install -r requirements.txt
     
 
+
 ## Setting the Infrared Remote Control Module IR Receiver(HX1838) in Raspberry pi.
 
 ![The IR receiver](/pics/IRreceiver_remoteControl.jpg)
@@ -83,6 +84,13 @@ In this file, you can setting those options.
 
 ### Channels list mode.
 ![List menu channels](/pics/remote_control_2.png)
+
+
+## Configuration windows
+
+![The IR receiver](/pics/conf_win1.png)
+![The IR receiver](/pics/conf_win2.png)
+![The IR receiver](/pics/conf_win3.png)
 
 ### Getting new IR codes.
 
