@@ -86,7 +86,9 @@ class MyPanel(wx.Panel):
   
 		self.winchannel=popupwindows.VentanaCanal(self)
 		self.winvolume =popupwindows.VentanaVolumen(self)
-  
+		#self.winlogo	=popupwindows.VentanaLogo()
+		self.winconfig=None
+		
 
 		
   
@@ -106,14 +108,7 @@ class MyPanel(wx.Panel):
 		self.parser = M3uParser(timeout=5, useragent=useragent)
 		
 		
-		self.parser.parse_config()
-		self.parser.sort_by("name",asc=True)
-		#type dict
-		self.channels = self.parser.get_list()
-
-		if len(self.channels)==0:
-			logging.debug('No channel in m3u file!')
-			exit()
+		self.LoadVideosource()
 
 		self.winlistcanales=popupwindows.VentanaListChannels(self,self.channels)  
 		self.list_is_show=False
@@ -160,6 +155,16 @@ class MyPanel(wx.Panel):
 		self.handle=0
   
 		self.timerWindowsID.Start(500)
+
+	def LoadVideosource(self):
+		self.parser.parse_config()
+		#self.parser.sort_by("name",asc=True)
+			#type dict
+		self.channels = self.parser.get_list()
+
+		if len(self.channels)==0:
+			logging.debug('No channel in m3u file!')
+			exit()
   
   
   
@@ -167,13 +172,15 @@ class MyPanel(wx.Panel):
 		logging.debug("seconds %s to close getting id windows",self.timewindid)
 		
 		if self.timewindid==0 or self.handle!=0:
-			self.timerWindowsID.Stop()      
+			self.timerWindowsID.Stop()
+			
 		else:
 			self.handle = self.GetHandle()
 			
       
-		if self.handle!=0:		# set the window id where to render VLC's video output
-		
+		if self.handle!=0:		
+      # set the window id where to render VLC's video output
+			
 			if sys.platform.startswith('linux'):  # for Linux using the X Server
 				self.player.set_xwindow(self.handle)
 			elif sys.platform == "win32":  # for Windows
@@ -181,6 +188,7 @@ class MyPanel(wx.Panel):
 			elif sys.platform == "darwin":  # for MacOS
 				self.player.set_nsobject(handle)
 			self.ShowsThiscanal(self.actualcanal+1)
+			
    
 		self.timewindid-=1
 
@@ -314,7 +322,15 @@ class MyPanel(wx.Panel):
 				self.SubirVolumen()
 				logging.debug("Pulsado right")
 			elif codigo.data==mythreadIR.remote.IRcodes["asterisk"]:
-				self.OnMute()
+				if self.winconfig==None:					
+					self.winconfig=popupwindows.WinConfig(self)
+					self.winconfig.ShowWindows()
+				else:
+					if self.winconfig.saveconfig():
+						self.LoadVideosource()
+					self.winconfig.Destroy()
+					self.winconfig=None
+    			#self.OnMute()
 				logging.debug("Pulsado *")			
 			else:
 				logging.debug("Botón no reconocido! " +str(codigo))		
@@ -393,7 +409,8 @@ class MyPanel(wx.Panel):
 			logging.debug("Status channel: "+infochannel["status"])
 	
 			self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
-	
+			#if infochannel["logo"]!='':
+			#	self.winlogo.mostrar(infochannel["logo"])
 			self.ShowMsgClicked('CANAL:',infochannel["name"])
 			logging.debug("Url: "+infochannel["url"])		
 			media = self.vlc_instance.media_new(infochannel["url"])
@@ -428,7 +445,8 @@ class MyPanel(wx.Panel):
 		logging.debug("Status channel: "+infochannel["status"])
   
 		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
-  
+		#if infochannel["logo"]!='':
+		#		self.winlogo.mostrar(infochannel["logo"])  
 		self.ShowMsgClicked('CANAL:',infochannel["name"])
 		logging.debug("Url: "+infochannel["url"])		
 		media = self.vlc_instance.media_new(infochannel["url"])
@@ -453,6 +471,8 @@ class MyPanel(wx.Panel):
 
 		logging.debug(infochannel["url"])
 		self.winchannel.mostrar(str(nextcanal)+": "+infochannel["name"])
+		#if infochannel["logo"]!='':
+		#	self.winlogo.mostrar(infochannel["logo"])
 		self.ShowMsgClicked('Channel:',infochannel["name"])
 		media = self.vlc_instance.media_new(infochannel["url"])
 		# setting media to the player
@@ -561,7 +581,9 @@ if __name__ == "__main__":
 				sys.exit(1)
 			_ext=os.path.splitext(_file)[1]
 			if _ext.lower()==".m3u":
-				config.m3u_file=_file
+				conf=config()
+				config['m3u_file']=_file
+				conf.savejson()
 			else:
 				logging.warning('%s error: no such file: %r' % (sys.argv[0], arg))
 				sys.exit(1)

@@ -14,8 +14,8 @@ from pathlib import Path
 import aiohttp
 import pycountry
 import requests
+from config import config
 
-import config
 
 try:
     from my_helper import get_by_regex, is_valid_url, ndict_to_csv, run_until_completed, streams_regex
@@ -76,11 +76,13 @@ class M3uParser:
         Parses m3u file o url 
         """
     def parse_config(self):
-        if len(config.m3u_file)>0:
-            m3u_file=os.path.join(Path( __file__ ).parent.absolute(),config.m3u_file) 
+        #TODO get list form xtream account
+        conf=config()
+        if len(conf.data['m3u_file'])>0:
+            m3u_file=os.path.join(Path( __file__ ).parent.absolute(),conf.data['m3u_file']) 
             self.parse_m3u(m3u_file)
-        elif len(config.IPTV_url)>0:
-            self.parse_m3u(config.IPTV_url)
+        elif len(conf.data['IPTV_url'])>0:
+            self.parse_m3u(conf.data['IPTV_url'])
         else:
             logging.error("No m3u or url to parse the channels in config.py file!")
             
