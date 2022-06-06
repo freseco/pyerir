@@ -28,9 +28,9 @@ I hope you find it as useful as I did. Please let me know if you have used it, o
 - Works in Raspberry 4. Though tested in a Raspberry 3B, it works kind of jerky, not recommended.
 
 ## :1234: Installation & configuration steps
- 1. Get the code from the repository.
-[Repository](https://github.com/freseco/pyerir/archive/refs/heads/main.zip). Once the file is downloaded, unzip it. Or clone using the git command:
- `$ git clone git@github.com:freseco/pyerir.git`
+ 1. Get the code from the [repository](https://github.com/freseco/pyerir/archive/refs/heads/main.zip), and unzip. Or clone using the git command:
+
+	 `$ git clone git@github.com:freseco/pyerir.git`
 
  2. Install dependencies
 Since it's a python proyect, we need to install the dependencies. The file that indicates the dependencies is in the "sourcecode" directory. Install them with the following command.
