@@ -42,7 +42,7 @@ Since it's a python proyect, we need to install the dependencies. The file that 
     
  3. Setting up the infrared remote control module IR Receiver (HX1838) in the Raspberry Pi
 
-	![The IR receiver](/pics/IRreceiver_remoteControl.jpg)
+	![The IR receiver](/pics/GPIO.jpg)
 
  4. Start the pigpio daemon at Startup.
  [Pigpio](https://abyz.me.uk/rpi/pigpio/python.html) is a Python module for the Raspberry, which talks to the [pigpio daemon](https://abyz.me.uk/rpi/pigpio/pigpiod.html) to allow control of the General Purpose Input-Outputs (GPIO). It has to be lauched before Pyerir. Run the following command on the terminal
