@@ -45,20 +45,17 @@ Since it's a python proyect, we need to install the dependencies. The file that 
 	![The IR receiver](/pics/GPIO.jpg)
 
  4. Start the pigpio daemon at Startup.
- [Pigpio](https://abyz.me.uk/rpi/pigpio/python.html) is a Python module for the Raspberry, which talks to the [pigpio daemon](https://abyz.me.uk/rpi/pigpio/pigpiod.html) to allow control of the General Purpose Input-Outputs (GPIO). It has to be lauched before Pyerir. Run the following command on the terminal
- `$ sudo pigpiod`
+ [Pigpio](https://abyz.me.uk/rpi/pigpio/python.html) is a Python module for the Raspberry, which talks to the [pigpio daemon](https://abyz.me.uk/rpi/pigpio/pigpiod.html) to allow control of the General Purpose Input-Outputs (GPIO). It has to be lauched before Pyerir. Run the following command on the terminal, will enable it to auto-start on boot:
+ 
+	$ sudo systemctl enable pigpiod
 
-	~~If you want it to run at startup, open the terminal and type the following command to open the rc.local file~~: `$ sudo nano /etc/rc.local`
-
-	Enter the command that starts pigpiod before the "exit 0" line:
-
-	[help for pigpiod libraries](https://abyz.me.uk/rpi/pigpio/download.html)
+	[Help for pigpiod libraries.](https://abyz.me.uk/rpi/pigpio/download.html)
 
 
 ## :bookmark_tabs: How to use
     $ python[3.9] pyerir.py [-v | --version]  [<file_name.m3u>] [--debug] [--ircodes]
 
-Parameters:
+Optional parameters:
 - [-v | --version] shows script version.
 - [file_name.m3u] file to get the channels.
 - [-\-debug] shows debug information in console.
