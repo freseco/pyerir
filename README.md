@@ -32,7 +32,7 @@ I hope you find it as useful as I did. Please let me know if you have used it, o
 
 	 `$ git clone git@github.com:freseco/pyerir.git`
 
- 2. Install dependencies
+ 2. Install dependencies. 
 Since it's a python proyect, we need to install the dependencies. The file that indicates the dependencies is in the "sourcecode" directory. Install them with the following command.
 
 	`$ pip3 install -r requirements.txt` 
@@ -124,6 +124,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Source code refactoring.
 - [ ] Improve of readme file.
 - [ ] Transparencies in windows menu.
+- [ ] Create a requirements.txt with only needed dependencies.
 - [ ] Create logo of the app.
 - [ ] Add opcions of mute and poweroff in remote control when it is in "list channel" mode.
 - [ ] Show menu for list of channels group.
