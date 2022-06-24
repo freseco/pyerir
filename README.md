@@ -1,6 +1,6 @@
 # PYERIR
 ## :speech_balloon: About
-A simple fullscreen player for m3u files (IPTV:tv:). It works in **Raspberry Pi 4 running Rasbian OS (32bits) with Python 3.9**(*). It can also get the IR code from any IR remote control (as far as I've tested).
+A simple fullscreen player for m3u files (IPTV:tv:). Tested and working on a **Raspberry Pi 4 running Rasbian OS (32bits) with Python 3.9**(*). It can also get the IR code from any IR remote control (as far as I've tested).
 
 ![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)         **+**        ![Python](https://www.python.org/static/img/python-logo.png)       **+**   ![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](/pics/IR_receiver.png)
 
@@ -113,7 +113,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Memorize favorite channels.
 - [ ] **Up**:arrow_up: and **down**:arrow_down: buttons to change the volume(Normal mode).
 - [ ] **Right**:arrow_right: and **left**:arrow_left: buttons to change the channel(Normal mode).
-- [ ] Testing in other platforms: Raspberry Pi OS (64-bit).
+- [ ] Testing in other platforms and hardwares: Orange pi, Banana pi, Rock 64, Raspberry Pi OS (64-bit), etc.
 - [ ] Read configuration file (**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - [ ] Get channels information from Xtream-Codes IPTV servers.
 - [ ] Shows channel's logo, if it exists.
