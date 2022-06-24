@@ -113,7 +113,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Memorize favorite channels.
 - [ ] **Up**:arrow_up: and **down**:arrow_down: buttons to change the volume(Normal mode).
 - [ ] **Right**:arrow_right: and **left**:arrow_left: buttons to change the channel(Normal mode).
-- [ ] Testing in other platforms.
+- [ ] Testing in other platforms: Raspberry Pi OS (64-bit).
 - [ ] Read configuration file (**config.py**): favorite channels, ~~url or path of m3u file~~.(Done)
 - [ ] Get channels information from Xtream-Codes IPTV servers.
 - [ ] Shows channel's logo, if it exists.
