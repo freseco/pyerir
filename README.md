@@ -1,13 +1,13 @@
 # PYERIR
 ## :speech_balloon: About
-A simple fullscreen player for m3u files (IPTV:tv:). It works in **Raspberry Pi 4 with Python 3.9**(*). It can also get the IR code from any IR remote control (as far as I've tested).
+A simple fullscreen player for m3u files (IPTV:tv:). It works in **Rasbian OS (32bits) in Raspberry Pi 4 with Python 3.9**(*). It can also get the IR code from any IR remote control (as far as I've tested).
 
 ![RaspberryPI](https://www.raspberrypi.org/pagekit-assets/media/images/4913a547895720ff30c1.svg)         **+**        ![Python](https://www.python.org/static/img/python-logo.png)       **+**   ![wxpython](https://www.wxpython.org/images/header-logo.png)**+**![VLC](https://images.videolan.org/images/VLC-IconSmall.png)**+**![IR_Receiver](/pics/IR_receiver.png)
 
 
 This project is a small example of how to use:
 
- - [wxpython](https://www.wxpython.org/) for the GUI
+ - [Wxpython](https://www.wxpython.org/) for the GUI
  - Threading (thread-based parallelism) for getting the IR codes
  - A wraper for VLC media player library, gpio pins and the m3u_parser library for parsing the m3u files
  - and [pyttsx3](https://pypi.org/project/pyttsx3/), a text-to-speech conversion library in Python.
