@@ -127,6 +127,9 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Show menu for list of channels group.
 - [x] Testing script in raspberry pi 3 (poor performance).
 - [ ] Make it easier to install the script. Create an installer with PyInstaller (requires installing lastest python3.9-dev).
+- [ ] Change the font of the menu.
+- [ ] Create a background script to start pyerir with the remote control. It will be started at boot.
+- [ ] Check long press.
 
 
 ## :warning: Error list:
