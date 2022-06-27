@@ -130,6 +130,7 @@ Install vlc if your raspberry does not have:construction_worker_woman:.
 - [ ] Change the font of the menu.
 - [ ] Create a background script to start pyerir with the remote control. It will be started at boot.
 - [ ] Check long press.
+- [ ] Add more buttos to configure: power ON/OFF rasp or screen, go back to the previous channel, Mute, show tech info on the screen.
 
 
 ## :warning: Error list:
