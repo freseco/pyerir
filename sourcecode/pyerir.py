@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # <https://github.com/freseco>
@@ -45,9 +45,7 @@ Keys:
 """
 import logging
 from cmath import log
-
 import sys
-
 import my_helper
 import wx
 import wx.adv #notification popup
@@ -55,13 +53,11 @@ import vlc
 from os.path import basename,expanduser, isfile
 from my_m3u_parser import M3uParser
 import config
-import vlc
 import os
 from pathlib import Path
 import mythreadIR
 import pyttsx3
 import popupwindows
-
 import windowsIR
 
 __version__ = '1.00.0'
