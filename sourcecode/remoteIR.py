@@ -43,7 +43,11 @@ class remote:
     "nine" :'00fftf6',
     "zero" :'00ff19e6',
     "asterisk":'00ff16e9',
-    "hash" :'00ffrf2'}
+    "hash" :'00ffrf2',
+    "pwr":'',
+    "info":'',
+    "back":'',
+    "mute":''}
     
     Salir=False
     
@@ -76,6 +80,10 @@ class remote:
                 self.IRcodes["zero"]    =data["zero" ]
                 self.IRcodes["asterisk"]=data["asterisk"]
                 self.IRcodes["hash"]     =data["hash"]
+                self.IRcodes["pwr"]     =data["pwr"]
+                self.IRcodes["info"]     =data["info"]
+                self.IRcodes["back"]     =data["back"]
+                self.IRcodes["mute"]     =data["mute"]
 
         
     

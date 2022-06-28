@@ -162,16 +162,18 @@ class VentanaVolumen(wx.Frame):
             self.timer.Stop()
             self.Hide()
             logging.debug("ventana cerrada")
-            
+    
+                
     def mostrar(self, valor):
         self.SetPosition(wx.Point(self.leftpos,self.uppos))
         self.segundos=4
         valor_backup=valor
-        caracter=" \x7C "
+        
+        caracter='\u2588' 
         texto="Volumen: "
         valor=valor/10
         while valor>0:
-            texto=texto+caracter
+            texto=texto+caracter+caracter
             valor=valor-1
             
         self.lbl.SetLabel( texto+str(valor_backup)+" %")

@@ -32,7 +32,7 @@ class MyFrame(wx.Frame):
         #self.SetSize((444, 525))
 
         width=450
-        hight=700
+        hight=800
         self.SetSizeHints(width,hight,width,hight)
         self.SetTitle("Wizard to get the IR codes for PYERIR.")
 
@@ -56,79 +56,98 @@ class MyFrame(wx.Frame):
         label_4.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, 0, ""))
         sizer_labels.Add(label_4, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
+        sizeY=135
+        sizeX=32
+
         label_7 = wx.StaticText(self.panel_1, wx.ID_ANY, "UP", style=wx.ALIGN_LEFT)
-        label_7.SetMinSize((140, 35))
+        label_7.SetMinSize((sizeY, sizeX))
         label_7.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_7, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_8 = wx.StaticText(self.panel_1, wx.ID_ANY, "DOWN")
-        label_8.SetMinSize((140, 30))
+        label_8.SetMinSize((sizeY, sizeX))
         label_8.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_8, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_9 = wx.StaticText(self.panel_1, wx.ID_ANY, "LEFT")
-        label_9.SetMinSize((140, 30))
+        label_9.SetMinSize((sizeY, sizeX))
         label_9.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_9, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_10 = wx.StaticText(self.panel_1, wx.ID_ANY, "RIGHT")
-        label_10.SetMinSize((140, 30))
+        label_10.SetMinSize((sizeY, sizeX))
         label_10.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_10, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_11 = wx.StaticText(self.panel_1, wx.ID_ANY, "OK")
-        label_11.SetMinSize((140, 30))
+        label_11.SetMinSize((sizeY, sizeX))
         label_11.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, ""))
         sizer_labels.Add(label_11, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.SHAPED, 0)
 
         label_12 = wx.StaticText(self.panel_1, wx.ID_ANY, "*")
-        label_12.SetMinSize((140, 30))
+        label_12.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_12, 0, 0, 0)
 
         label_13 = wx.StaticText(self.panel_1, wx.ID_ANY, "#", style=wx.ALIGN_CENTER_HORIZONTAL)
-        label_13.SetMinSize((140, 23))
+        label_13.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_13, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
 
         label_14 = wx.StaticText(self.panel_1, wx.ID_ANY, "0")
-        label_14.SetMinSize((140, 30))
+        label_14.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_14, 0, 0, 0)
 
         label_15 = wx.StaticText(self.panel_1, wx.ID_ANY, "1")
-        label_15.SetMinSize((140, 30))
+        label_15.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_15, 0, 0, 0)
 
         label_16 = wx.StaticText(self.panel_1, wx.ID_ANY, "2")
-        label_16.SetMinSize((140, 30))
+        label_16.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_16, 0, 0, 0)
 
         label_17 = wx.StaticText(self.panel_1, wx.ID_ANY, "3")
-        label_17.SetMinSize((140, 30))
+        label_17.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_17, 0, 0, 0)
 
         label_18 = wx.StaticText(self.panel_1, wx.ID_ANY, "4")
-        label_18.SetMinSize((140, 30))
+        label_18.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_18, 0, 0, 0)
 
         label_19 = wx.StaticText(self.panel_1, wx.ID_ANY, "5")
-        label_19.SetMinSize((140, 30))
+        label_19.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_19, 0, 0, 0)
 
         label_20 = wx.StaticText(self.panel_1, wx.ID_ANY, "6")
-        label_20.SetMinSize((140, 30))
+        label_20.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_20, 0, 0, 0)
 
         label_21 = wx.StaticText(self.panel_1, wx.ID_ANY, "7")
-        label_21.SetMinSize((140, 30))
+        label_21.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_21, 0, 0, 0)
 
         label_22 = wx.StaticText(self.panel_1, wx.ID_ANY, "8")
-        label_22.SetMinSize((140, 30))
+        label_22.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_22, 0, 0, 0)
 
         label_23 = wx.StaticText(self.panel_1, wx.ID_ANY, "9")
-        label_23.SetMinSize((140, 30))
+        label_23.SetMinSize((sizeY, sizeX))
         sizer_labels.Add(label_23, 0, 0, 0)
 
+        label_24 = wx.StaticText(self.panel_1, wx.ID_ANY, "Power")
+        label_24.SetMinSize((sizeY, sizeX))
+        sizer_labels.Add(label_24, 0, 0, 0)
+        
+        label_25 = wx.StaticText(self.panel_1, wx.ID_ANY, "Info")
+        label_25.SetMinSize((sizeY, sizeX))
+        sizer_labels.Add(label_25, 0, 0, 0)
+        
+        label_26 = wx.StaticText(self.panel_1, wx.ID_ANY, "Back")
+        label_26.SetMinSize((sizeY, sizeX))
+        sizer_labels.Add(label_26, 0, 0, 0)
+        
+        label_27 = wx.StaticText(self.panel_1, wx.ID_ANY, "Mute")
+        label_27.SetMinSize((sizeY, sizeX))
+        sizer_labels.Add(label_27, 0, 0, 0)
+        
         sizer_text_box = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_text_box, 3, wx.ALL | wx.EXPAND, 1)
 
@@ -221,6 +240,27 @@ class MyFrame(wx.Frame):
         sizer_text_box.Add(self.text_ctrl_9, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
         self.text_ctrl_9.SetValue(remote.IRcodes["nine"])
 
+        self.text_ctrl_pwr = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_pwr.SetMinSize((140, 32))
+        sizer_text_box.Add(self.text_ctrl_pwr, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
+        self.text_ctrl_pwr.SetValue(remote.IRcodes["pwr"])
+
+        self.text_ctrl_info = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_info.SetMinSize((140, 32))
+        sizer_text_box.Add(self.text_ctrl_info, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
+        self.text_ctrl_info.SetValue(remote.IRcodes["info"])
+        
+        self.text_ctrl_back = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_back.SetMinSize((140, 32))
+        sizer_text_box.Add(self.text_ctrl_back, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
+        self.text_ctrl_back.SetValue(remote.IRcodes["back"])
+        
+        self.text_ctrl_mute = wx.TextCtrl(self.panel_1, wx.ID_ANY, "", style=wx.TE_READONLY)
+        self.text_ctrl_mute.SetMinSize((140, 32))
+        sizer_text_box.Add(self.text_ctrl_mute, 0, wx.EXPAND | wx.FIXED_MINSIZE, 0)
+        self.text_ctrl_mute.SetValue(remote.IRcodes["mute"])
+
+
         sizer_buttons = wx.BoxSizer(wx.VERTICAL)
         sizer_2.Add(sizer_buttons, 0, wx.ALL | wx.EXPAND, 1)
 
@@ -279,6 +319,18 @@ class MyFrame(wx.Frame):
         self.button_9 = wx.Button(self.panel_1, wx.ID_ANY, "Get_9")
         sizer_buttons.Add(self.button_9, 0, wx.EXPAND, 0)
 
+        self.button_pwr = wx.Button(self.panel_1, wx.ID_ANY, "Get_pwr")
+        sizer_buttons.Add(self.button_pwr, 0, wx.EXPAND, 0)
+        
+        self.button_info = wx.Button(self.panel_1, wx.ID_ANY, "Get_info")
+        sizer_buttons.Add(self.button_info, 0, wx.EXPAND, 0)
+
+        self.button_back = wx.Button(self.panel_1, wx.ID_ANY, "Get_back")
+        sizer_buttons.Add(self.button_back, 0, wx.EXPAND, 0)
+        
+        self.button_mute = wx.Button(self.panel_1, wx.ID_ANY, "Get_mute")
+        sizer_buttons.Add(self.button_mute, 0, wx.EXPAND, 0)
+
         label_2 = wx.StaticText(self.panel_1, wx.ID_ANY, "Free to use!")
         sizer_1.Add(label_2, 0, 0, 0)
 
@@ -307,6 +359,11 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.Get_7, self.button_7)
         self.Bind(wx.EVT_BUTTON, self.Get_8, self.button_8)
         self.Bind(wx.EVT_BUTTON, self.Get_9, self.button_9)
+        self.Bind(wx.EVT_BUTTON, self.Get_pwr, self.button_pwr)
+        self.Bind(wx.EVT_BUTTON, self.Get_info, self.button_info)
+        self.Bind(wx.EVT_BUTTON, self.Get_back, self.button_back)
+        self.Bind(wx.EVT_BUTTON, self.Get_mute, self.button_mute)
+        
         self.Bind(wx.EVT_BUTTON, self.Save_json, self.btnSaveIRcodes)
         # end wxGlade
 
@@ -444,6 +501,33 @@ class MyFrame(wx.Frame):
         remote.IRcodes["nine"]=codigo
         self.text_ctrl_9.SetValue(remote.IRcodes["nine"])
         self.text_ctrl_9.SetBackgroundColour(wx.Colour(255,255,0))
+        
+    def Get_pwr(self, event):  
+        self.ShowMessage("Acept and press button for number power on remote control!")
+        codigo=self.receiverIR.Getcode()
+        remote.IRcodes["pwr"]=codigo
+        self.text_ctrl_pwr.SetValue(remote.IRcodes["pwr"])
+        self.text_ctrl_pwr.SetBackgroundColour(wx.Colour(255,255,0))
+        
+    def Get_info(self, event):  
+        self.ShowMessage("Acept and press button for number info on remote control!")
+        codigo=self.receiverIR.Getcode()
+        remote.IRcodes["info"]=codigo
+        self.text_ctrl_info.SetValue(remote.IRcodes["info"])
+        self.text_ctrl_info.SetBackgroundColour(wx.Colour(255,255,0))
+    def Get_back(self, event):  
+        self.ShowMessage("Acept and press button for number back on remote control!")
+        codigo=self.receiverIR.Getcode()
+        remote.IRcodes["back"]=codigo
+        self.text_ctrl_back.SetValue(remote.IRcodes["back"])
+        self.text_ctrl_back.SetBackgroundColour(wx.Colour(255,255,0))  
+    def Get_mute(self, event):  
+        self.ShowMessage("Acept and press button for number mute on remote control!")
+        codigo=self.receiverIR.Getcode()
+        remote.IRcodes["mute"]=codigo
+        self.text_ctrl_mute.SetValue(remote.IRcodes["mute"])
+        self.text_ctrl_mute.SetBackgroundColour(wx.Colour(255,255,0))      
+        
         
         logging.debug("IR code: "+str(codigo))
 
