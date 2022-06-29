@@ -113,15 +113,16 @@ class MyPanel(wx.Panel):
 		self.numcanales=len(self.channels)
 		logging.debug("Number of channels: "+str(self.numcanales))
 		self.actualcanal=0
-
+		self.previouscanal=0
+  
 		self.winchannel.mostrar("Loading channels, wait!")
   
 		self.engine = pyttsx3.init()		
 		rate = self.engine.getProperty('rate')   # getting details of current speaking rate
 		self.engine.setProperty('voice', 'english')
 		self.engine.setProperty('rate', 120)     # setting up new voice rateate
-		self.speech("There are, "+str(self.numcanales)+" channels.")
-		self.speech("in , "+str(self.numCategories)+" categories.")
+		#self.speech("There are, "+str(self.numcanales)+" channels.")
+		#self.speech("in , "+str(self.numCategories)+" categories.")
   
 		
   
@@ -251,8 +252,13 @@ class MyPanel(wx.Panel):
 				self.timerlistchannels.Start(1000)
 				self.winlistcanales.Mostrar(self.actualcanal,self.channels)
 				logging.debug("Pulsado OK")
+			elif codigo.data==mythreadIR.remote.IRcodes["back"]:
+				self.ShowsThiscanal(self.previouscanal)
+				logging.debug("Pulsado back")
+			elif codigo.data==mythreadIR.remote.IRcodes["mute"]:
+				self.OnMute()
+				logging.debug("Pulsado mute")  
 			elif codigo.data==mythreadIR.remote.IRcodes["zero"]:
-				#self.ShowsThiscanal(0)	
 				self.canaltecleado+="0"
 				self.winchannel.mostrar(self.canaltecleado)
 				logging.debug("Pulsado 0")           
@@ -382,7 +388,7 @@ class MyPanel(wx.Panel):
 			while valor%10!=0:
 				valor+=1
 		self.winvolume.mostrar(valor)
-		self.ShowMsgClicked('Volumen:',str(valor))
+		#self.ShowMsgClicked('Volumen:',str(valor))
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
 	def BajarVolumen(self):		
@@ -392,14 +398,15 @@ class MyPanel(wx.Panel):
 			while valor%10!=0:
 				valor-=1
 		self.winvolume.mostrar(valor)
-		self.ShowMsgClicked('Volumen:',str(valor))
+		#self.ShowMsgClicked('Volumen:',str(valor))
 		vlc.libvlc_audio_set_volume(self.player, valor)
 
 	def ShowsThiscanal(self,nextcanal):
     	#it does not open the same channel.
 		if (self.actualcanal!=nextcanal):
+			self.previouscanal=self.actualcanal
 			self.actualcanal=nextcanal
-				
+   	
 			infochannel=self.channels[self.actualcanal]
 			logging.debug("Channel name: "+infochannel["name"])
 			logging.debug("Status channel: "+infochannel["status"])
@@ -429,6 +436,7 @@ class MyPanel(wx.Panel):
 			self.player.video_set_marquee_string(vlc.VideoMarqueeOption.Text,text)
 
 	def siguientecanal(self):
+		self.previouscanal=self.actualcanal
 		nextcanal= self.actualcanal+1
 		if nextcanal>=self.numcanales:
 			nextcanal=0
@@ -454,7 +462,8 @@ class MyPanel(wx.Panel):
 		# play the video
 		self.player.play()
 
-	def anteriorcanal(self):    
+	def anteriorcanal(self):
+		self.previouscanal=self.actualcanal    
 		nextcanal= self.actualcanal-1
 		if nextcanal<0:
 			nextcanal=len(self.channels)-1

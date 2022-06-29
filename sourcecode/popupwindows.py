@@ -22,7 +22,7 @@ class VentanaCanal(wx.Frame):
         panel.SetBackgroundColour((0,0,0))
                 
         self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(width,height),pos=(50,10))
-        font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
+        font = wx.Font(55, wx.FONTFAMILY_SWISS, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
     
         self.lbl.SetForegroundColour((255,255,255)) 
@@ -57,7 +57,6 @@ class VentanaCanal(wx.Frame):
             self.Show()
             self.SetFocus()
             self.cerrarventana()
-
 
 
 class VentanaLogo(wx.Frame):
@@ -131,6 +130,7 @@ class VentanaVolumen(wx.Frame):
         self.uppos=screen_height-height
         
         style = ( wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.FRAME_SHAPED )
+        
         super(VentanaVolumen, self).__init__(parent,style=style, size=(screen_width,height),pos=(self.leftpos,self.uppos))
         
 
@@ -140,7 +140,7 @@ class VentanaVolumen(wx.Frame):
         panel = wx.Panel(self,size=(screen_width,height),style=wx.TRANSPARENT_WINDOW)         
         
         self.lbl = wx.StaticText(panel,-1,style = wx.ALIGN_LEFT,size=(screen_width,height))
-        font = wx.Font(60, wx.ROMAN, wx.ITALIC, wx.NORMAL) 
+        font = wx.Font(60, wx.FONTFAMILY_SWISS, wx.ITALIC, wx.NORMAL) 
         self.lbl.SetFont(font) 
         self.lbl.SetForegroundColour((255,0,0)) 
         self.lbl.SetBackgroundColour((0,0,0))         
@@ -215,10 +215,10 @@ class VentanaListChannels(wx.Frame):
 			if x==5:
 				lbl.SetBackgroundColour((255,255,255))
 				lbl.SetForegroundColour((0,0,255))
-				font = wx.Font(55, wx.ROMAN, wx.ITALIC, wx.BOLD) 
+				font = wx.Font(55, wx.FONTFAMILY_SWISS, wx.ITALIC, wx.BOLD) 
 			else:
 				lbl.SetBackgroundColour((0,0,0))
-				font = wx.Font(50, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL) 
+				font = wx.Font(50, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.NORMAL) 
 			lbl.SetFont(font) 
 			lbl.SetLabel("Canal "+str(x+1))
 			self.listlbls.append(lbl)
