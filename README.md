@@ -48,7 +48,7 @@ Since it's a python proyect, we need to install the dependencies. The file that 
 
 	![The IR receiver](/pics/GPIO.jpg)
 
- 4. Start the pigpio daemon at Startup.
+ 5. Start the pigpio daemon at Startup.
  [Pigpio](https://abyz.me.uk/rpi/pigpio/python.html) is a Python module for the Raspberry, which talks to the [pigpio daemon](https://abyz.me.uk/rpi/pigpio/pigpiod.html) to allow control of the General Purpose Input-Outputs (GPIO). Installation:
 
  
@@ -63,6 +63,11 @@ Since it's a python proyect, we need to install the dependencies. The file that 
 
 [Help for pigpiod libraries.](https://abyz.me.uk/rpi/pigpio/download.html)
 
+6. (Optional) You may need to increase the GPU memory split setting to 256MB for smoother performance.
+
+	To adjust the memory split setting from the Raspbian desktop, click Menu >Preferences > Raspberry Pi Configuration, select the Performance tab, enter the required memory amount (256) into "GPU Memory:", click OK, and reboot.
+
+	To adjust the memory split setting from the Raspbian command line, enter "sudo raspi-config", go to "Advanced Options" > "Memory Split", enter 256, select OK, select Finish, and reboot.
 
 ## :bookmark_tabs: How to use
     $ python[3.9] pyerir.py [-v | --version]  [<file_name.m3u>] [--debug] [--ircodes]
