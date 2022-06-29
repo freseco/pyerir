@@ -7,10 +7,11 @@ A simple fullscreen player for m3u files (IPTV:tv:). Tested and working on a **R
 
 This project is a small example of how to use:
 
- - [Wxpython](https://www.wxpython.org/) for the GUI
- - Threading (thread-based parallelism) for getting the IR codes
- - A wraper for VLC media player library, gpio pins and the m3u_parser library for parsing the m3u files
- - and [pyttsx3](https://pypi.org/project/pyttsx3/), a text-to-speech conversion library in Python.
+ - [Wxpython](https://www.wxpython.org/) for the GUI,
+ - Threading (thread-based parallelism) for getting the IR codes,
+ - A wraper for VLC media player library and the m3u_parser library for parsing the m3u files,
+ - [pyttsx3](https://pypi.org/project/pyttsx3/), a text-to-speech conversion library in Python,
+ - And control of the General Purpose Input-Outputs (GPIO) in Raspberry PI.
 
 It has two types of notifications: wx.adv (O.S. notification) and popup windows.
 
