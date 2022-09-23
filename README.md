@@ -119,6 +119,18 @@ This file will be read by pyerir.py the next time to run.
 ## :rescue_worker_helmet: Development status
 Pyerir is beta software, but it can be used. If no error shows up :roll_eyes:.
 
+¡¡Work on this branch: Win_get_IR_codes, is where last source code version is!!
+
+Necessary:
+- Work on Raspberry pi.
+- git clone this respository.
+- Visual studio code.
+- Python installed.
+- Vlc installed.
+- Pigpiod libraries installed.
+- IR received connected to the raspberry with remote control.
+- From here you will be ready for the adventure, have fun!
+
 ## :clapper: VLC in python
 Install vlc if your raspberry does not have:construction_worker_woman:.
 
