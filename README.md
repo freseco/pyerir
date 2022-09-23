@@ -1,4 +1,4 @@
-# PYERIR
+# PYERIR -> Do not use this branch!, go to: [Win_get_IR_codes](https://github.com/freseco/pyerir/blob/Win_get_IR_codes/README.md)
 ## About
 Simple fullscreen player for m3u files(IPTV:tv:). It works in Raspberry pi 4 with Python3.9. It can get the IR code from (any?) IR remote control.
 
