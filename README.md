@@ -58,6 +58,16 @@ Parameters:
 ## Development status:rescue_worker_helmet:
 Pyerir is beta software, but it can be used if no error prevents you:roll_eyes:.
 
+¡¡Work on the branch Win_get_IR_codes, is where last source code version is!!
+
+Necessary:
+- Work on raspberry pi.
+- Visual studio code.
+- Python installed.
+- Vlc installed.
+- Pigpiod libraries installed.
+- IR received connected to the raspberry with remote control.
+
 ## VLC in python
 Install vlc if your raspberry does not have:construction_worker_woman:.
 
